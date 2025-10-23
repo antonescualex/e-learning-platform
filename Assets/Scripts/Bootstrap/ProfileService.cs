@@ -4,11 +4,30 @@ using UnityEngine;
 public class ProfileService
 {
     private const string ProfileFileName = "profile.json";
-    private static readonly string defaultPlayerName = "MyPlayer";
     
     private ProfileData _profileData;
     public ProfileData Data => _profileData;
 
+    public bool TryLoadProfile()
+    {
+        _profileData = DataService.Load<ProfileData>(DataService.ProfilesFolder, ProfileFileName);
+        if (_profileData != null)
+        {
+            Debug.Log($"Loaded existing profile: {_profileData.PlayerName}, Level: {_profileData.Level}, Coins: {_profileData.Coins}");
+            return true;
+        }
+
+        return false;
+    }
+
+    public void CreateNewProfile(string playerName)
+    {
+        _profileData = new ProfileData(playerName.Trim());
+        SaveProfile();
+        Debug.Log($"Created new profile");
+    }
+    
+    /*
     public void InitializeProfile()
     {
         _profileData = DataService.Load<ProfileData>(DataService.ProfilesFolder, ProfileFileName);
@@ -24,6 +43,7 @@ public class ProfileService
             Debug.Log($"Loaded existing profile: {_profileData.PlayerName}, Level: {_profileData.Level}, Coins: {_profileData.Coins}");
         }
     }
+    */
 
     private void AddCoins(int amount)
     {
