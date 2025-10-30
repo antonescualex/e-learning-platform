@@ -1,10 +1,18 @@
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
-    
-    
+    [SerializeField] private TMP_Text coinsText;
+
+    private void Update()
+    {
+        UpdateCoinsText();
+    }
+
     public void OnPlayButtonPress()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -21,8 +29,11 @@ public class UiManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void OnVolumeSliderChanged(float value)
+    private void UpdateCoinsText()
     {
-        
+        if (App.Instance.Profile != null)
+        {
+            coinsText.text = App.Instance.Profile.Data.Coins.ToString();
+        }
     }
 }

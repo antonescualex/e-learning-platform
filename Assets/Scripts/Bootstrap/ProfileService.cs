@@ -26,24 +26,6 @@ public class ProfileService
         SaveProfile();
         Debug.Log($"Created new profile");
     }
-    
-    /*
-    public void InitializeProfile()
-    {
-        _profileData = DataService.Load<ProfileData>(DataService.ProfilesFolder, ProfileFileName);
-
-        if (_profileData == null)
-        {
-            _profileData = new ProfileData(defaultPlayerName);
-            SaveProfile();
-            Debug.Log($"Created new profile");
-        }
-        else
-        {
-            Debug.Log($"Loaded existing profile: {_profileData.PlayerName}, Level: {_profileData.Level}, Coins: {_profileData.Coins}");
-        }
-    }
-    */
 
     private void AddCoins(int amount)
     {

@@ -2,24 +2,15 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class App : MonoBehaviour
+public class App : MonoBehaviourSingleton<App>
 {
     private static readonly float LOADING_TIME = 1.5F;
     
-    public static App Instance { get; private set; }
-    
     public ProfileService Profile;
 
-    private void Awake()
+    public override void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
+        base.Awake();
         Profile = new ProfileService();
     }
 
@@ -35,12 +26,12 @@ public class App : MonoBehaviour
         {
             Invoke(nameof(LoadCreateProfileScene), LOADING_TIME);
         }
-        
     }
 
     private void LoadMainMenuScene()
     {
         SceneManager.LoadScene("MainMenu");
+        AudioManager.Instance.PlayMusic(AudioManager.MusicTypes.Background);
     }
 
     private void LoadCreateProfileScene()
