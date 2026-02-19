@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e2e82d2cd36d6374fb5033a1287cebaf
+guid: 9321e7d914c474c46a35377305021d5a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8404005031972654775
-    second: OptionsImage_0
+      213: 2794950713793134568
+    second: SemiRoundedButton_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +52,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 40, y: 40, z: 40, w: 40}
+  spriteBorder: {x: 95, y: 95, z: 95, w: 95}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OptionsImage_0
+      name: SemiRoundedButton_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 941bca223f9fe5b80800000000000000
-      internalID: -8404005031972654775
+      spriteID: 8ef3d5cadd8a9c620800000000000000
+      internalID: 2794950713793134568
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      OptionsImage_0: -8404005031972654775
+      SemiRoundedButton_0: 2794950713793134568
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
