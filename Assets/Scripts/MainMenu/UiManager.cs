@@ -10,7 +10,7 @@ public class UiManager : MonoBehaviour
     
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject optionsMenu;
-    [SerializeField] private GameObject settingsButton;
+    [SerializeField] private CanvasGroup settingsButton;
 
     private void Update()
     {
@@ -43,8 +43,29 @@ public class UiManager : MonoBehaviour
     
     public void OnSettingsButtonClick()
     {
-        mainMenu.SetActive(!mainMenu.activeSelf);
-        optionsMenu.SetActive(!optionsMenu.activeSelf);
-        settingsButton.SetActive(!settingsButton.activeSelf);
+        mainMenu.SetActive(false);
+        optionsMenu.SetActive(true);
+        HideSettingsButton();
+    }
+    
+    public void OnBackButtonClick()
+    {
+        mainMenu.SetActive(true);
+        optionsMenu.SetActive(false);
+        ShowSettingsButton();
+    }
+
+    private void HideSettingsButton()
+    {
+        settingsButton.alpha = 0f;
+        settingsButton.interactable = false;
+        settingsButton.blocksRaycasts = false;
+    }
+    
+    private void ShowSettingsButton()
+    {
+        settingsButton.alpha = 1f;
+        settingsButton.interactable = true;
+        settingsButton.blocksRaycasts = true;
     }
 }
