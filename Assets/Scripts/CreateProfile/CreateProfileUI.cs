@@ -7,23 +7,23 @@ using UnityEngine.UI;
 public class CreateProfileUI : MonoBehaviour
 {
     [SerializeField] private TMP_InputField playerNameInputField;
-    [SerializeField] private Button enterButton;
+    [SerializeField] private Button signUpButton;
 
     private void Awake()
     {
-        enterButton.onClick.AddListener(OnEnterClicked);
-        enterButton.interactable = false;
+        signUpButton.onClick.AddListener(OnEnterClicked);
+        signUpButton.interactable = false;
         playerNameInputField.onValueChanged.AddListener(OnInputChanged);
     }
 
     private void OnInputChanged(string newText)
     {
-        enterButton.interactable = !string.IsNullOrWhiteSpace(newText);
+        signUpButton.interactable = !string.IsNullOrWhiteSpace(newText);
     }
 
     private void OnEnterClicked()
     {
-        App.Instance.Profile.CreateNewProfile(playerNameInputField.text.Trim());
+        App.Instance.ProfileService.CreateNewProfile(playerNameInputField.text.Trim());
         SceneManager.LoadScene("MainMenu");
     }
 }
