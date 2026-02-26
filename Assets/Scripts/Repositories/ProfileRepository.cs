@@ -1,4 +1,6 @@
-﻿namespace Bootstrap
+﻿using Storage;
+
+namespace Repositories
 {
     public class ProfileRepository : IRepository<ProfileData>
     {
@@ -7,14 +9,8 @@
 
         public ProfileRepository(IStorage storage) => _storage = storage;
         
-        public bool TryLoad(out ProfileData data)
-        {
-            return _storage.TryLoad(Path, out data);
-        }
+        public bool TryLoad(out ProfileData data) => _storage.TryLoad(Path, out data);
 
-        public void Save(ProfileData data)
-        {
-            _storage.Save(Path, data);
-        }
+        public void Save(ProfileData data) => _storage.Save(Path, data);
     }
 }

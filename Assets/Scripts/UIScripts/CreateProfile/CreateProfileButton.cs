@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-namespace CreateProfile
+namespace UIScripts.CreateProfile
 {
     public class CreateProfileButton : MonoBehaviour
     {
@@ -23,7 +22,7 @@ namespace CreateProfile
             }
 
             yield return new WaitForSeconds(DELAY);
-            SceneManager.LoadScene("MainMenu");
+            // SceneManager.LoadScene("MainMenu");
         }
     }
 }

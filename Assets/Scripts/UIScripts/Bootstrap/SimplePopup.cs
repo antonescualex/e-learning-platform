@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Bootstrap
+namespace UIScripts.Bootstrap
 {
     public class SimplePopup : MonoBehaviour
     {

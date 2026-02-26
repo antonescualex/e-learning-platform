@@ -1,49 +1,35 @@
-using UnityEngine;
+using Repositories;
 
-public class SettingsService : MonoBehaviour
+namespace Services
 {
-    [SerializeField] private GameObject settingsPopup;
-    [SerializeField] private GameObject mainMenu;
-    [SerializeField] private Canvas canvas;
-
-    private GameObject currentPopup;
-
-    public void OpenSettings()
+    public class SettingsService
     {
-        if (currentPopup != null)
+        private readonly IRepository<SettingsData> _repository;
+    
+        public SettingsData CurrentSettings { get; private set; }
+
+        public SettingsService(IRepository<SettingsData> repository)
         {
-            return;
+            _repository = repository;
+            CurrentSettings = new SettingsData();
         }
-        
-        mainMenu.SetActive(false);
-        
-        currentPopup = Instantiate(settingsPopup, canvas.transform);
-        currentPopup.transform.SetAsLastSibling();
 
-        var popup = currentPopup.GetComponent<SettingsPopup>();
-        popup.Init(this);
-        currentPopup.GetComponent<Ricimi.Popup>()?.Open();
-    }
-
-    public void SaveSettings()
-    {
-        // TODO: De facut logica de save la setari.
-        
-        CloseSettings();
-    }
-
-    public void CancelSettings()
-    {
-        CloseSettings();
-    }
-
-    private void CloseSettings()
-    {
-        mainMenu.SetActive(true);
-        if (currentPopup != null)
+        public void LoadOrDefault()
         {
-            currentPopup.GetComponent<Ricimi.Popup>()?.Close();
-            currentPopup = null;
+            if (_repository.TryLoad(out var loadedData) && loadedData != null)
+            {
+                CurrentSettings = loadedData;
+            }
+            else
+            {
+                CurrentSettings = new SettingsData();
+            }
+        }
+
+        public void Save(SettingsData settingsData)
+        {
+            CurrentSettings = settingsData.Copy();
+            _repository.Save(CurrentSettings);
         }
     }
 }

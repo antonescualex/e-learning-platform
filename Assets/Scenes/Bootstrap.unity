@@ -250,10 +250,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d40ef740b1f914ea4aea457ca5de01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  backgroundMusicSource: {fileID: 1238201210}
-  sfxSource: {fileID: 1176126809}
+  musicSource: {fileID: 1238201210}
   backgroundMusicClip: {fileID: 8300000, guid: 1886600bdc0c4dd4096c5f92933278f8, type: 3}
-  buttonClickClip: {fileID: 8300000, guid: 454a446a2df808549ab8af8ccb9a6563, type: 3}
+  audioMixer: {fileID: 24100000, guid: d7a7f0a33e5ec6d418aba2313f37c8d3, type: 2}
+  musicVolumeParam: MusicVolume
+  sfxVolumeParam: SfxVolume
 --- !u!4 &254694104
 Transform:
   m_ObjectHideFlags: 0
@@ -262,8 +263,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254694102}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 401.34348, y: 295.7693, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 401.3435, y: 295.7693, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -541,7 +542,7 @@ AudioSource:
   m_GameObject: {fileID: 1176126808}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4773508999358883764, guid: d7a7f0a33e5ec6d418aba2313f37c8d3, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -670,13 +671,13 @@ AudioSource:
   m_GameObject: {fileID: 1238201209}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7738788685762408318, guid: d7a7f0a33e5ec6d418aba2313f37c8d3, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1265,6 +1266,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1785343667}
   - {fileID: 343583907}
-  - {fileID: 254694104}
   - {fileID: 1881297222}
+  - {fileID: 254694104}
   - {fileID: 1382298318}

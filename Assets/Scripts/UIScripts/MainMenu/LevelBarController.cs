@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MainMenu
+namespace UIScripts.MainMenu
 {
-    public class LevelBarService : MonoBehaviour
+    public class LevelBarController : MonoBehaviour
     {
         [SerializeField] private RectTransform fillMask;
         [SerializeField] private RectTransform maskContainer;

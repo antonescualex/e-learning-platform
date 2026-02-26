@@ -1,4 +1,4 @@
-﻿namespace Bootstrap
+﻿namespace Storage
 {
     public interface IStorage
     {

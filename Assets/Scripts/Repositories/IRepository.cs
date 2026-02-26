@@ -1,4 +1,4 @@
-﻿namespace Bootstrap
+﻿namespace Repositories
 {
     public interface IRepository<T>
     {

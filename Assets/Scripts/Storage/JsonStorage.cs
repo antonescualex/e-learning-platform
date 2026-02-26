@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using UnityEngine;
 
-namespace Bootstrap
+namespace Storage
 {
     public class JsonStorage : IStorage
     {
