@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using Services;
+using UIScripts.Bootstrap;
+using UnityEngine;
 
-namespace UIScripts.Bootstrap
+namespace UIScripts.MainMenu.Settings
 {
     public class SettingsMenuController : MonoBehaviour
     {
@@ -9,6 +11,13 @@ namespace UIScripts.Bootstrap
         [SerializeField] private Canvas canvas;
 
         private GameObject currentPopup;
+
+        private ISettingsService _settingsService;
+
+        private void Start()
+        {
+            _settingsService = App.Instance.SettingsService;
+        }
 
         public void OpenSettings()
         {
@@ -20,7 +29,7 @@ namespace UIScripts.Bootstrap
             currentPopup.transform.SetAsLastSibling();
 
             var popup = currentPopup.GetComponent<SettingsPopup>();
-            popup.Init(this, App.Instance.SettingsService.CurrentSettings.Copy());
+            popup.Init(this, _settingsService.CurrentSettings.Copy());
             
             currentPopup.GetComponent<Ricimi.Popup>()?.Open();
         }
@@ -33,7 +42,7 @@ namespace UIScripts.Bootstrap
         public void Save(SettingsData editedSettings)
         {
             App.Instance.SettingsService.Save(editedSettings);
-            AudioManager.Instance?.ApplySettings(App.Instance.SettingsService.CurrentSettings);
+            AudioManager.Instance?.ApplySettings(_settingsService.CurrentSettings);
             Close();
         }
 

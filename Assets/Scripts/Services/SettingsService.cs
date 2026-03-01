@@ -2,7 +2,7 @@ using Repositories;
 
 namespace Services
 {
-    public class SettingsService
+    public class SettingsService : ISettingsService
     {
         private readonly IRepository<SettingsData> _repository;
     

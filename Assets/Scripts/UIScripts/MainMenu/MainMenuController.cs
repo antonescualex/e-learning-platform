@@ -1,13 +1,15 @@
+using System;
+using System.Collections;
+using Services;
 using TMPro;
-using UIScripts.Bootstrap;
+using UIScripts.MainMenu.Settings;
 using UnityEngine;
 
 namespace UIScripts.MainMenu
 {
     public class MainMenuController : MonoBehaviour
     {
-        [SerializeField] private SettingsMenuController _settingsMenuController;
-
+        [SerializeField] private SettingsMenuController settingsMenuController;
         [SerializeField] private LevelBarController levelBarController;
     
         [SerializeField] private TMP_Text coinsText;
@@ -18,26 +20,59 @@ namespace UIScripts.MainMenu
         [SerializeField] private GameObject mainMenu;
         [SerializeField] private GameObject settingsPopup;
 
-        private void Update()
+        private IProfileService _profileService;
+
+        private void Start()
         {
-            UpdateProfileUI();
+            _profileService = App.Instance.ProfileService;
         }
 
-        private void UpdateProfileUI()
+        private void OnEnable()
         {
-            if (App.Instance.ProfileService != null)
+            if (_profileService == null && App.Instance != null)
             {
-                coinsText.text = App.Instance.ProfileService.ProfileData.Coins.ToString();
-                nameText.text = App.Instance.ProfileService.ProfileData.PlayerName.ToString();
-                levelText.text = "Level " + App.Instance.ProfileService.ProfileData.Level.ToString();
-                levelBarController.SetProgress(App.Instance.ProfileService.ProfileData.CurrentExperience, App.Instance.ProfileService.ProfileData.ExperienceToNextLevel);
+                _profileService = App.Instance.ProfileService;
             }
+            
+            if (_profileService != null)
+            {
+                _profileService.ProfileChanged += OnProfileChanged;
+                StartCoroutine(RefreshAfterOneFrame());
+            }
+        }
+
+        private IEnumerator RefreshAfterOneFrame()
+        {
+            yield return null;
+            if (_profileService != null && _profileService.HasProfile)
+            {
+                OnProfileChanged(_profileService.ProfileData);
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (_profileService != null)
+            {
+                _profileService.ProfileChanged -= OnProfileChanged;
+            }
+        }
+
+        private void OnProfileChanged(ProfileData profileData)
+        {
+            if (profileData == null) return;
+
+            coinsText.text = profileData.Coins.ToString();
+            nameText.text = profileData.PlayerName;
+            levelText.text = "Level " + profileData.Level;
+            
+            levelBarController.SetProgress(profileData.CurrentExperience, profileData.ExperienceToNextLevel);
         }
 
         public void OnSettingsButtonPressed()
         {
             mainMenu.SetActive(false);
-            _settingsMenuController.OpenSettings();
+            settingsMenuController.OpenSettings();
         }
     }
 }

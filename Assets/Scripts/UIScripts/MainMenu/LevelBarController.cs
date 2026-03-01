@@ -10,7 +10,7 @@ namespace UIScripts.MainMenu
         public void SetProgress(float currentXP, float requiredXP)
         {
             if (requiredXP <= 0f) return;
-
+            
             float normalized = Mathf.Clamp01(currentXP / requiredXP);
             float maxWidth = maskContainer.rect.width;
 

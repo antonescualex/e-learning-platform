@@ -1,3 +1,5 @@
+using System;
+using Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,6 +11,13 @@ namespace UIScripts.CreateProfile
     {
         [SerializeField] private TMP_InputField playerNameInputField;
         [SerializeField] private Button signUpButton;
+
+        private IProfileService _profileService;
+
+        private void Start()
+        {
+            _profileService = App.Instance.ProfileService;
+        }
 
         private void Awake()
         {

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UIScripts.Bootstrap
+namespace UIScripts.MainMenu.Settings
 {
     public class SettingsPopup : MonoBehaviour
     {

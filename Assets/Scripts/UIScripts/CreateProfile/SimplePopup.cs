@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UIScripts.Bootstrap
+namespace UIScripts.CreateProfile
 {
     public class SimplePopup : MonoBehaviour
     {

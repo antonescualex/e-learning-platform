@@ -1,3 +1,4 @@
+using Data.StaticData;
 using Repositories;
 using Services;
 using Storage;
@@ -8,11 +9,14 @@ using UnityEngine.SceneManagement;
 public class App : MonoBehaviour
 {
     private static readonly float LOADING_TIME = 1.5f;
+
+    [SerializeField] private ItemCatalogScriptableObject itemCatalog;
     
     public static App Instance { get; private set; }
     
-    public ProfileService ProfileService { get; private set; }
-    public SettingsService SettingsService { get; private set; }
+    public IProfileService ProfileService { get; private set; }
+    public ISettingsService SettingsService { get; private set; }
+    public IProfileItemsService ProfileItemsService { get; private set; }
 
     private void Awake()
     {
@@ -32,6 +36,8 @@ public class App : MonoBehaviour
         var settingsRepository = new SettingsRepository(storage);
         SettingsService = new SettingsService(settingsRepository);
         SettingsService.LoadOrDefault();
+
+        ProfileItemsService = new ProfileItemsService(itemCatalog);
     }
 
     private void Start()
