@@ -11,6 +11,8 @@ namespace UIScripts.MainMenu.Profile
         [SerializeField] private Image iconImage;
         [SerializeField] private Image shadowImage;
         [SerializeField] private TMP_Text label;
+        [SerializeField] private Animator animator;
+        [SerializeField] private GameObject imageWithShadow;
 
         public void Bind(ItemDefinition itemDefinition)
         {
@@ -27,6 +29,41 @@ namespace UIScripts.MainMenu.Profile
         public void Hide()
         {
             gameObject.SetActive(false);
+        }
+
+        public void SetPopEnabled(bool enabled)
+        {
+            if (animator != null)
+            {
+                animator.SetBool("PlayPop", enabled);
+            }
+        }
+
+        public void ShowWithoutPop()
+        {
+            gameObject.SetActive(true);
+            if (imageWithShadow != null) imageWithShadow.transform.localScale = Vector3.one;
+
+            if (animator != null)
+            {
+                animator.enabled = true;
+                animator.SetBool("PlayPop", false);
+                animator.Play("Idle", 0, 0f);
+                animator.Update(0f);
+            }
+        }
+        
+        public void ShowWithPop()
+        {
+            gameObject.SetActive(true);
+
+            if (animator != null)
+            {
+                animator.enabled = true;
+                animator.SetBool("PlayPop", true);
+                animator.Play("Pop", 0, 0f);
+                animator.Update(0f);
+            }
         }
     }
 }

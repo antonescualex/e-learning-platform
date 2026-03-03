@@ -10,10 +10,10 @@ public class App : MonoBehaviour
 {
     private static readonly float LOADING_TIME = 1.5f;
 
-    [SerializeField] private ItemCatalogScriptableObject itemCatalog;
-    
+    [SerializeField] private ItemCatalog itemCatalog;
+
     public static App Instance { get; private set; }
-    
+
     public IProfileService ProfileService { get; private set; }
     public ISettingsService SettingsService { get; private set; }
     public IProfileItemsService ProfileItemsService { get; private set; }
@@ -32,12 +32,12 @@ public class App : MonoBehaviour
 
         var profileRepository = new ProfileRepository(storage);
         ProfileService = new ProfileService(profileRepository);
-        
+
         var settingsRepository = new SettingsRepository(storage);
         SettingsService = new SettingsService(settingsRepository);
         SettingsService.LoadOrDefault();
 
-        ProfileItemsService = new ProfileItemsService(itemCatalog);
+        ProfileItemsService = new ProfileItemsService(itemCatalog, ProfileService);
     }
 
     private void Start()
@@ -46,7 +46,7 @@ public class App : MonoBehaviour
         {
             AudioManager.Instance.ApplySettings(SettingsService.CurrentSettings);
         }
-        
+
         if (ProfileService.TryLoadProfile())
         {
             Invoke("LoadMainMenuScene", LOADING_TIME);
@@ -66,7 +66,7 @@ public class App : MonoBehaviour
     {
         SceneManager.LoadScene("CreateProfile");
     }
-    
+
     private void OnApplicationQuit()
     {
         ProfileService?.SaveProfile();

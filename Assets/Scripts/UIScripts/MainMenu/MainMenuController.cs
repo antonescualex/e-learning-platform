@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
+using Data.StaticData;
 using Services;
 using TMPro;
 using UIScripts.MainMenu.Settings;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UIScripts.MainMenu
 {
@@ -19,6 +21,10 @@ namespace UIScripts.MainMenu
         [SerializeField] private Canvas canvas;
         [SerializeField] private GameObject mainMenu;
         [SerializeField] private GameObject settingsPopup;
+
+        [Header("Avatar")]
+        [SerializeField] private Image profileImage;
+        [SerializeField] private AvatarCatalog avatarCatalog;
 
         private IProfileService _profileService;
 
@@ -67,6 +73,9 @@ namespace UIScripts.MainMenu
             levelText.text = "Level " + profileData.Level;
             
             levelBarController.SetProgress(profileData.CurrentExperience, profileData.ExperienceToNextLevel);
+
+            var sprite = avatarCatalog.GetSprite(profileData.AvatarId);
+            if (sprite != null) profileImage.sprite = sprite;
         }
 
         public void OnSettingsButtonPressed()

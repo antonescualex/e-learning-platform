@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Data.StaticData
 {
     [CreateAssetMenu(menuName = "ItemCatalog")]
-    public class ItemCatalogScriptableObject : ScriptableObject
+    public class ItemCatalog : ScriptableObject
     {
         [SerializeField] public List<ItemDefinition> items = new List<ItemDefinition>();
 

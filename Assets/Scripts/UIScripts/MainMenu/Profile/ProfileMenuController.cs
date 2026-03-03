@@ -1,4 +1,6 @@
-﻿using Services;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Services;
 using UnityEngine;
 
 namespace UIScripts.MainMenu.Profile
@@ -11,25 +13,19 @@ namespace UIScripts.MainMenu.Profile
 
         private GameObject _currentPopup;
         private IProfileService _profileService;
+        private IProfileItemsService _itemsService;
 
         private void Start()
         {
             _profileService = App.Instance.ProfileService;
+            _itemsService = App.Instance.ProfileItemsService;
         }
 
         public void OpenProfile()
         {
             if (_currentPopup != null) return;
-            
-            mainMenu.SetActive(false);
 
-            _currentPopup = Instantiate(profilePopup, canvas.transform);
-            _currentPopup.transform.SetAsLastSibling();
-
-            var popup = _currentPopup.GetComponent<ProfilePopup>();
-            popup.Init(this, _profileService);
-            
-            _currentPopup.GetComponent<Ricimi.Popup>()?.Open();
+            StartCoroutine(OpenProfileWithDelay());
         }
 
         public void CloseProfile()
@@ -41,6 +37,21 @@ namespace UIScripts.MainMenu.Profile
                 _currentPopup.GetComponent<Ricimi.Popup>()?.Close();
                 _currentPopup = null;
             }
+        }
+
+        private IEnumerator OpenProfileWithDelay()
+        {
+            yield return new WaitForSeconds(0.2f);
+
+            mainMenu.SetActive(false);
+
+            _currentPopup = Instantiate(profilePopup, canvas.transform);
+            _currentPopup.transform.SetAsLastSibling();
+
+            var popup = _currentPopup.GetComponent<ProfilePopup>();
+            popup.Init(this, _profileService, _itemsService);
+
+            _currentPopup.GetComponent<Ricimi.Popup>()?.Open();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Services
     public interface IProfileService
     {
         event Action<ProfileData> ProfileChanged;
-        
+
         ProfileData ProfileData { get; }
         bool HasProfile { get; }
 
@@ -15,6 +15,11 @@ namespace Services
         void SetPlayerName(string newName);
         void AddCoins(int amount);
         bool AddExperience(int amount);
+        void SetAvatar(string avatarId);
+
+        bool TrySpendCoins(int amount);
+        bool HasAccessory(string accessoryId);
+        bool TryAddAccessory(string accessoryId);
 
         void SaveProfile();
     }

@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections;
+using Data.StaticData;
+using Services;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Serialization;
+
+namespace UIScripts.MainMenu.Shop
+{
+    public class ShopMenuController : MonoBehaviour
+    {
+        [Header("Popup")]
+        [SerializeField] private GameObject shopPopupPrefab;
+        [SerializeField] private GameObject mainMenu;
+        [SerializeField] private Canvas canvas;
+
+        [Header("Accessory Catalog")]
+        [SerializeField]
+        private AccessoryCatalog catalog;
+
+        private GameObject _currentPopup;
+        private IShopService _shopService;
+
+        public void OpenShop()
+        {
+            if (_currentPopup != null) return;
+            if (_shopService == null && App.Instance != null)
+            {
+                _shopService = new ShopService(catalog, App.Instance.ProfileService);
+            }
+            StartCoroutine(OpenShopWithDelay());
+        }
+
+        public void CloseShop()
+        {
+            mainMenu.SetActive(true);
+
+            if (_currentPopup != null)
+            {
+                _currentPopup.GetComponent<Ricimi.Popup>()?.Close();
+                _currentPopup = null;
+            }
+        }
+
+        private IEnumerator OpenShopWithDelay()
+        {
+            yield return new WaitForSeconds(0.2f);
+            mainMenu.SetActive(false);
+
+            _currentPopup = Instantiate(shopPopupPrefab, canvas.transform);
+            _currentPopup.transform.SetAsLastSibling();
+
+            var popup = _currentPopup.GetComponent<ShopPopup>();
+            popup.Init(_shopService, this);
+
+            _currentPopup.GetComponent<Ricimi.Popup>()?.Open();
+        }
+    }
+}

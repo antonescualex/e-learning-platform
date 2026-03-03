@@ -7,22 +7,24 @@ namespace Services
 {
     public class ProfileItemsService : IProfileItemsService
     {
-        private readonly ItemCatalogScriptableObject _catalog;
+        private readonly ItemCatalog _catalog;
+        private readonly IProfileService _profileService;
 
-        public ProfileItemsService(ItemCatalogScriptableObject catalog)
+        public ProfileItemsService(ItemCatalog catalog, IProfileService profileService)
         {
             _catalog = catalog;
+            _profileService = profileService;
         }
 
-        public List<ItemDefinition> GetTopItems(ProfileData profile, ProfileItemCateogory cateogory,
+        public IReadOnlyList<ItemDefinition> GetTopItems(ProfileItemCateogory cateogory,
             int count = 4)
         {
             var result = new List<ItemDefinition>(count);
-            
-            if (profile == null) return result;
+
+            if (_profileService == null || !_profileService.HasProfile) return result;
             if (_catalog == null) return result;
 
-            var ids = profile.GetItemIds(cateogory);
+            var ids = _profileService.ProfileData.GetItemIds(cateogory);
             int pageSize = Mathf.Min(count, ids.Count);
 
             for (int i = 0; i < pageSize; i++)

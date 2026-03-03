@@ -40,16 +40,17 @@ public class ProfileService : IProfileService
     public void SetPlayerName(string newName)
     {
         if (_profileData == null) return;
-        
+        if (string.IsNullOrEmpty(newName.Trim())) return;
+
         _profileData.SetPlayerName(newName);
         SaveProfile();
-        ProfileChanged?.Invoke(_profileData);
+        NotifyProfileChanged();
     }
-    
+
     public void AddCoins(int amount)
     {
         if (_profileData == null) return;
-        
+
         _profileData.AddCoins(amount);
         SaveProfile();
         NotifyProfileChanged();
@@ -64,10 +65,48 @@ public class ProfileService : IProfileService
         return leveledUp;
     }
 
+    public void SetAvatar(string avatarId)
+    {
+        if (_profileData == null) return;
+        _profileData.SetAvatar(avatarId);
+        SaveProfile();
+        NotifyProfileChanged();
+    }
+
     public void SaveProfile()
     {
         if (_profileData == null) return;
         _repository.Save(_profileData);
+    }
+
+    public bool TrySpendCoins(int amount)
+    {
+        if (_profileData == null) return false;
+
+        bool spent = _profileData.TrySpendCoins(amount);
+        if (!spent) return false;
+
+        SaveProfile();
+        NotifyProfileChanged();
+        return true;
+    }
+
+    public bool HasAccessory(string accessoryId)
+    {
+        if (_profileData == null) return false;
+        return _profileData.HasAccessory(accessoryId);
+    }
+
+    public bool TryAddAccessory(string accessoryId)
+    {
+        if (_profileData == null) return false;
+
+        bool added = _profileData.TryAddAccessory(accessoryId);
+        if (!added) return false;
+
+        SaveProfile();
+        NotifyProfileChanged();
+        return true;
     }
 
     private void NotifyProfileChanged()

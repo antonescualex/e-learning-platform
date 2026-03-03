@@ -6,7 +6,7 @@ namespace Services
 {
     public interface IProfileItemsService
     {
-        List<ItemDefinition> GetTopItems(ProfileData profileData, ProfileItemCateogory profileItemCateogory,
+        IReadOnlyList<ItemDefinition> GetTopItems(ProfileItemCateogory profileItemCateogory,
             int count = 4);
     }
 }
