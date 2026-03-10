@@ -7,8 +7,12 @@ namespace UIScripts.MainMenu.Profile
 {
     public class ProfileMenuController : MonoBehaviour
     {
+        [Header("Popup")]
         [SerializeField] private GameObject profilePopup;
+
+        [Header("Main Menu")]
         [SerializeField] private GameObject mainMenu;
+        [SerializeField] private GameObject buttons;
         [SerializeField] private Canvas canvas;
 
         private GameObject _currentPopup;
@@ -31,6 +35,7 @@ namespace UIScripts.MainMenu.Profile
         public void CloseProfile()
         {
             mainMenu.SetActive(true);
+            buttons.SetActive(true);
 
             if (_currentPopup != null)
             {
@@ -44,6 +49,7 @@ namespace UIScripts.MainMenu.Profile
             yield return new WaitForSeconds(0.2f);
 
             mainMenu.SetActive(false);
+            buttons.SetActive(false);
 
             _currentPopup = Instantiate(profilePopup, canvas.transform);
             _currentPopup.transform.SetAsLastSibling();

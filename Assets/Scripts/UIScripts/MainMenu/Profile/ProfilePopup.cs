@@ -18,6 +18,7 @@ namespace UIScripts.MainMenu.Profile
         [SerializeField] private TMP_Text badgesText;
         [SerializeField] private TMP_Text boostersText;
         [SerializeField] private TMP_Text rewardsText;
+        [SerializeField] private TMP_Text itemsText;
 
         [Header("Name")]
         [SerializeField] private TMP_InputField playerNameInput;
@@ -132,6 +133,7 @@ namespace UIScripts.MainMenu.Profile
             if (badgesText != null) badgesText.text = profileData.BadgeItemIds.Count.ToString();
             if (boostersText != null) boostersText.text = profileData.BoosterItemIds.Count.ToString();
             if (rewardsText != null) rewardsText.text = profileData.RewardItemIds.Count.ToString();
+            if (itemsText != null) itemsText.text = profileData.AccessoryItemIds.Count.ToString();
         }
 
         public void OnClosePressed()

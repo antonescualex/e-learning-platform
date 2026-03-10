@@ -7,9 +7,15 @@ namespace UIScripts.MainMenu.Inventory
 {
     public class InventoryMenuController : MonoBehaviour
     {
+        [Header("Popup")]
         [SerializeField] private GameObject inventoryPopup;
+
+        [Header("Main Menu")]
         [SerializeField] private GameObject mainMenu;
+        [SerializeField] private GameObject buttons;
         [SerializeField] private Canvas canvas;
+
+        [Header("Accessory Catalog")]
         [SerializeField] private AccessoryCatalog accessoryCatalog;
 
         private GameObject _currentPopup;
@@ -30,6 +36,7 @@ namespace UIScripts.MainMenu.Inventory
         public void CloseInventory()
         {
             mainMenu.SetActive(true);
+            buttons.SetActive(true);
 
             if (_currentPopup != null)
             {
@@ -43,6 +50,7 @@ namespace UIScripts.MainMenu.Inventory
             yield return new WaitForSeconds(0.2f);
 
             mainMenu.SetActive(false);
+            buttons.SetActive(false);
 
             _currentPopup = Instantiate(inventoryPopup, canvas.transform);
             _currentPopup.transform.SetAsLastSibling();

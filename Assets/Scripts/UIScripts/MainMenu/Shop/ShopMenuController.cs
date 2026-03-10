@@ -12,12 +12,14 @@ namespace UIScripts.MainMenu.Shop
     {
         [Header("Popup")]
         [SerializeField] private GameObject shopPopupPrefab;
+
+        [Header("Main Menu")]
         [SerializeField] private GameObject mainMenu;
+        [SerializeField] private GameObject buttons;
         [SerializeField] private Canvas canvas;
 
         [Header("Accessory Catalog")]
-        [SerializeField]
-        private AccessoryCatalog catalog;
+        [SerializeField] private AccessoryCatalog catalog;
 
         private GameObject _currentPopup;
         private IShopService _shopService;
@@ -35,6 +37,7 @@ namespace UIScripts.MainMenu.Shop
         public void CloseShop()
         {
             mainMenu.SetActive(true);
+            buttons.SetActive(true);
 
             if (_currentPopup != null)
             {
@@ -47,6 +50,7 @@ namespace UIScripts.MainMenu.Shop
         {
             yield return new WaitForSeconds(0.2f);
             mainMenu.SetActive(false);
+            buttons.SetActive(false);
 
             _currentPopup = Instantiate(shopPopupPrefab, canvas.transform);
             _currentPopup.transform.SetAsLastSibling();
