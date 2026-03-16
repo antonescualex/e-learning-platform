@@ -1,5 +1,7 @@
 using System.Collections;
+using Lessons;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UIScripts.MainMenu.Learn
 {
@@ -112,6 +114,14 @@ namespace UIScripts.MainMenu.Learn
                 _currentEnglishPopup.GetComponent<Ricimi.Popup>()?.Close();
                 _currentEnglishPopup = null;
             }
+        }
+
+        public void StartLesson(LessonId lessonId)
+        {
+            if (App.Instance == null || App.Instance.LessonService == null) return;
+
+            App.Instance.LessonService.StartLesson(lessonId);
+            SceneManager.LoadScene("LessonScene");
         }
 
     }

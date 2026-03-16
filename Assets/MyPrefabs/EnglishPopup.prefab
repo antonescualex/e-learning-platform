@@ -239,6 +239,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5099358446920692147}
     m_Modifications:
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3524901418991438200}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnOppositesClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UIScripts.MainMenu.Learn.EnglishPopup, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1637370119766937248, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
       propertyPath: m_text
       value: Opposites
@@ -523,6 +551,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5099358446920692147}
     m_Modifications:
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3524901418991438200}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnCompleteTheSentenceClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UIScripts.MainMenu.Learn.EnglishPopup, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1637370119766937248, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
       propertyPath: m_text
       value: Complete the sentence
@@ -649,6 +705,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5099358446920692147}
     m_Modifications:
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3524901418991438200}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnSyllableDivisionClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UIScripts.MainMenu.Learn.EnglishPopup, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1637370119766937248, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
       propertyPath: m_text
       value: Syllable division
@@ -889,6 +973,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5099358446920692147}
     m_Modifications:
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3524901418991438200}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnReadTogetherClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UIScripts.MainMenu.Learn.EnglishPopup, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1637370119766937248, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
       propertyPath: m_text
       value: Read together
@@ -1007,6 +1119,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5099358446920692147}
     m_Modifications:
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3524901418991438200}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnSynonymsClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UIScripts.MainMenu.Learn.EnglishPopup, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1637370119766937248, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
       propertyPath: m_text
       value: Synonyms
@@ -1125,6 +1265,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5099358446920692147}
     m_Modifications:
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3524901418991438200}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnWriteCorrectlyClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UIScripts.MainMenu.Learn.EnglishPopup, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027711720509759972, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1637370119766937248, guid: 4dcca20b231779248aa55a6ca8c462a3, type: 3}
       propertyPath: m_text
       value: Write correctly

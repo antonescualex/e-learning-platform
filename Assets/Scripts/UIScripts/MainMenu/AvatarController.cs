@@ -1,5 +1,6 @@
 ﻿using System;
 using Data.StaticData;
+using Data.StaticData.Avatar;
 using Services;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace UIScripts.MainMenu
                 toggle.onValueChanged.RemoveAllListeners();
             }
         }
-        
+
         private void ApplySelectionFromProfile()
         {
             string savedId = _profileService.ProfileData.AvatarId;

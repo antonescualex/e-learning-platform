@@ -1,3 +1,4 @@
+using Lessons;
 using UnityEngine;
 
 namespace UIScripts.MainMenu.Learn
@@ -16,6 +17,21 @@ namespace UIScripts.MainMenu.Learn
             if (_learnMenuController != null)
             {
                 _learnMenuController.CloseEnglishPopup();
+            }
+        }
+
+        public void OnReadTogetherClicked() => StartLesson(LessonId.EnglishReadTogether);
+        public void OnWriteCorrectlyClicked() => StartLesson(LessonId.EnglishWriteCorrectly);
+        public void OnCompleteTheSentenceClicked() => StartLesson(LessonId.EnglishCompleteTheSentence);
+        public void OnSynonymsClicked() => StartLesson(LessonId.EnglishSynonyms);
+        public void OnOppositesClicked() => StartLesson(LessonId.EnglishOpposites);
+        public void OnSyllableDivisionClicked() => StartLesson(LessonId.EnglishSyllableDivision);
+
+        private void StartLesson(LessonId lessonId)
+        {
+            if (_learnMenuController != null)
+            {
+                _learnMenuController.StartLesson(lessonId);
             }
         }
     }

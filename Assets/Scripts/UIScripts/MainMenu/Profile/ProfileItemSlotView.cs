@@ -1,4 +1,5 @@
 ﻿using Data.StaticData;
+using Data.StaticData.Item;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,11 +17,14 @@ namespace UIScripts.MainMenu.Profile
 
         public void Bind(ItemDefinition itemDefinition)
         {
-            if (iconImage != null && shadowImage != null)
+            if (itemDefinition == null)
             {
-                iconImage.sprite = itemDefinition.Icon;
-                shadowImage.sprite = itemDefinition.Icon;
+                Hide();
+                return;
             }
+
+            if (iconImage != null) iconImage.sprite = itemDefinition.Icon;
+            if (shadowImage != null) shadowImage.sprite = itemDefinition.Icon;
             if (label != null) label.text = itemDefinition.DisplayName;
             spinner.gameObject.SetActive(false);
             gameObject.SetActive(true);
@@ -52,7 +56,7 @@ namespace UIScripts.MainMenu.Profile
                 animator.Update(0f);
             }
         }
-        
+
         public void ShowWithPop()
         {
             gameObject.SetActive(true);

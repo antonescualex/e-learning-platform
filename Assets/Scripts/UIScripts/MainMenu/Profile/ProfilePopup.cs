@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Enums;
 using Services;
 using TMPro;
@@ -26,7 +27,8 @@ namespace UIScripts.MainMenu.Profile
 
         [Header("Items")]
         [SerializeField] private TMP_Dropdown categoryDropwdown;
-        [SerializeField] private ProfileItemSlotView[] itemSlots = new ProfileItemSlotView[4];
+        [SerializeField] private Transform itemsContainer;
+        [SerializeField] private ProfileItemSlotView itemPrefab;
 
         // [Header("Page Buttons")] 
         // [SerializeField]private Button leftArrowButton;
@@ -35,6 +37,8 @@ namespace UIScripts.MainMenu.Profile
         private ProfileMenuController _menuController;
         private IProfileService _profileService;
         private IProfileItemsService _itemsService;
+
+        private readonly List<ProfileItemSlotView> _itemList = new List<ProfileItemSlotView>();
 
         private bool _isEditingName;
         private bool _ignoreEvents;
@@ -108,11 +112,6 @@ namespace UIScripts.MainMenu.Profile
                 OnProfileChanged(_profileService.ProfileData);
             }
 
-            foreach (var item in itemSlots)
-            {
-                if (item != null) item.SetPopEnabled(false);
-            }
-
             RefreshItems();
         }
 
@@ -134,6 +133,8 @@ namespace UIScripts.MainMenu.Profile
             if (boostersText != null) boostersText.text = profileData.BoosterItemIds.Count.ToString();
             if (rewardsText != null) rewardsText.text = profileData.RewardItemIds.Count.ToString();
             if (itemsText != null) itemsText.text = profileData.AccessoryItemIds.Count.ToString();
+
+            RefreshItems();
         }
 
         public void OnClosePressed()
@@ -186,12 +187,6 @@ namespace UIScripts.MainMenu.Profile
         {
             if (!_popEnabled) _popEnabled = true;
 
-            foreach (var item in itemSlots)
-            {
-                if (item != null) item.SetPopEnabled(_popEnabled);
-            }
-
-            ForceReloadItemSlots();
             RefreshItems();
         }
 
@@ -203,37 +198,36 @@ namespace UIScripts.MainMenu.Profile
 
         private void RefreshItems()
         {
+            ClearItems();
+
             if (_profileService == null || !_profileService.HasProfile) return;
             if (_itemsService == null) return;
+            if (itemsContainer == null || itemPrefab == null) return;
 
             var category = GetSelectedCategory();
-            var definitions = _itemsService.GetTopItems(category, 4);
+            var definitions = _itemsService.GetAllItems(category);
 
-            for (int i = 0; i < itemSlots.Length; i++)
+            for (int i = 0; i < definitions.Count; i++)
             {
-                if (itemSlots[i] == null) continue;
+                var itemView = Instantiate(itemPrefab, itemsContainer, false);
+                itemView.gameObject.name = $"ProfileItem_{definitions[i].Id}";
 
-                if (i < definitions.Count)
-                {
-                    if (!_popEnabled) itemSlots[i].ShowWithoutPop();
-                    else itemSlots[i].ShowWithPop();
+                if (_popEnabled) itemView.ShowWithPop();
+                else itemView.ShowWithoutPop();
 
-                    itemSlots[i].Bind(definitions[i]);
-                }
-                else
-                {
-                    itemSlots[i].Hide();
-                }
+                itemView.Bind(definitions[i]);
             }
         }
 
-        private void ForceReloadItemSlots()
+        private void ClearItems()
         {
-            for (int i = 0; i < itemSlots.Length; i++)
+            if (itemsContainer == null) return;
+
+            for (int i = itemsContainer.childCount - 1; i >= 0; i--)
             {
-                if (itemSlots[i] == null) continue;
-                itemSlots[i].gameObject.SetActive(false);
-                itemSlots[i].gameObject.SetActive(true);
+                var child = itemsContainer.GetChild(i).gameObject;
+                child.SetActive(false);
+                Destroy(child);
             }
         }
 

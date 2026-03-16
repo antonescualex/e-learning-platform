@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Data.StaticData;
+using Data.StaticData.Item;
 using Enums;
 using UnityEngine;
 
@@ -14,6 +15,26 @@ namespace Services
         {
             _catalog = catalog;
             _profileService = profileService;
+        }
+
+        public IReadOnlyList<ItemDefinition> GetAllItems(ProfileItemCateogory profileItemCateogory)
+        {
+            if (_profileService == null || !_profileService.HasProfile) return null;
+            if (_catalog == null) return null;
+
+            var result = new List<ItemDefinition>();
+            var ids = _profileService.ProfileData.GetItemIds(profileItemCateogory);
+
+            foreach (var id in ids)
+            {
+                var definition = _catalog.GetById(id);
+                if (definition != null)
+                {
+                    result.Add(definition);
+                }
+            }
+
+            return result;
         }
 
         public IReadOnlyList<ItemDefinition> GetTopItems(ProfileItemCateogory cateogory,

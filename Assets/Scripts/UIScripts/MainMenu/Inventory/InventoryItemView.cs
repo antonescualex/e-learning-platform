@@ -1,4 +1,5 @@
 using Data.StaticData;
+using Data.StaticData.Item;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

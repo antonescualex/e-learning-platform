@@ -1,4 +1,5 @@
 using Data.StaticData;
+using Data.StaticData.Item;
 using Repositories;
 using Services;
 using Storage;
@@ -17,6 +18,7 @@ public class App : MonoBehaviour
     public IProfileService ProfileService { get; private set; }
     public ISettingsService SettingsService { get; private set; }
     public IProfileItemsService ProfileItemsService { get; private set; }
+    public ILessonService LessonService { get; private set; }
 
     private void Awake()
     {
@@ -38,6 +40,8 @@ public class App : MonoBehaviour
         SettingsService.LoadOrDefault();
 
         ProfileItemsService = new ProfileItemsService(itemCatalog, ProfileService);
+
+        LessonService = new LessonService(ProfileService);
     }
 
     private void Start()

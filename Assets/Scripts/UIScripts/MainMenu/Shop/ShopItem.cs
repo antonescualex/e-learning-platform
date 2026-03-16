@@ -1,5 +1,6 @@
 using System;
 using Data.StaticData;
+using Data.StaticData.Accessory;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

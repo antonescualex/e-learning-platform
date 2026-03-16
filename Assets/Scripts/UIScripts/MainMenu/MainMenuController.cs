@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Data.StaticData;
+using Data.StaticData.Avatar;
 using Services;
 using TMPro;
 using UIScripts.MainMenu.Settings;
@@ -13,7 +14,7 @@ namespace UIScripts.MainMenu
     {
         [SerializeField] private SettingsMenuController settingsMenuController;
         [SerializeField] private LevelBarController levelBarController;
-    
+
         [SerializeField] private TMP_Text coinsText;
         [SerializeField] private TMP_Text nameText;
         [SerializeField] private TMP_Text levelText;
@@ -39,7 +40,7 @@ namespace UIScripts.MainMenu
             {
                 _profileService = App.Instance.ProfileService;
             }
-            
+
             if (_profileService != null)
             {
                 _profileService.ProfileChanged += OnProfileChanged;
@@ -71,7 +72,7 @@ namespace UIScripts.MainMenu
             coinsText.text = profileData.Coins.ToString();
             nameText.text = profileData.PlayerName;
             levelText.text = "Level " + profileData.Level;
-            
+
             levelBarController.SetProgress(profileData.CurrentExperience, profileData.ExperienceToNextLevel);
 
             var sprite = avatarCatalog.GetSprite(profileData.AvatarId);

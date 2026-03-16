@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aafa8172431138941bfdb9005a5bd377, type: 3}
+  m_Name: MeasureSet
+  m_EditorClassIdentifier: Assembly-CSharp::Data.StaticData.Lesson.TextMathsQuestionSet
+  questions:
+  - QuestionText: Cu ce unitate masuram greutatea?
+    Answers:
+    - Metri
+    - Kilograme
+    - Litri
+    - Minute
+    CorrectAnswerIndex: 1
+  - QuestionText: Cu ce unitate masuram lungimea?
+    Answers:
+    - Litri
+    - Kilograme
+    - Centimetri
+    - Ore
+    CorrectAnswerIndex: 2
+  - QuestionText: Cu ce unitate masuram volumul?
+    Answers:
+    - Kilograme
+    - Litri
+    - Metri
+    - Secunde
+    CorrectAnswerIndex: 1
+  - QuestionText: Ce este mai greu?
+    Answers:
+    - 1 kg
+    - 500 g
+    - 200 g
+    - 100 g
+    CorrectAnswerIndex: 0
+  - QuestionText: Care obiect este cel mai greu?
+    Answers:
+    - Mar
+    - Pana
+    - Creion
+    - Manual
+    CorrectAnswerIndex: 3
