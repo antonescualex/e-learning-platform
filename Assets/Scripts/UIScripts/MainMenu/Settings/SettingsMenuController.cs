@@ -1,4 +1,5 @@
 ﻿using Services;
+using Services.Interfaces;
 using UIScripts.Bootstrap;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ namespace UIScripts.MainMenu.Settings
         public void OpenSettings()
         {
             if (currentPopup != null) return;
-            
+
             mainMenu.SetActive(false);
 
             currentPopup = Instantiate(settingsPopup, canvas.transform);
@@ -30,7 +31,7 @@ namespace UIScripts.MainMenu.Settings
 
             var popup = currentPopup.GetComponent<SettingsPopup>();
             popup.Init(this, _settingsService.CurrentSettings.Copy());
-            
+
             currentPopup.GetComponent<Ricimi.Popup>()?.Open();
         }
 

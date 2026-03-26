@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 5769d9af464d47cda30a095e79353f1d
+timeCreated: 1724315229
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/Recognissimo/Runtime/Plugins/WebGL/3.1.38/recognissimo-worker.js
+  uploadId: 812594

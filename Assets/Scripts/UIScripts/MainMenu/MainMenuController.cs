@@ -3,6 +3,7 @@ using System.Collections;
 using Data.StaticData;
 using Data.StaticData.Avatar;
 using Services;
+using Services.Interfaces;
 using TMPro;
 using UIScripts.MainMenu.Settings;
 using UnityEngine;

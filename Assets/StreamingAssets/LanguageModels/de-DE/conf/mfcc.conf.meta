@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5887071d4e5394632b4a76ef03bf7967
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/StreamingAssets/LanguageModels/de-DE/conf/mfcc.conf
+  uploadId: 812594

@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: a8b6b53a622a49a6aa9d900a1b1cfd07
+timeCreated: 1671391301
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/Recognissimo/Dependencies/Estrada/Runtime/Scripts/WebGLMicrophoneController.cs
+  uploadId: 812594

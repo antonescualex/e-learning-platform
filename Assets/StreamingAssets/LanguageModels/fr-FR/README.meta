@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 814a1ee9286c64e1d90df475387bc507
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/StreamingAssets/LanguageModels/fr-FR/README
+  uploadId: 812594

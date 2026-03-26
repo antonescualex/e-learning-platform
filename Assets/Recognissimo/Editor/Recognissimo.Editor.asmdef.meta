@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ac1d0216cb26d4154b4b5b7d6e802a8a
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/Recognissimo/Editor/Recognissimo.Editor.asmdef
+  uploadId: 812594

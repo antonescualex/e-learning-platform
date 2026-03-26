@@ -1,11 +1,12 @@
 using Repositories;
+using Services.Interfaces;
 
 namespace Services
 {
     public class SettingsService : ISettingsService
     {
         private readonly IRepository<SettingsData> _repository;
-    
+
         public SettingsData CurrentSettings { get; private set; }
 
         public SettingsService(IRepository<SettingsData> repository)

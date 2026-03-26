@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 800d6d946d72947df899ed2503ad4b0f
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/StreamingAssets/LanguageModels/en-US/ivector/final.ie
+  uploadId: 812594

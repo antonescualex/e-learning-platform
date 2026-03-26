@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 60cfd1bbd33949868312f21c89c2c76e
+timeCreated: 1670311702
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/Recognissimo/Samples/SpeechRecognizerExample/SpeechRecognizerExample.cs
+  uploadId: 812594

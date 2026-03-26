@@ -1,5 +1,6 @@
 using Data.StaticData;
 using Services;
+using Services.Interfaces;
 using UnityEngine;
 
 namespace UIScripts.MainMenu.Shop

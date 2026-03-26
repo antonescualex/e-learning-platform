@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Services;
+using Services.Interfaces;
 using UnityEngine;
 
 namespace UIScripts.MainMenu.Profile

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 076f52651f322441b85c360428825b08
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/StreamingAssets/LanguageModels/en-US/graph/phones/word_boundary.int
+  uploadId: 812594

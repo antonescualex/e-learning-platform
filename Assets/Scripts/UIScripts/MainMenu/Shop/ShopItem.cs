@@ -31,6 +31,7 @@ namespace UIScripts.MainMenu.Shop
             titleText.text = definition.Title;
             descriptionText.text = definition.Description;
             priceText.text = isOwned ? "BOUGHT" : definition.Price.ToString();
+            priceText.horizontalAlignment = isOwned ? HorizontalAlignmentOptions.Left : HorizontalAlignmentOptions.Center;
             coinImage.SetActive(!isOwned);
 
             buyButton.onClick.RemoveAllListeners();

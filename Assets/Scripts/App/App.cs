@@ -2,6 +2,7 @@ using Data.StaticData;
 using Data.StaticData.Item;
 using Repositories;
 using Services;
+using Services.Interfaces;
 using Storage;
 using UIScripts.Bootstrap;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class App : MonoBehaviour
     public ISettingsService SettingsService { get; private set; }
     public IProfileItemsService ProfileItemsService { get; private set; }
     public ILessonService LessonService { get; private set; }
+    public ILessonContentService LessonContentService { get; private set; }
 
     private void Awake()
     {
@@ -41,7 +43,8 @@ public class App : MonoBehaviour
 
         ProfileItemsService = new ProfileItemsService(itemCatalog, ProfileService);
 
-        LessonService = new LessonService(ProfileService);
+        LessonService = new LessonService(ProfileService, itemCatalog);
+        LessonContentService = new OpenAiLessonContentService();
     }
 
     private void Start()

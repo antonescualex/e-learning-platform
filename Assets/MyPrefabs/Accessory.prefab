@@ -1084,6 +1084,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Amount Circle - Red
       objectReference: {fileID: 0}
+    - target: {fileID: 3644461353793068672, guid: f5c2d27d668f94f76ae61d712050c401, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3644461353793068673, guid: f5c2d27d668f94f76ae61d712050c401, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

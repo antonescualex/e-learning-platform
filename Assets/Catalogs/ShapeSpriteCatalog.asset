@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60c4a2a982a14b1488f3adad3adb3079, type: 3}
+  m_Name: ShapeSpriteCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::Data.StaticData.Lesson.ShapeSpriteCatalog
+  shapes:
+  - Id: circle
+    Sprite: {fileID: -855298285791758126, guid: d21079e9070a33b44847b164b4375d45, type: 3}
+  - Id: square
+    Sprite: {fileID: 6937817954938267909, guid: d214f4f12eb90bc4f9c79336d2def34d, type: 3}
+  - Id: triangle
+    Sprite: {fileID: -6470460504253458178, guid: 1bbe647cd0bac154b82197f8b35e3162, type: 3}
+  - Id: rectangle
+    Sprite: {fileID: -6759876999352326689, guid: c1bd41c07e057c64cb230a5e911b3ac2, type: 3}
+  - Id: oval
+    Sprite: {fileID: 3465286685962602723, guid: 6fc80b9af68326f4bb6b24cc3c3ae3d8, type: 3}
+  - Id: rhombus
+    Sprite: {fileID: 4130640169021434097, guid: 08a21e569ca8ff94aae23c3bf635e236, type: 3}
+  - Id: cube
+    Sprite: {fileID: 7028616704906629411, guid: d36c2071fb3345d45a9aca3c64c3a3ca, type: 3}
+  - Id: sphere
+    Sprite: {fileID: 8288426215254106694, guid: e4cfac62dd33996408b7d5af4efe0ffc, type: 3}
+  - Id: cylinder
+    Sprite: {fileID: 4113829005332862926, guid: 6d8622d74bc7b974ebaf084555c6acee, type: 3}
+  - Id: cone
+    Sprite: {fileID: -5099292496197868168, guid: 1de955ffe6be78f45bb89fb4f2df5b1c, type: 3}

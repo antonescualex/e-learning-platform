@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 12bcd23a59474424d9859fd2e1271e68
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/StreamingAssets/LanguageModels/fr-FR/ivector/online_cmvn.conf
+  uploadId: 812594

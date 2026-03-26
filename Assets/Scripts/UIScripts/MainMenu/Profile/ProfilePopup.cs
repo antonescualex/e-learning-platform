@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Enums;
 using Services;
+using Services.Interfaces;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -20,6 +21,8 @@ namespace UIScripts.MainMenu.Profile
         [SerializeField] private TMP_Text boostersText;
         [SerializeField] private TMP_Text rewardsText;
         [SerializeField] private TMP_Text itemsText;
+        [SerializeField] private TMP_Text lessonsCompletedText;
+        [SerializeField] private TMP_Text lessonsFailedText;
 
         [Header("Name")]
         [SerializeField] private TMP_InputField playerNameInput;
@@ -133,7 +136,8 @@ namespace UIScripts.MainMenu.Profile
             if (boostersText != null) boostersText.text = profileData.BoosterItemIds.Count.ToString();
             if (rewardsText != null) rewardsText.text = profileData.RewardItemIds.Count.ToString();
             if (itemsText != null) itemsText.text = profileData.AccessoryItemIds.Count.ToString();
-
+            if (lessonsCompletedText != null) lessonsCompletedText.text = profileData.CompletedLessonsCount.ToString();
+            if (lessonsFailedText != null) lessonsFailedText.text = profileData.IncompleteLessonsCount.ToString();
             RefreshItems();
         }
 

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: bbba9452e08314d059fef44fe4410ac4
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/Recognissimo/Third Party Notices.md
+  uploadId: 812594

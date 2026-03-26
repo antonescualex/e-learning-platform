@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 9cdcb6b581f04a53832e8ef7e2e69b4f
+timeCreated: 1671391301
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/Recognissimo/Dependencies/Estrada/Runtime/Scripts/Microphone.cs
+  uploadId: 812594

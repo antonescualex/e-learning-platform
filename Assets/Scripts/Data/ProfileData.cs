@@ -13,6 +13,9 @@ public class ProfileData
     [SerializeField] private int _coins;
     [SerializeField] private string _avatarId;
     [SerializeField] private string _createdAt;
+    [SerializeField] private int _completedLessonsCount;
+    [SerializeField] private int _incompleteLessonsCount;
+    [SerializeField] private int _lessonsSinceLastSpecialItemDrop;
 
     [SerializeField] private List<string> _badgeItemIds = new List<string>();
     [SerializeField] private List<string> _boosterItemIds = new List<string>();
@@ -33,6 +36,9 @@ public class ProfileData
     public IReadOnlyList<string> AccessoryItemIds => _accessoryItemIds;
 
     public int ExperienceToNextLevel => CalculateExperienceNeededForNextLevel(_level);
+    public int CompletedLessonsCount => _completedLessonsCount;
+    public int IncompleteLessonsCount => _incompleteLessonsCount;
+    public int LessonsSinceLastSpecialItemDrop => _lessonsSinceLastSpecialItemDrop;
 
     public ProfileData(string playerName)
     {
@@ -147,5 +153,31 @@ public class ProfileData
 
         return Mathf.RoundToInt(baseExperience * Mathf.Pow(growth, currentLevel - 1));
     }
+
+    public void RegisterCompletedLesson(bool receivedSpecialItem)
+    {
+        _completedLessonsCount++;
+        _lessonsSinceLastSpecialItemDrop = receivedSpecialItem ? 0 : _lessonsSinceLastSpecialItemDrop + 1;
+    }
+
+    public void RegisterIncompleteLesson()
+    {
+        _incompleteLessonsCount++;
+    }
+
+    public bool TryAddBoosterItem(string itemId)
+    {
+        if (string.IsNullOrEmpty(itemId)) return false;
+        _boosterItemIds.Add(itemId);
+        return true;
+    }
+
+    public bool TryAddRewardItem(string itemId)
+    {
+        if (string.IsNullOrEmpty(itemId)) return false;
+        _rewardItemIds.Add(itemId);
+        return true;
+    }
+
 
 }

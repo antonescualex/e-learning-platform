@@ -2,6 +2,7 @@
 using Data.StaticData;
 using Data.StaticData.Item;
 using Enums;
+using Services.Interfaces;
 using UnityEngine;
 
 namespace Services

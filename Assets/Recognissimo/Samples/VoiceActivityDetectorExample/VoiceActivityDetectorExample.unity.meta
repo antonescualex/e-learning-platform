@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 38ca065273f11476eb9e802ec5a15700
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/Recognissimo/Samples/VoiceActivityDetectorExample/VoiceActivityDetectorExample.unity
+  uploadId: 812594

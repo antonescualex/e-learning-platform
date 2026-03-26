@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: f5a377871f304a0dac76bc83eca8d862
+timeCreated: 1672992532
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/Recognissimo/Dependencies/Estrada/Runtime/Estrada.asmdef
+  uploadId: 812594

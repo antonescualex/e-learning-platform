@@ -2,6 +2,7 @@
 using Data.StaticData;
 using Data.StaticData.Avatar;
 using Services;
+using Services.Interfaces;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Data.StaticData;
 using Data.StaticData.Accessory;
+using Services.Interfaces;
 
 namespace Services
 {

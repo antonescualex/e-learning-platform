@@ -1,3 +1,5 @@
+using Data.StaticData.Lesson;
+
 namespace Lessons
 {
     public static class LessonIdExtensions
@@ -41,6 +43,39 @@ namespace Lessons
         public static string ToDisplayName(this LessonSubject subject)
         {
             return subject == LessonSubject.Mathematics ? "Mathematics" : "English";
+        }
+
+        public static LessonViewType GetViewType(this LessonId lessonId)
+        {
+            switch (lessonId)
+            {
+                case LessonId.MathematicsNaturalNumbers:
+                case LessonId.MathematicsAddAndSubtract:
+                case LessonId.MathematicsMeasurements:
+                case LessonId.MathematicsMultiplyAndDivide:
+                case LessonId.EnglishCompleteTheSentence:
+                case LessonId.EnglishSynonyms:
+                case LessonId.EnglishOpposites:
+                    return LessonViewType.TextChoice;
+
+                case LessonId.MathematicsGeometricalShapes:
+                    return LessonViewType.GeometricalShapes;
+
+                case LessonId.MathematicsWhatIsTheTime:
+                    return LessonViewType.Clock;
+
+                case LessonId.EnglishSyllableDivision:
+                    return LessonViewType.SyllableDivision;
+
+                case LessonId.EnglishReadTogether:
+                    return LessonViewType.ReadTogether;
+
+                case LessonId.EnglishWriteCorrectly:
+                    return LessonViewType.WriteCorrectly;
+
+                default:
+                    return LessonViewType.TextChoice;
+            }
         }
     }
 }

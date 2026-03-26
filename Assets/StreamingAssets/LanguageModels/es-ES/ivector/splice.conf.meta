@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 789b8c008843e4d02a8efce796931fca
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/StreamingAssets/LanguageModels/es-ES/ivector/splice.conf
+  uploadId: 812594

@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: ef75191d4b8b4903b281ad508716c029
+timeCreated: 1670919705
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/Recognissimo/Runtime/Scripts/Utils/ZipExtractor.cs
+  uploadId: 812594

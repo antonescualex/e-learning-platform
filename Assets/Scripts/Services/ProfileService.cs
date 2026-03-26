@@ -1,6 +1,7 @@
 using System;
 using Repositories;
 using Services;
+using Services.Interfaces;
 
 public class ProfileService : IProfileService
 {
@@ -113,4 +114,47 @@ public class ProfileService : IProfileService
     {
         ProfileChanged?.Invoke(_profileData);
     }
+
+    public void RegisterCompletedLesson(bool receivedSpecialItem)
+    {
+        if (_profileData == null) return;
+
+        _profileData.RegisterCompletedLesson(receivedSpecialItem);
+        SaveProfile();
+        NotifyProfileChanged();
+    }
+
+    public void RegisterIncompleteLesson()
+    {
+        if (_profileData == null) return;
+
+        _profileData.RegisterIncompleteLesson();
+        SaveProfile();
+        NotifyProfileChanged();
+    }
+
+    public bool TryAddBoosterItem(string itemId)
+    {
+        if (_profileData == null) return false;
+
+        bool added = _profileData.TryAddBoosterItem(itemId);
+        if (!added) return false;
+
+        SaveProfile();
+        NotifyProfileChanged();
+        return true;
+    }
+
+    public bool TryAddRewardItem(string itemId)
+    {
+        if (_profileData == null) return false;
+
+        bool added = _profileData.TryAddRewardItem(itemId);
+        if (!added) return false;
+
+        SaveProfile();
+        NotifyProfileChanged();
+        return true;
+    }
+
 }

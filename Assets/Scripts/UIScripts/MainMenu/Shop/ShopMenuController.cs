@@ -3,6 +3,7 @@ using System.Collections;
 using Data.StaticData;
 using Data.StaticData.Accessory;
 using Services;
+using Services.Interfaces;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;

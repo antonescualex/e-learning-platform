@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b3e96f1cf9f5047e5a9c184d0e31c210
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/Recognissimo/Samples/SpeechRecognizerExample/SpeechRecognizerExample.unity
+  uploadId: 812594

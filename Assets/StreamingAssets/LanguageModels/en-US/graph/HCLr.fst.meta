@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cd5072ff7c30c46e4b825358d2f2f562
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203101
+  packageName: 'Recognissimo: Offline Speech Recognition'
+  packageVersion: 2.0.11
+  assetPath: Assets/StreamingAssets/LanguageModels/en-US/graph/HCLr.fst
+  uploadId: 812594
