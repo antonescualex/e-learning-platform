@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: BackendLicenta
+
+server:
+  port: 8080
+
+app:
+  openai:
+    base-url: https://api.openai.com/v1
+    api-key: ${OPENAI_API_KEY}
+    model: gpt-5.4-mini
+    max-output-tokens: 1800
+    max-retries: 2
+    timeout: 20s
+  cors:
+    allowed-origins:
+      - http://localhost:3000
+      - http://localhost:5173
+      - http://localhost:8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
