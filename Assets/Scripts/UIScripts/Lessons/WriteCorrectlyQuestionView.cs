@@ -168,7 +168,9 @@ namespace UIScripts.Lessons
                 .Replace("\t", " ");
 
             normalized = Regex.Replace(normalized, @"\s+", " ");
-            return normalized.ToLowerInvariant();
+            normalized = normalized.ToLowerInvariant();
+            normalized = Regex.Replace(normalized, @"[.,!?;:'""]", string.Empty);
+            return normalized.Trim();
         }
 
         private void OnBackClicked()

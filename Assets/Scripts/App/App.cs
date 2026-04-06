@@ -13,6 +13,7 @@ public class App : MonoBehaviour
     private static readonly float LOADING_TIME = 1.5f;
 
     [SerializeField] private ItemCatalog itemCatalog;
+    [SerializeField] private string lessonContentBaseUrl = Services.LessonContentService.DefaultBaseUrl;
 
     public static App Instance { get; private set; }
 
@@ -44,7 +45,7 @@ public class App : MonoBehaviour
         ProfileItemsService = new ProfileItemsService(itemCatalog, ProfileService);
 
         LessonService = new LessonService(ProfileService, itemCatalog);
-        LessonContentService = new OpenAiLessonContentService();
+        LessonContentService = new LessonContentService(lessonContentBaseUrl);
     }
 
     private void Start()
