@@ -68,12 +68,17 @@ public class LessonContentService {
         );
     }
 
+    public LessonContentDtos.ReadTogetherLessonResponse generateReadTogether(LessonContentDtos.LessonRequest request) {
+        LessonRequestContext context = contextFor(request.lessonId(), request.questionCount(), List.of(), LessonType.READ_TOGETHER);
+        return openAiResponsesClient.generate(
+                context,
+                LessonContentDtos.ReadTogetherLessonResponse.class,
+                response -> validator.validateReadTogether(response, context.questionCount())
+        );
+    }
+
     private LessonRequestContext contextFor(String lessonIdValue, int questionCount, List<String> rawShapeIds, LessonType expectedType) {
         LessonId lessonId = LessonId.fromClientValue(lessonIdValue);
-
-        if (lessonId.type() == LessonType.READ_TOGETHER) {
-            throw new ApiException(HttpStatus.NOT_IMPLEMENTED, "LESSON_NOT_IMPLEMENTED", "EnglishReadTogether is not implemented");
-        }
 
         if (lessonId.type() != expectedType) {
             throw new ApiException(

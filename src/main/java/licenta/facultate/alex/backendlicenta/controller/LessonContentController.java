@@ -39,4 +39,9 @@ public class LessonContentController {
     public LessonContentDtos.WriteCorrectlyLessonResponse writeCorrectly(@Valid @RequestBody LessonContentDtos.LessonRequest request) {
         return lessonContentService.generateWriteCorrectly(request);
     }
+
+    @PostMapping("/read-together")
+    public LessonContentDtos.ReadTogetherLessonResponse readTogether(@Valid @RequestBody LessonContentDtos.LessonRequest request) {
+        return lessonContentService.generateReadTogether(request);
+    }
 }

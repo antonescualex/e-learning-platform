@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -13,6 +14,7 @@ import java.util.regex.Pattern;
 @Component
 public class LessonValidator {
     private static final Pattern HYPHENATED = Pattern.compile("^[A-Za-z]+(?:-[A-Za-z]+)+$");
+    private static final Pattern READ_TOGETHER_ALLOWED = Pattern.compile("^[A-Za-z ]+(?:\\.[ ]*[A-Za-z ]+)?\\.?$");
 
     public List<String> validateTextChoice(LessonContentDtos.TextChoiceLessonResponse response, int expectedCount) {
         List<String> errors = new ArrayList<>();
@@ -113,6 +115,48 @@ public class LessonValidator {
         return errors;
     }
 
+    public List<String> validateReadTogether(LessonContentDtos.ReadTogetherLessonResponse response, int expectedCount) {
+        List<String> errors = new ArrayList<>();
+        if (response == null || response.questions() == null) {
+            errors.add("Questions is required");
+            return errors;
+        }
+        if (response.questions().size() != expectedCount) {
+            errors.add("Questions must contain exactly " + expectedCount + " items");
+        }
+
+        Set<String> normalizedPassages = new HashSet<>();
+        for (int i = 0; i < response.questions().size(); i++) {
+            var q = response.questions().get(i);
+            if (isBlank(q.passageText())) {
+                errors.add("Question " + i + ": PassageText is required");
+                continue;
+            }
+
+            String passage = q.passageText().trim();
+            if (passage.length() > 80) errors.add("Question " + i + ": PassageText must be short");
+            if (!READ_TOGETHER_ALLOWED.matcher(passage).matches()) {
+                errors.add("Question " + i + ": PassageText must use only letters, spaces, and periods");
+            }
+
+            int sentences = sentenceCount(passage);
+            if (sentences < 1 || sentences > 2) {
+                errors.add("Question " + i + ": PassageText must be one short sentence or two very short sentences");
+            }
+
+            int words = wordCount(passage);
+            if (words < 4 || words > 10) {
+                errors.add("Question " + i + ": PassageText must contain 4 to 10 words");
+            }
+
+            String normalizedPassage = normalizeReadTogether(passage);
+            if (!normalizedPassages.add(normalizedPassage)) {
+                errors.add("Question " + i + ": PassageText must be unique");
+            }
+        }
+        return errors;
+    }
+
     private void validateAnswers(List<String> answers, int correctAnswerIndex, List<String> errors, int index) {
         if (answers == null || answers.size() != 4) {
             errors.add("Question " + index + ": Answers must contain exactly 4 items");
@@ -136,5 +180,33 @@ public class LessonValidator {
 
     private boolean isBlank(String value) {
         return value == null || value.isBlank();
+    }
+
+    private int sentenceCount(String value) {
+        int count = 0;
+        for (String sentence : value.split("\\.")) {
+            if (!sentence.isBlank()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private int wordCount(String value) {
+        int count = 0;
+        for (String token : value.split("\\s+")) {
+            String word = token.replace(".", "").trim();
+            if (!word.isBlank()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private String normalizeReadTogether(String value) {
+        return value.toLowerCase(Locale.ROOT)
+                .replace('.', ' ')
+                .replaceAll("\\s+", " ")
+                .trim();
     }
 }

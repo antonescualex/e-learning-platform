@@ -17,7 +17,7 @@ public enum LessonId {
     MATHEMATICS_WHAT_IS_THE_TIME("MathematicsWhatIsTheTime", LessonType.CLOCK, "Read clocks and select matching HH:mm times."),
     ENGLISH_SYLLABLE_DIVISION("EnglishSyllableDivision", LessonType.SYLLABLE_DIVISION, "Split simple English words into syllables."),
     ENGLISH_WRITE_CORRECTLY("EnglishWriteCorrectly", LessonType.WRITE_CORRECTLY, "Correct short English sentences for children."),
-    ENGLISH_READ_TOGETHER("EnglishReadTogether", LessonType.READ_TOGETHER, "Not implemented yet.");
+    ENGLISH_READ_TOGETHER("EnglishReadTogether", LessonType.READ_TOGETHER, "Very short English read-aloud passages for children.");
 
     private final String clientValue;
     private final LessonType type;

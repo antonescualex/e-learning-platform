@@ -41,6 +41,9 @@ public final class LessonContentDtos {
     public record WriteCorrectlyLessonResponse(@JsonProperty("Questions") List<WriteCorrectlyQuestionDto> questions) {
     }
 
+    public record ReadTogetherLessonResponse(@JsonProperty("Questions") List<ReadTogetherQuestionDto> questions) {
+    }
+
     public record TextChoiceQuestionDto(
             @JsonProperty("QuestionText") String questionText,
             @JsonProperty("Answers") List<String> answers,
@@ -72,6 +75,11 @@ public final class LessonContentDtos {
     public record WriteCorrectlyQuestionDto(
             @JsonProperty("SentenceText") String sentenceText,
             @JsonProperty("ExpectedAnswer") String expectedAnswer
+    ) {
+    }
+
+    public record ReadTogetherQuestionDto(
+            @JsonProperty("PassageText") String passageText
     ) {
     }
 

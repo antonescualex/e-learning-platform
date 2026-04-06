@@ -48,6 +48,16 @@ public class LessonDefinitionFactory {
             sb.append("Do not introduce grammar mistakes into SentenceText.\n");
         }
 
+        if (context.lessonType() == LessonType.READ_TOGETHER) {
+            sb.append("Each item must contain only PassageText.\n");
+            sb.append("PassageText must contain 4 to 10 words total.\n");
+            sb.append("Use one short sentence or two very short sentences in simple present tense.\n");
+            sb.append("Keep passages easy to read aloud for speech recognition.\n");
+            sb.append("Use only simple words and periods when punctuation is needed.\n");
+            sb.append("Do not use numbers, abbreviations, names, quotes, answer options, blanks, or questions.\n");
+            sb.append("All passages must be different.\n");
+        }
+
         if (repairNotes != null && !repairNotes.isBlank()) {
             sb.append("Previous response was invalid. Regenerate the entire JSON and fix exactly these problems:\n");
             sb.append(repairNotes).append("\n");
@@ -63,6 +73,7 @@ public class LessonDefinitionFactory {
             case CLOCK -> clockSchema(context.questionCount());
             case SYLLABLE_DIVISION -> syllableSchema(context.questionCount());
             case WRITE_CORRECTLY -> writeCorrectlySchema(context.questionCount());
+            case READ_TOGETHER -> readTogetherSchema(context.questionCount());
             default -> throw new IllegalStateException("No schema for lesson type " + context.lessonType());
         };
     }
@@ -103,6 +114,15 @@ public class LessonDefinitionFactory {
                 SentenceText: "The cat is sleeping."
                 ExpectedAnswer: "the cat is sleeping"
                 """;
+            case READ_TOGETHER -> """
+                    Each item must contain only PassageText.
+                    PassageText must be a very short child-friendly English read-aloud passage.
+                    Use one short sentence or two very short sentences.
+                    Keep each passage at about 4 to 10 words total.
+                    Prefer simple present-tense wording with familiar words.
+                    Avoid numbers, abbreviations, names, quotes, semicolons, answer options, blanks, and unusual punctuation.
+                    All PassageText values must be different.
+                    """;
             default -> "";
         };
     }
@@ -248,6 +268,36 @@ public class LessonDefinitionFactory {
                           "ExpectedAnswer": { "type": "string", "minLength": 1, "maxLength": 80 }
                         },
                         "required": ["SentenceText", "ExpectedAnswer"]
+                      }
+                    }
+                  },
+                  "required": ["Questions"]
+                }
+                """.formatted(count, count));
+    }
+
+    private JsonNode readTogetherSchema(int count) {
+        return read("""
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "Questions": {
+                      "type": "array",
+                      "minItems": %d,
+                      "maxItems": %d,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "PassageText": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 80,
+                            "pattern": "^[A-Za-z ]+(?:\\\\.[ ]*[A-Za-z ]+)?\\\\.?$"
+                          }
+                        },
+                        "required": ["PassageText"]
                       }
                     }
                   },
