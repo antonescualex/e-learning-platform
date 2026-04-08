@@ -1,4 +1,4 @@
-﻿using System;
+using App;
 using Data.StaticData;
 using Data.StaticData.Avatar;
 using Services;
@@ -19,7 +19,7 @@ namespace UIScripts.MainMenu
 
         private void Awake()
         {
-            _profileService = App.Instance.ProfileService;
+            ServiceContainer.TryResolve<IProfileService>(out _profileService);
             _toggles = GetComponentsInChildren<Toggle>();
         }
 

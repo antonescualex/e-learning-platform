@@ -11,7 +11,7 @@ namespace Services.Interfaces
         IEnumerator GenerateTextChoiceLesson(
             LessonId lessonId,
             int questionCount,
-            Action<List<TextMathsQuestionDefinition>> onSuccess,
+            Action<List<TextQuestionDefinition>> onSuccess,
             Action<string> onError);
 
         IEnumerator GenerateClockLesson(

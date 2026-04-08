@@ -1,4 +1,5 @@
-using Data.StaticData;
+using Data;
+using Data.StaticData.Accessory;
 using Data.StaticData.Item;
 using Repositories;
 using Services;
@@ -8,75 +9,92 @@ using UIScripts.Bootstrap;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class App : MonoBehaviour
+namespace App
 {
-    private static readonly float LOADING_TIME = 1.5f;
-
-    [SerializeField] private ItemCatalog itemCatalog;
-    [SerializeField] private string lessonContentBaseUrl = Services.LessonContentService.DefaultBaseUrl;
-
-    public static App Instance { get; private set; }
-
-    public IProfileService ProfileService { get; private set; }
-    public ISettingsService SettingsService { get; private set; }
-    public IProfileItemsService ProfileItemsService { get; private set; }
-    public ILessonService LessonService { get; private set; }
-    public ILessonContentService LessonContentService { get; private set; }
-
-    private void Awake()
+    public class App : MonoBehaviour
     {
-        if (Instance != null)
+        private static readonly float LOADING_TIME = 1.5f;
+
+        [SerializeField] private BadgeCatalog badgeCatalog;
+        [SerializeField] private BoosterCatalog boosterCatalog;
+        [SerializeField] private RewardCatalog rewardCatalog;
+        [SerializeField] private AccessoryCatalog accessoryCatalog;
+        [SerializeField] private string lessonContentBaseUrl = global::Services.LessonContentService.DefaultBaseUrl;
+
+        public static App Instance { get; private set; }
+
+        private void Awake()
         {
-            Destroy(gameObject);
-            return;
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+            ServiceContainer.Reset();
+
+            IStorage storage = new JsonStorage("E-LearningApp");
+            ServiceContainer.Register<IStorage>(storage);
+
+            var profileRepository = new ProfileRepository(storage);
+            ServiceContainer.Register<IRepository<ProfileData>>(profileRepository);
+
+            var settingsRepository = new SettingsRepository(storage);
+            ServiceContainer.Register<IRepository<SettingsData>>(settingsRepository);
+
+            var profileService = new ProfileService(profileRepository);
+            ServiceContainer.Register<IProfileService>(profileService);
+
+            var settingsService = new SettingsService(settingsRepository);
+            settingsService.LoadOrDefault();
+            ServiceContainer.Register<ISettingsService>(settingsService);
+
+            ServiceContainer.Register<IProfileItemsService>(
+                new ProfileItemsService(badgeCatalog, boosterCatalog, rewardCatalog, profileService));
+            ServiceContainer.Register<ILessonService>(new LessonService(profileService, boosterCatalog, rewardCatalog));
+            ServiceContainer.Register<ILessonContentService>(new LessonContentService(lessonContentBaseUrl));
+            ServiceContainer.Register<IInventoryService>(new InventoryService(accessoryCatalog, profileService));
+            ServiceContainer.Register<IShopService>(new ShopService(accessoryCatalog, profileService));
         }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
 
-        IStorage storage = new JsonStorage("E-LearningApp");
-
-        var profileRepository = new ProfileRepository(storage);
-        ProfileService = new ProfileService(profileRepository);
-
-        var settingsRepository = new SettingsRepository(storage);
-        SettingsService = new SettingsService(settingsRepository);
-        SettingsService.LoadOrDefault();
-
-        ProfileItemsService = new ProfileItemsService(itemCatalog, ProfileService);
-
-        LessonService = new LessonService(ProfileService, itemCatalog);
-        LessonContentService = new LessonContentService(lessonContentBaseUrl);
-    }
-
-    private void Start()
-    {
-        if (AudioManager.Instance != null)
+        private void Start()
         {
-            AudioManager.Instance.ApplySettings(SettingsService.CurrentSettings);
+            ISettingsService settingsService = ServiceContainer.Resolve<ISettingsService>();
+            IProfileService profileService = ServiceContainer.Resolve<IProfileService>();
+
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.ApplySettings(settingsService.CurrentSettings);
+            }
+
+            if (profileService.TryLoadProfile())
+            {
+                Invoke("LoadMainMenuScene", LOADING_TIME);
+            }
+            else
+            {
+                Invoke("LoadCreateProfileScene", LOADING_TIME);
+            }
         }
 
-        if (ProfileService.TryLoadProfile())
+        private void LoadMainMenuScene()
         {
-            Invoke("LoadMainMenuScene", LOADING_TIME);
+            SceneManager.LoadScene("MainMenu");
         }
-        else
+
+        private void LoadCreateProfileScene()
         {
-            Invoke("LoadCreateProfileScene", LOADING_TIME);
+            SceneManager.LoadScene("CreateProfile");
         }
-    }
 
-    private void LoadMainMenuScene()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    private void LoadCreateProfileScene()
-    {
-        SceneManager.LoadScene("CreateProfile");
-    }
-
-    private void OnApplicationQuit()
-    {
-        ProfileService?.SaveProfile();
+        private void OnApplicationQuit()
+        {
+            if (ServiceContainer.TryResolve<IProfileService>(out IProfileService profileService))
+            {
+                profileService.SaveProfile();
+            }
+        }
     }
 }

@@ -1,23 +1,26 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public class SettingsData
+namespace Data
 {
-    public bool MusicEnabled = true;
-    public bool SfxEnabled = true;
-    
-    [Range(0f, 1f)] public float MusicVolume = 0.2f;
-    [Range(0f, 1f)] public float SfxVolume = 0.2f;
-
-    public SettingsData Copy()
+    [Serializable]
+    public class SettingsData
     {
-        return new SettingsData
+        public bool MusicEnabled = true;
+        public bool SfxEnabled = true;
+    
+        [Range(0f, 1f)] public float MusicVolume = 0.2f;
+        [Range(0f, 1f)] public float SfxVolume = 0.2f;
+
+        public SettingsData Copy()
         {
-            MusicEnabled = MusicEnabled,
-            MusicVolume = MusicVolume,
-            SfxEnabled = SfxEnabled,
-            SfxVolume = SfxVolume
-        };
+            return new SettingsData
+            {
+                MusicEnabled = MusicEnabled,
+                MusicVolume = MusicVolume,
+                SfxEnabled = SfxEnabled,
+                SfxVolume = SfxVolume
+            };
+        }
     }
 }

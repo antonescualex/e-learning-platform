@@ -1,4 +1,4 @@
-﻿using Data.StaticData;
+using System;
 using Data.StaticData.Item;
 using TMPro;
 using UnityEngine;
@@ -14,8 +14,27 @@ namespace UIScripts.MainMenu.Profile
         [SerializeField] private TMP_Text label;
         [SerializeField] private Animator animator;
         [SerializeField] private GameObject imageWithShadow;
+        [SerializeField] private Button clickButton;
 
-        public void Bind(ItemDefinition itemDefinition)
+        private Action _clickHandler;
+
+        private void Awake()
+        {
+            if (clickButton != null)
+            {
+                clickButton.onClick.AddListener(OnClickPressed);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (clickButton != null)
+            {
+                clickButton.onClick.RemoveListener(OnClickPressed);
+            }
+        }
+
+        public void Bind(ProfileItemDefinition itemDefinition)
         {
             if (itemDefinition == null)
             {
@@ -26,8 +45,13 @@ namespace UIScripts.MainMenu.Profile
             if (iconImage != null) iconImage.sprite = itemDefinition.Icon;
             if (shadowImage != null) shadowImage.sprite = itemDefinition.Icon;
             if (label != null) label.text = itemDefinition.DisplayName;
-            spinner.gameObject.SetActive(false);
+            if (spinner != null) spinner.gameObject.SetActive(false);
             gameObject.SetActive(true);
+        }
+
+        public void SetClickHandler(Action clickHandler)
+        {
+            _clickHandler = clickHandler;
         }
 
         public void Hide()
@@ -68,6 +92,11 @@ namespace UIScripts.MainMenu.Profile
                 animator.Play("Pop", 0, 0f);
                 animator.Update(0f);
             }
+        }
+
+        private void OnClickPressed()
+        {
+            _clickHandler?.Invoke();
         }
     }
 }

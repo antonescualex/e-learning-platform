@@ -1,22 +1,21 @@
-﻿using System;
+using System;
 using Enums;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Data.StaticData.Item
 {
     [Serializable]
-    public class ItemDefinition
+    public class ItemDefinition : ProfileItemDefinition
     {
-        public string Id;
-        public ProfileItemCateogory Cateogory;
-
-        public string DisplayName;
-        public Sprite Icon;
+        [FormerlySerializedAs("Cateogory")] public ProfileItemCategory category;
 
         [Header("Booster")]
         public BoosterType BoosterType;
         public int DurationSeconds;
 
         [Header("Rewards")] public RewardType RewardType;
+
+        public override ProfileItemCategory Category => category;
     }
 }

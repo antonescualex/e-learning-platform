@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections;
+using App;
 using Data.StaticData;
 using Data.StaticData.Accessory;
 using Services;
@@ -29,9 +30,9 @@ namespace UIScripts.MainMenu.Shop
         public void OpenShop()
         {
             if (_currentPopup != null) return;
-            if (_shopService == null && App.Instance != null)
+            if (_shopService == null)
             {
-                _shopService = new ShopService(catalog, App.Instance.ProfileService);
+                ServiceContainer.TryResolve<IShopService>(out _shopService);
             }
             StartCoroutine(OpenShopWithDelay());
         }
@@ -57,7 +58,7 @@ namespace UIScripts.MainMenu.Shop
             _currentPopup = Instantiate(shopPopupPrefab, canvas.transform);
             _currentPopup.transform.SetAsLastSibling();
 
-            var popup = _currentPopup.GetComponent<ShopPopup>();
+            var popup = _currentPopup.GetComponent<ShopView>();
             popup.Init(_shopService, this);
 
             _currentPopup.GetComponent<Ricimi.Popup>()?.Open();

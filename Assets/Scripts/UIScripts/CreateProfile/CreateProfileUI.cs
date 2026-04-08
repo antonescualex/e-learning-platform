@@ -1,5 +1,4 @@
-using System;
-using Services;
+using App;
 using Services.Interfaces;
 using TMPro;
 using UnityEngine;
@@ -17,7 +16,7 @@ namespace UIScripts.CreateProfile
 
         private void Start()
         {
-            _profileService = App.Instance.ProfileService;
+            ServiceContainer.TryResolve<IProfileService>(out _profileService);
         }
 
         private void Awake()
@@ -34,7 +33,9 @@ namespace UIScripts.CreateProfile
 
         private void OnEnterClicked()
         {
-            App.Instance.ProfileService.CreateNewProfile(playerNameInputField.text.Trim());
+            if (_profileService == null) return;
+
+            _profileService.CreateNewProfile(playerNameInputField.text.Trim());
             SceneManager.LoadScene("MainMenu");
         }
     }

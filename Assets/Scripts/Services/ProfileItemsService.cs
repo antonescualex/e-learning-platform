@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Data.StaticData;
+using System.Collections.Generic;
 using Data.StaticData.Item;
 using Enums;
 using Services.Interfaces;
@@ -9,26 +8,36 @@ namespace Services
 {
     public class ProfileItemsService : IProfileItemsService
     {
-        private readonly ItemCatalog _catalog;
+        private readonly BadgeCatalog _badgeCatalog;
+        private readonly BoosterCatalog _boosterCatalog;
+        private readonly RewardCatalog _rewardCatalog;
         private readonly IProfileService _profileService;
 
-        public ProfileItemsService(ItemCatalog catalog, IProfileService profileService)
+        public ProfileItemsService(
+            BadgeCatalog badgeCatalog,
+            BoosterCatalog boosterCatalog,
+            RewardCatalog rewardCatalog,
+            IProfileService profileService)
         {
-            _catalog = catalog;
+            _badgeCatalog = badgeCatalog;
+            _boosterCatalog = boosterCatalog;
+            _rewardCatalog = rewardCatalog;
             _profileService = profileService;
         }
 
-        public IReadOnlyList<ItemDefinition> GetAllItems(ProfileItemCateogory profileItemCateogory)
+        public IReadOnlyList<ProfileItemDefinition> GetAllItems(ProfileItemCategory profileItemCategory)
         {
-            if (_profileService == null || !_profileService.HasProfile) return null;
-            if (_catalog == null) return null;
+            var result = new List<ProfileItemDefinition>();
+            if (_profileService == null || !_profileService.HasProfile) return result;
 
-            var result = new List<ItemDefinition>();
-            var ids = _profileService.ProfileData.GetItemIds(profileItemCateogory);
+            ProfileItemCatalogBase catalog = GetCatalog(profileItemCategory);
+            if (catalog == null) return result;
 
-            foreach (var id in ids)
+            IReadOnlyList<string> ids = _profileService.ProfileData.GetItemIds(profileItemCategory);
+
+            foreach (string id in ids)
             {
-                var definition = _catalog.GetById(id);
+                ProfileItemDefinition definition = catalog.GetById(id);
                 if (definition != null)
                 {
                     result.Add(definition);
@@ -38,20 +47,21 @@ namespace Services
             return result;
         }
 
-        public IReadOnlyList<ItemDefinition> GetTopItems(ProfileItemCateogory cateogory,
-            int count = 4)
+        public IReadOnlyList<ProfileItemDefinition> GetTopItems(ProfileItemCategory category, int count = 4)
         {
-            var result = new List<ItemDefinition>(count);
+            var result = new List<ProfileItemDefinition>(count);
 
             if (_profileService == null || !_profileService.HasProfile) return result;
-            if (_catalog == null) return result;
 
-            var ids = _profileService.ProfileData.GetItemIds(cateogory);
+            ProfileItemCatalogBase catalog = GetCatalog(category);
+            if (catalog == null) return result;
+
+            IReadOnlyList<string> ids = _profileService.ProfileData.GetItemIds(category);
             int pageSize = Mathf.Min(count, ids.Count);
 
             for (int i = 0; i < pageSize; i++)
             {
-                var definition = _catalog.GetById(ids[i]);
+                ProfileItemDefinition definition = catalog.GetById(ids[i]);
                 if (definition != null)
                 {
                     result.Add(definition);
@@ -59,6 +69,21 @@ namespace Services
             }
 
             return result;
+        }
+
+        private ProfileItemCatalogBase GetCatalog(ProfileItemCategory category)
+        {
+            switch (category)
+            {
+                case ProfileItemCategory.Badges:
+                    return _badgeCatalog;
+                case ProfileItemCategory.Boosters:
+                    return _boosterCatalog;
+                case ProfileItemCategory.Rewards:
+                    return _rewardCatalog;
+                default:
+                    return null;
+            }
         }
     }
 }

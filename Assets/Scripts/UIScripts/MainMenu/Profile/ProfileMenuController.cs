@@ -1,5 +1,6 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
+using App;
 using Services;
 using Services.Interfaces;
 using UnityEngine;
@@ -22,8 +23,8 @@ namespace UIScripts.MainMenu.Profile
 
         private void Start()
         {
-            _profileService = App.Instance.ProfileService;
-            _itemsService = App.Instance.ProfileItemsService;
+            ServiceContainer.TryResolve<IProfileService>(out _profileService);
+            ServiceContainer.TryResolve<IProfileItemsService>(out _itemsService);
         }
 
         public void OpenProfile()
@@ -55,7 +56,7 @@ namespace UIScripts.MainMenu.Profile
             _currentPopup = Instantiate(profilePopup, canvas.transform);
             _currentPopup.transform.SetAsLastSibling();
 
-            var popup = _currentPopup.GetComponent<ProfilePopup>();
+            var popup = _currentPopup.GetComponent<ProfileView>();
             popup.Init(this, _profileService, _itemsService);
 
             _currentPopup.GetComponent<Ricimi.Popup>()?.Open();

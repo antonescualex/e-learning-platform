@@ -1,7 +1,10 @@
 using System.Collections;
+using App;
 using Lessons;
+using Services.Interfaces;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace UIScripts.MainMenu.Learn
 {
@@ -9,7 +12,7 @@ namespace UIScripts.MainMenu.Learn
     {
         [Header("Popups")]
         [SerializeField] private GameObject subjectPopupPrefab;
-        [SerializeField] private GameObject mathsPopupPrefab;
+        [FormerlySerializedAs("mathsPopupPrefab")] [SerializeField] private GameObject mathematicsPopupPrefab;
         [SerializeField] private GameObject englishPopupPrefab;
 
         [Header("Main Menu")]
@@ -18,11 +21,11 @@ namespace UIScripts.MainMenu.Learn
         [SerializeField] private Canvas canvas;
 
         private GameObject _currentSubjectPopup;
-        private GameObject _currentMathsPopup;
+        private GameObject _currentMathematicsPopup;
         private GameObject _currentEnglishPopup;
 
         public void OpenSubjectPopup() => StartCoroutine(OpenSubjectPopupDelay());
-        public void OpenMathsPopup() => StartCoroutine(OpenMathsPopupDelay());
+        public void OpenMathematicsPopup() => StartCoroutine(OpenMathematicsPopupDelay());
         public void OpenEnglishPopup() => StartCoroutine(OpenEnglishPopupDelay());
 
         public IEnumerator OpenSubjectPopupDelay()
@@ -34,13 +37,13 @@ namespace UIScripts.MainMenu.Learn
             _currentSubjectPopup = Instantiate(subjectPopupPrefab, canvas.transform);
             _currentSubjectPopup.transform.SetAsLastSibling();
 
-            var popup = _currentSubjectPopup.GetComponent<SubjectPopup>();
+            var popup = _currentSubjectPopup.GetComponent<SubjectView>();
             popup.Init(this);
 
             _currentSubjectPopup.GetComponent<Ricimi.Popup>()?.Open();
         }
 
-        public IEnumerator OpenMathsPopupDelay()
+        public IEnumerator OpenMathematicsPopupDelay()
         {
             yield return new WaitForSeconds(0.15f);
 
@@ -52,13 +55,13 @@ namespace UIScripts.MainMenu.Learn
                 yield return new WaitForSeconds(0.15f);
             }
 
-            _currentMathsPopup = Instantiate(mathsPopupPrefab, canvas.transform);
-            _currentMathsPopup.transform.SetAsLastSibling();
+            _currentMathematicsPopup = Instantiate(mathematicsPopupPrefab, canvas.transform);
+            _currentMathematicsPopup.transform.SetAsLastSibling();
 
-            var popup = _currentMathsPopup.GetComponent<MathsPopup>();
+            var popup = _currentMathematicsPopup.GetComponent<MathematicsView>();
             popup.Init(this);
 
-            _currentMathsPopup.GetComponent<Ricimi.Popup>()?.Open();
+            _currentMathematicsPopup.GetComponent<Ricimi.Popup>()?.Open();
         }
 
         public IEnumerator OpenEnglishPopupDelay()
@@ -76,7 +79,7 @@ namespace UIScripts.MainMenu.Learn
             _currentEnglishPopup = Instantiate(englishPopupPrefab, canvas.transform);
             _currentEnglishPopup.transform.SetAsLastSibling();
 
-            var popup = _currentEnglishPopup.GetComponent<EnglishPopup>();
+            var popup = _currentEnglishPopup.GetComponent<EnglishView>();
             popup.Init(this);
 
             _currentEnglishPopup.GetComponent<Ricimi.Popup>()?.Open();
@@ -94,14 +97,14 @@ namespace UIScripts.MainMenu.Learn
             }
         }
 
-        public void CloseMathsPopup()
+        public void CloseMathematicsPopup()
         {
             CloseSubjectPopup();
 
-            if (_currentMathsPopup != null)
+            if (_currentMathematicsPopup != null)
             {
-                _currentMathsPopup.GetComponent<Ricimi.Popup>()?.Close();
-                _currentMathsPopup = null;
+                _currentMathematicsPopup.GetComponent<Ricimi.Popup>()?.Close();
+                _currentMathematicsPopup = null;
             }
         }
 
@@ -118,9 +121,12 @@ namespace UIScripts.MainMenu.Learn
 
         public void StartLesson(LessonId lessonId)
         {
-            if (App.Instance == null || App.Instance.LessonService == null) return;
+            if (!ServiceContainer.TryResolve<ILessonService>(out ILessonService lessonService))
+            {
+                return;
+            }
 
-            App.Instance.LessonService.StartLesson(lessonId);
+            lessonService.StartLesson(lessonId);
             SceneManager.LoadScene("LessonScene");
         }
 

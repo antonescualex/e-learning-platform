@@ -442,6 +442,41 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 5
+--- !u!1 &973504919886620033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6008943308515221747}
+  m_Layer: 5
+  m_Name: PopupsLayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6008943308515221747
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973504919886620033}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6935472933640669046}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1354855643310302137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,6 +1116,7 @@ MonoBehaviour:
   label: {fileID: 6316084669309793410}
   animator: {fileID: 2876488600423192868}
   imageWithShadow: {fileID: 2737363717041602481}
+  clickButton: {fileID: 0}
 --- !u!1 &2453906211301892861
 GameObject:
   m_ObjectHideFlags: 0
@@ -2423,6 +2459,7 @@ MonoBehaviour:
   label: {fileID: 3915054864877138137}
   animator: {fileID: 7190636066356665387}
   imageWithShadow: {fileID: 0}
+  clickButton: {fileID: 0}
 --- !u!1 &5243405538091076846
 GameObject:
   m_ObjectHideFlags: 0
@@ -2599,6 +2636,7 @@ MonoBehaviour:
   label: {fileID: 5823347608273703918}
   animator: {fileID: 7323042220169319581}
   imageWithShadow: {fileID: 0}
+  clickButton: {fileID: 0}
 --- !u!1 &5654696579892848739
 GameObject:
   m_ObjectHideFlags: 0
@@ -3737,6 +3775,7 @@ RectTransform:
   - {fileID: 5721403956650619939}
   - {fileID: 2289760271488624788}
   - {fileID: 2907775862600711844}
+  - {fileID: 6008943308515221747}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3805,6 +3844,10 @@ MonoBehaviour:
   categoryDropwdown: {fileID: 3742978037188742365}
   itemsContainer: {fileID: 5661911673971553126}
   itemPrefab: {fileID: 3314914300274017020, guid: f109de87d543e354892008892e74e2cc, type: 3}
+  itemPopupParent: {fileID: 6008943308515221747}
+  badgePopupPrefab: {fileID: 3692242985089613756, guid: d8445c18c3d89394b89cecf2cb7e4a2f, type: 3}
+  boosterPopupPrefab: {fileID: 0}
+  rewardPopupPrefab: {fileID: 0}
 --- !u!1 &8580823579853543874
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,6 @@
-﻿using Services;
+using App;
+using Data;
+using Services;
 using Services.Interfaces;
 using UIScripts.Bootstrap;
 using UnityEngine;
@@ -17,7 +19,7 @@ namespace UIScripts.MainMenu.Settings
 
         private void Start()
         {
-            _settingsService = App.Instance.SettingsService;
+            ServiceContainer.TryResolve<ISettingsService>(out _settingsService);
         }
 
         public void OpenSettings()
@@ -29,7 +31,7 @@ namespace UIScripts.MainMenu.Settings
             currentPopup = Instantiate(settingsPopup, canvas.transform);
             currentPopup.transform.SetAsLastSibling();
 
-            var popup = currentPopup.GetComponent<SettingsPopup>();
+            var popup = currentPopup.GetComponent<SettingsView>();
             popup.Init(this, _settingsService.CurrentSettings.Copy());
 
             currentPopup.GetComponent<Ricimi.Popup>()?.Open();
@@ -42,7 +44,9 @@ namespace UIScripts.MainMenu.Settings
 
         public void Save(SettingsData editedSettings)
         {
-            App.Instance.SettingsService.Save(editedSettings);
+            if (_settingsService == null) return;
+
+            _settingsService.Save(editedSettings);
             AudioManager.Instance?.ApplySettings(_settingsService.CurrentSettings);
             Close();
         }

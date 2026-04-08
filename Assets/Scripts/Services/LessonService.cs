@@ -16,7 +16,8 @@ namespace Services
         private const float BoosterOnlyChanceWhenBothAvailable = 0.45f;
 
         private readonly IProfileService _profileService;
-        private readonly ItemCatalog _itemCatalog;
+        private readonly BoosterCatalog _boosterCatalog;
+        private readonly RewardCatalog _rewardCatalog;
 
         private readonly int _baseCoinsReward = 10;
         private readonly int _baseExperienceReward = 20;
@@ -25,10 +26,14 @@ namespace Services
 
         private LessonId? _activeLessonId;
 
-        public LessonService(IProfileService profileService, ItemCatalog itemCatalog)
+        public LessonService(
+            IProfileService profileService,
+            BoosterCatalog boosterCatalog,
+            RewardCatalog rewardCatalog)
         {
             _profileService = profileService;
-            _itemCatalog = itemCatalog;
+            _boosterCatalog = boosterCatalog;
+            _rewardCatalog = rewardCatalog;
         }
 
         public void StartLesson(LessonId lessonId)
@@ -71,7 +76,7 @@ namespace Services
         {
             int coinsReward = _baseCoinsReward + correctAnswers * _coinsPerCorrectAnswer;
             int experienceReward = _baseExperienceReward + correctAnswers * _experiencePerCorrectAnswer;
-            ResolveSpecialDrops(out ItemDefinition awardedBooster, out ItemDefinition awardedReward);
+            ResolveSpecialDrops(out BoosterDefinition awardedBooster, out RewardDefinition awardedReward);
 
             return new LessonCompletionResult(
                 lessonId,
@@ -100,7 +105,7 @@ namespace Services
             }
         }
 
-        private void ResolveSpecialDrops(out ItemDefinition awardedBooster, out ItemDefinition awardedReward)
+        private void ResolveSpecialDrops(out BoosterDefinition awardedBooster, out RewardDefinition awardedReward)
         {
             awardedBooster = null;
             awardedReward = null;
@@ -111,8 +116,8 @@ namespace Services
                 return;
             }
 
-            List<ItemDefinition> boosters = GetAvailableItems(ProfileItemCateogory.Boosters);
-            List<ItemDefinition> rewards = GetAvailableItems(ProfileItemCateogory.Rewards);
+            List<BoosterDefinition> boosters = GetAvailableBoosters();
+            List<RewardDefinition> rewards = GetAvailableRewards();
             bool hasBoosters = boosters.Count > 0;
             bool hasRewards = rewards.Count > 0;
 
@@ -160,16 +165,16 @@ namespace Services
             return UnityEngine.Random.value <= chance;
         }
 
-        private List<ItemDefinition> GetAvailableItems(ProfileItemCateogory category)
+        private List<BoosterDefinition> GetAvailableBoosters()
         {
-            var items = new List<ItemDefinition>();
-            if (_itemCatalog == null || _itemCatalog.Items == null) return items;
+            var items = new List<BoosterDefinition>();
+            IReadOnlyList<BoosterDefinition> definitions = _boosterCatalog?.BoosterDefinitions;
+            if (definitions == null) return items;
 
-            for (int i = 0; i < _itemCatalog.Items.Count; i++)
+            for (int i = 0; i < definitions.Count; i++)
             {
-                ItemDefinition item = _itemCatalog.Items[i];
+                BoosterDefinition item = definitions[i];
                 if (item == null || string.IsNullOrEmpty(item.Id)) continue;
-                if (item.Cateogory != category) continue;
 
                 items.Add(item);
             }
@@ -177,7 +182,27 @@ namespace Services
             return items;
         }
 
-        private static ItemDefinition PickWeightedItem(List<ItemDefinition> items, Func<ItemDefinition, int> weightResolver)
+        private List<RewardDefinition> GetAvailableRewards()
+        {
+            var items = new List<RewardDefinition>();
+            IReadOnlyList<RewardDefinition> definitions = _rewardCatalog?.RewardDefinitions;
+            if (definitions == null) return items;
+
+            for (int i = 0; i < definitions.Count; i++)
+            {
+                RewardDefinition item = definitions[i];
+                if (item == null || string.IsNullOrEmpty(item.Id)) continue;
+
+                items.Add(item);
+            }
+
+            return items;
+        }
+
+        private static TDefinition PickWeightedItem<TDefinition>(
+            List<TDefinition> items,
+            Func<TDefinition, int> weightResolver)
+            where TDefinition : ProfileItemDefinition
         {
             if (items == null || items.Count == 0) return null;
 
@@ -202,7 +227,7 @@ namespace Services
             return items[items.Count - 1];
         }
 
-        private static int GetBoosterWeight(ItemDefinition item)
+        private static int GetBoosterWeight(BoosterDefinition item)
         {
             if (item == null) return 1;
             if (item.DurationSeconds >= 3600) return 25;
@@ -211,7 +236,7 @@ namespace Services
             return 40;
         }
 
-        private static int GetRewardWeight(ItemDefinition item)
+        private static int GetRewardWeight(RewardDefinition item)
         {
             if (item == null) return 1;
 

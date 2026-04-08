@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Data.StaticData;
+using System.Collections.Generic;
 using Data.StaticData.Item;
 using Enums;
 
@@ -7,9 +6,9 @@ namespace Services.Interfaces
 {
     public interface IProfileItemsService
     {
-        IReadOnlyList<ItemDefinition> GetTopItems(ProfileItemCateogory profileItemCateogory,
+        IReadOnlyList<ProfileItemDefinition> GetTopItems(ProfileItemCategory profileItemCategory,
             int count = 4);
 
-        IReadOnlyList<ItemDefinition> GetAllItems(ProfileItemCateogory profileItemCateogory);
+        IReadOnlyList<ProfileItemDefinition> GetAllItems(ProfileItemCategory profileItemCategory);
     }
 }

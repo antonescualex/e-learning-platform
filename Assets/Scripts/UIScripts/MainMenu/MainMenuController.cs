@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using App;
+using Data;
 using Data.StaticData;
 using Data.StaticData.Avatar;
 using Services;
@@ -32,14 +34,14 @@ namespace UIScripts.MainMenu
 
         private void Start()
         {
-            _profileService = App.Instance.ProfileService;
+            ServiceContainer.TryResolve<IProfileService>(out _profileService);
         }
 
         private void OnEnable()
         {
-            if (_profileService == null && App.Instance != null)
+            if (_profileService == null)
             {
-                _profileService = App.Instance.ProfileService;
+                ServiceContainer.TryResolve<IProfileService>(out _profileService);
             }
 
             if (_profileService != null)

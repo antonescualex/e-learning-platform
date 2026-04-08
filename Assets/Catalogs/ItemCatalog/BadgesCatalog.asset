@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8a7d99b06f4d33999826bdb8fbc203, type: 3}
+  m_Name: BadgesCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::Data.StaticData.Item.BadgeCatalog
+  items:
+  - Id: badge_rocket
+    DisplayName: Rocket Badge
+    Icon: {fileID: 21300000, guid: 6d3f62398865c47498a28f88408ac354, type: 3}
+    Description: This is a rocket description.
+  - Id: badge_lightning
+    DisplayName: Lightning Badge
+    Icon: {fileID: 21300000, guid: 6f1fadf451bd14ae2ae86fc338a34f60, type: 3}
+    Description: 
+  - Id: badge_time
+    DisplayName: Time Badge
+    Icon: {fileID: 21300000, guid: 0d553cdcce71f433e9a9e8b07cb09331, type: 3}
+    Description: 
+  - Id: badge_moves
+    DisplayName: Moves Badge
+    Icon: {fileID: 21300000, guid: 00eddc939769743f583671854c5f7593, type: 3}
+    Description: 

@@ -9,8 +9,8 @@ namespace Lessons
         public int CorrectAnswers { get; }
         public int CoinsReward { get; }
         public int ExperienceReward { get; }
-        public ItemDefinition AwardedBooster { get; }
-        public ItemDefinition AwardedReward { get; }
+        public BoosterDefinition AwardedBooster { get; }
+        public RewardDefinition AwardedReward { get; }
         public bool HasSpecialItems => AwardedBooster != null || AwardedReward != null;
 
         public LessonCompletionResult(
@@ -19,8 +19,8 @@ namespace Lessons
             int correctAnswers,
             int coinsReward,
             int experienceReward,
-            ItemDefinition awardedBooster = null,
-            ItemDefinition awardedReward = null)
+            BoosterDefinition awardedBooster = null,
+            RewardDefinition awardedReward = null)
         {
             LessonId = lessonId;
             TotalQuestions = totalQuestions;

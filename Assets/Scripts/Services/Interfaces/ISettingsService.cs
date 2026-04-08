@@ -1,4 +1,6 @@
-﻿namespace Services.Interfaces
+﻿using Data;
+
+namespace Services.Interfaces
 {
     public interface ISettingsService
     {

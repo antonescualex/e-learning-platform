@@ -1,4 +1,5 @@
 using System.Collections;
+using App;
 using Data.StaticData;
 using Data.StaticData.Accessory;
 using Services;
@@ -29,7 +30,7 @@ namespace UIScripts.MainMenu.Inventory
 
             if (_inventoryService == null)
             {
-                _inventoryService = new InventoryService(accessoryCatalog, App.Instance.ProfileService);
+                ServiceContainer.TryResolve<IInventoryService>(out _inventoryService);
             }
 
             StartCoroutine(OpenInventoryWithDelay());
@@ -57,7 +58,7 @@ namespace UIScripts.MainMenu.Inventory
             _currentPopup = Instantiate(inventoryPopup, canvas.transform);
             _currentPopup.transform.SetAsLastSibling();
 
-            var popup = _currentPopup.GetComponent<InventoryPopup>();
+            var popup = _currentPopup.GetComponent<InventoryView>();
             popup.Init(this, _inventoryService);
 
             _currentPopup.GetComponent<Ricimi.Popup>()?.Open();
