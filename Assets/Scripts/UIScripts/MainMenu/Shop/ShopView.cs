@@ -1,6 +1,7 @@
 using Data.StaticData;
 using Services;
 using Services.Interfaces;
+using UIScripts.Bootstrap;
 using UnityEngine;
 
 namespace UIScripts.MainMenu.Shop
@@ -32,20 +33,22 @@ namespace UIScripts.MainMenu.Shop
 
                 var itemGameObject = Instantiate(accessoryPrefab, content, false);
                 var view = itemGameObject.GetComponent<ShopItemView>();
+                if (view == null) continue;
 
                 bool isOwned = _shopService.IsOwned(definition.Id);
-                view.Setup(definition, isOwned, () => OnBuyPressed(definition.Id));
+                view.Setup(definition, isOwned, () => OnBuyPressed(view, definition.Id));
             }
         }
 
-        private void OnBuyPressed(string accessoryId)
+        private void OnBuyPressed(ShopItemView itemView, string accessoryId)
         {
             if (_shopService == null) return;
+            if (itemView == null) return;
 
             var result = _shopService.TryBuy(accessoryId);
             if (result == ShopPurchaseStatus.Success)
             {
-                PopulateShop();
+                itemView.MarkAsOwned();
                 return;
             }
         }

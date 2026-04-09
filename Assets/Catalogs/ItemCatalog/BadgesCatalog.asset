@@ -13,19 +13,80 @@ MonoBehaviour:
   m_Name: BadgesCatalog
   m_EditorClassIdentifier: Assembly-CSharp::Data.StaticData.Item.BadgeCatalog
   items:
-  - Id: badge_rocket
-    DisplayName: Rocket Badge
-    Icon: {fileID: 21300000, guid: 6d3f62398865c47498a28f88408ac354, type: 3}
-    Description: This is a rocket description.
   - Id: badge_lightning
-    DisplayName: Lightning Badge
+    DisplayName: Lightning
     Icon: {fileID: 21300000, guid: 6f1fadf451bd14ae2ae86fc338a34f60, type: 3}
-    Description: 
-  - Id: badge_time
-    DisplayName: Time Badge
-    Icon: {fileID: 21300000, guid: 0d553cdcce71f433e9a9e8b07cb09331, type: 3}
-    Description: 
-  - Id: badge_moves
-    DisplayName: Moves Badge
-    Icon: {fileID: 21300000, guid: 00eddc939769743f583671854c5f7593, type: 3}
-    Description: 
+    Description: This badge shows that you completed a lesson in under 20 seconds.
+  - Id: badge_speed_runner_1
+    DisplayName: Speed Runner I
+    Icon: {fileID: 21300000, guid: d873d7d409de44bb4acd6c1c9bb95e6f, type: 3}
+    Description: This badge shows that you completed a lesson in under 1 minute.
+  - Id: badge_speed_runner_2
+    DisplayName: Speed Runner II
+    Icon: {fileID: 21300000, guid: a6c3ba646b3434cf08ff05da70b5cd60, type: 3}
+    Description: This badge shows that you completed a lesson in under 40 seconds.
+  - Id: badge_speed_runner_3
+    DisplayName: Speed Runner III
+    Icon: {fileID: 21300000, guid: e90691e8733554ffa828fef7e43fa92c, type: 3}
+    Description: This badge shows that you completed a lesson in under 30 seconds.
+  - Id: badge_perfect_score
+    DisplayName: Perfect Score
+    Icon: {fileID: 21300000, guid: 112ae89acb8614f84a737a5e2079b290, type: 3}
+    Description: This badge shows that you completed a lesson with 5/5 correct answers.
+  - Id: badge_unstoppable
+    DisplayName: Unstopable
+    Icon: {fileID: 21300000, guid: 9cb85118c96404c53acebe7985fcc68f, type: 3}
+    Description: This badge shows that you got a perfect score for 5 lessons in a
+      row..
+  - Id: badge_first_steps
+    DisplayName: First Steps
+    Icon: {fileID: 21300000, guid: 8c29f60e8e3ac4d47b508c36ee6679e8, type: 3}
+    Description: This badge shows that you completed your first lesson.
+  - Id: badge_learner_1
+    DisplayName: Learner I
+    Icon: {fileID: 21300000, guid: c102567ba82a14131903e66d5f8b39d3, type: 3}
+    Description: This badge shows that you completed 5 lessons.
+  - Id: badge_learner_2
+    DisplayName: Learner II
+    Icon: {fileID: 21300000, guid: 0462bec96f86043af9d39f4e762ee097, type: 3}
+    Description: This badge shows that you completed 20 lessons.
+  - Id: badge_learner_3
+    DisplayName: Learner III
+    Icon: {fileID: 21300000, guid: 1ca4e2750396b42aa865f658c1442b45, type: 3}
+    Description: This badge shows that you completed 50 lessons.
+  - Id: badge_master_learner
+    DisplayName: Master Learner
+    Icon: {fileID: 21300000, guid: aa52498d232524c35b3bf579825cd7d9, type: 3}
+    Description: This badge shows that you completed 100 lessons.
+  - Id: badge_first_day
+    DisplayName: First Day
+    Icon: {fileID: 21300000, guid: a6421c6c8b53a4f47a19ca54fbe33f63, type: 3}
+    Description: This badge shows that you played the game 1 day.
+  - Id: badge_on_fire_1
+    DisplayName: On Fire I
+    Icon: {fileID: 21300000, guid: 3b8a50e6561f942ba95dd25883024a34, type: 3}
+    Description: This badge shows that you played the game for 3 consecutive days.
+  - Id: badge_on_fire_2
+    DisplayName: On Fire II
+    Icon: {fileID: 21300000, guid: 1e9c19cb745164643a054a91ea380855, type: 3}
+    Description: This badge shows that you played the game for 7 consecutive days.
+  - Id: badge_addicted
+    DisplayName: Addicted
+    Icon: {fileID: 21300000, guid: 1e9c19cb745164643a054a91ea380855, type: 3}
+    Description: This badge shows that you played the game for 30 consecutive days.
+  - Id: badge_first_purchase
+    DisplayName: First Purchase
+    Icon: {fileID: 21300000, guid: 407afb697ff434432bb8ecb2742d0545, type: 3}
+    Description: This badge shows that you completed your first purchase.
+  - Id: badge_collector
+    DisplayName: Collector
+    Icon: {fileID: 21300000, guid: f07f45776e2a14dca931942adee78846, type: 3}
+    Description: This badge shows that you completed 5 purchases.
+  - Id: badge_big_spender
+    DisplayName: Big Spender
+    Icon: {fileID: 21300000, guid: 49748c110e89a4395a2d23a5fe86e37d, type: 3}
+    Description: This badge shows that you spent your first 1000 coins.
+  - Id: badge_shop_addict
+    DisplayName: Shop Addict
+    Icon: {fileID: 21300000, guid: 88eada9b9f9a6476eb3798f54e8d562a, type: 3}
+    Description: This badge shows that you completed 20 purchases.

@@ -9,6 +9,8 @@ namespace UIScripts.Lessons.Views
         private float _elapsedSeconds;
         private bool _isRunning;
 
+        public float ElapsedSeconds => _elapsedSeconds;
+
         private void Awake()
         {
             if (timerText == null) timerText = GetComponentInChildren<TMP_Text>(true);

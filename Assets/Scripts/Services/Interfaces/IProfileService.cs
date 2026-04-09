@@ -21,9 +21,12 @@ namespace Services.Interfaces
         bool TrySpendCoins(int amount);
         bool HasAccessory(string accessoryId);
         bool TryAddAccessory(string accessoryId);
+        bool TryAddBadgeItem(string itemId);
 
+        void RegisterDailyLogin();
         void RegisterCompletedLesson(bool receivedSpecialItem);
         void RegisterIncompleteLesson();
+        void RegisterShopPurchase(int spentCoins);
 
         bool TryAddBoosterItem(string itemId);
         bool TryAddRewardItem(string itemId);

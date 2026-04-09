@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using App;
+using Data.StaticData.Item;
 using Data.StaticData.Lesson;
 using Lessons;
 using Services.Interfaces;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,19 +25,26 @@ namespace UIScripts.Lessons.Controllers
         [SerializeField] private GameObject pauseMenuPrefab;
         [SerializeField] private ShapeSpriteCatalog shapeSpriteCatalog;
         [SerializeField] private Canvas canvas;
+        [SerializeField] private GameObject badgeInfoPrefab;
+        [SerializeField] private float badgeInfoDurationSeconds = 3.5f;
 
         [Header("Lesson Data")]
         [SerializeField] private int questionsPerSession = 5;
         [SerializeField] private GameObject loadingOverlay;
 
         private ILessonService _lessonService;
+        private IBadgeService _badgeService;
         private LessonPopupFactory _popupFactory;
         private LessonContentLoader _contentLoader;
         private LessonFlowController _flowController;
+        private Coroutine _badgeInfoRoutine;
+        private GameObject _currentBadgeInfo;
+        private bool _isShowingBadgeInfo;
 
         private void Start()
         {
             if (!ServiceContainer.TryResolve<ILessonService>(out _lessonService) ||
+                !ServiceContainer.TryResolve<IBadgeService>(out _badgeService) ||
                 !ServiceContainer.TryResolve<ILessonContentService>(out ILessonContentService lessonContentService) ||
                 !ServiceContainer.TryResolve<IProfileService>(out IProfileService profileService))
             {
@@ -74,7 +83,33 @@ namespace UIScripts.Lessons.Controllers
                 return;
             }
 
+            if (_badgeService != null)
+            {
+                _badgeService.NotificationsAvailable += OnBadgeNotificationsAvailable;
+                StartCoroutine(ShowPendingBadgesNextFrame());
+            }
+
             StartCoroutine(OpenLessonPopupWithDelay(lessonId));
+        }
+
+        private void OnDestroy()
+        {
+            if (_badgeService != null)
+            {
+                _badgeService.NotificationsAvailable -= OnBadgeNotificationsAvailable;
+            }
+
+            if (_badgeInfoRoutine != null)
+            {
+                StopCoroutine(_badgeInfoRoutine);
+                _badgeInfoRoutine = null;
+            }
+
+            if (_currentBadgeInfo != null)
+            {
+                Destroy(_currentBadgeInfo);
+                _currentBadgeInfo = null;
+            }
         }
 
         private IEnumerator OpenLessonPopupWithDelay(LessonId lessonId)
@@ -225,6 +260,74 @@ namespace UIScripts.Lessons.Controllers
 
             Debug.LogWarning(popupFailureMessage);
             yield return _flowController.CancelAndExit();
+        }
+
+        private IEnumerator ShowPendingBadgesNextFrame()
+        {
+            yield return null;
+            TryShowNextBadgeInfo();
+        }
+
+        private void OnBadgeNotificationsAvailable()
+        {
+            TryShowNextBadgeInfo();
+        }
+
+        private void TryShowNextBadgeInfo()
+        {
+            if (_isShowingBadgeInfo) return;
+            if (_badgeService == null || badgeInfoPrefab == null || canvas == null) return;
+            if (!_badgeService.TryDequeueNotification(out BadgeDefinition badgeDefinition)) return;
+
+            _badgeInfoRoutine = StartCoroutine(ShowBadgeInfo(badgeDefinition));
+        }
+
+        private IEnumerator ShowBadgeInfo(BadgeDefinition badgeDefinition)
+        {
+            _isShowingBadgeInfo = true;
+
+            _currentBadgeInfo = Instantiate(badgeInfoPrefab, canvas.transform, false);
+            _currentBadgeInfo.transform.SetAsLastSibling();
+
+            TMP_Text descriptionText = FindBadgeInfoDescription(_currentBadgeInfo.transform);
+            if (descriptionText != null)
+            {
+                string badgeName = badgeDefinition != null && !string.IsNullOrWhiteSpace(badgeDefinition.DisplayName)
+                    ? badgeDefinition.DisplayName
+                    : "new";
+                descriptionText.text = $"You have received {badgeName} badge!";
+            }
+
+            yield return new WaitForSecondsRealtime(Mathf.Max(0.1f, badgeInfoDurationSeconds));
+
+            if (_currentBadgeInfo != null)
+            {
+                Destroy(_currentBadgeInfo);
+                _currentBadgeInfo = null;
+            }
+
+            _isShowingBadgeInfo = false;
+            _badgeInfoRoutine = null;
+            TryShowNextBadgeInfo();
+        }
+
+        private static TMP_Text FindBadgeInfoDescription(Transform root)
+        {
+            if (root == null) return null;
+
+            if (root.name == "Description")
+            {
+                TMP_Text rootText = root.GetComponent<TMP_Text>();
+                if (rootText != null) return rootText;
+            }
+
+            for (int i = 0; i < root.childCount; i++)
+            {
+                TMP_Text childText = FindBadgeInfoDescription(root.GetChild(i));
+                if (childText != null) return childText;
+            }
+
+            return null;
         }
     }
 }

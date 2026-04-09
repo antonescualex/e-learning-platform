@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Data.StaticData.Lesson;
 using TMPro;
+using UIScripts.Bootstrap;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -76,12 +77,14 @@ namespace UIScripts.Lessons.Views
             SyllableDivisionQuestionDefinition current = _questions[_currentQuestionIndex];
             string userAnswer = Normalize(answerInput != null ? answerInput.text : string.Empty);
             string expectedAnswer = Normalize(current.ExpectedAnswer);
+            bool isCorrect = userAnswer == expectedAnswer;
 
-            if (userAnswer == expectedAnswer)
+            if (isCorrect)
             {
                 _correctAnswers++;
             }
 
+            AudioManager.Instance?.PlayAnswerFeedback(isCorrect);
             _currentQuestionIndex++;
             RenderCurrentQuestion();
         }

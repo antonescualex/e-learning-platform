@@ -24,6 +24,7 @@ namespace Services
             if (_repository.TryLoad(out var loadedData))
             {
                 _profileData = loadedData;
+                _profileData?.EnsureDataIntegrity();
                 NotifyProfileChanged();
                 return true;
             }
@@ -34,6 +35,7 @@ namespace Services
         public void CreateNewProfile(string playerName)
         {
             _profileData = new ProfileData(playerName);
+            _profileData.EnsureDataIntegrity();
             SaveProfile();
             NotifyProfileChanged();
         }
@@ -110,6 +112,29 @@ namespace Services
             return true;
         }
 
+        public bool TryAddBadgeItem(string itemId)
+        {
+            if (_profileData == null) return false;
+
+            bool added = _profileData.TryAddBadgeItem(itemId);
+            if (!added) return false;
+
+            SaveProfile();
+            NotifyProfileChanged();
+            return true;
+        }
+
+        public void RegisterDailyLogin()
+        {
+            if (_profileData == null) return;
+
+            bool updated = _profileData.RegisterDailyLogin(DateTime.Now);
+            if (!updated) return;
+
+            SaveProfile();
+            NotifyProfileChanged();
+        }
+
         private void NotifyProfileChanged()
         {
             ProfileChanged?.Invoke(_profileData);
@@ -129,6 +154,15 @@ namespace Services
             if (_profileData == null) return;
 
             _profileData.RegisterIncompleteLesson();
+            SaveProfile();
+            NotifyProfileChanged();
+        }
+
+        public void RegisterShopPurchase(int spentCoins)
+        {
+            if (_profileData == null) return;
+
+            _profileData.RegisterShopPurchase(spentCoins);
             SaveProfile();
             NotifyProfileChanged();
         }
@@ -156,6 +190,5 @@ namespace Services
             NotifyProfileChanged();
             return true;
         }
-
     }
 }

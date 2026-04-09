@@ -47,22 +47,26 @@ namespace App
             var profileService = new ProfileService(profileRepository);
             ServiceContainer.Register<IProfileService>(profileService);
 
+            var badgeService = new BadgeService(badgeCatalog, profileService);
+            ServiceContainer.Register<IBadgeService>(badgeService);
+
             var settingsService = new SettingsService(settingsRepository);
             settingsService.LoadOrDefault();
             ServiceContainer.Register<ISettingsService>(settingsService);
 
             ServiceContainer.Register<IProfileItemsService>(
                 new ProfileItemsService(badgeCatalog, boosterCatalog, rewardCatalog, profileService));
-            ServiceContainer.Register<ILessonService>(new LessonService(profileService, boosterCatalog, rewardCatalog));
+            ServiceContainer.Register<ILessonService>(new LessonService(profileService, boosterCatalog, rewardCatalog, badgeService));
             ServiceContainer.Register<ILessonContentService>(new LessonContentService(lessonContentBaseUrl));
             ServiceContainer.Register<IInventoryService>(new InventoryService(accessoryCatalog, profileService));
-            ServiceContainer.Register<IShopService>(new ShopService(accessoryCatalog, profileService));
+            ServiceContainer.Register<IShopService>(new ShopService(accessoryCatalog, profileService, badgeService));
         }
 
         private void Start()
         {
             ISettingsService settingsService = ServiceContainer.Resolve<ISettingsService>();
             IProfileService profileService = ServiceContainer.Resolve<IProfileService>();
+            IBadgeService badgeService = ServiceContainer.Resolve<IBadgeService>();
 
             if (AudioManager.Instance != null)
             {
@@ -71,6 +75,7 @@ namespace App
 
             if (profileService.TryLoadProfile())
             {
+                badgeService.HandleAppOpened();
                 Invoke("LoadMainMenuScene", LOADING_TIME);
             }
             else

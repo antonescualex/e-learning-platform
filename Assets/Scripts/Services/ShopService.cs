@@ -9,11 +9,13 @@ namespace Services
     {
         private readonly AccessoryCatalog _catalog;
         private readonly IProfileService _profileService;
+        private readonly IBadgeService _badgeService;
 
-        public ShopService(AccessoryCatalog catalog, IProfileService profileService)
+        public ShopService(AccessoryCatalog catalog, IProfileService profileService, IBadgeService badgeService)
         {
             _catalog = catalog;
             _profileService = profileService;
+            _badgeService = badgeService;
         }
 
         public IReadOnlyList<AccessoryDefinition> GetItems()
@@ -43,6 +45,9 @@ namespace Services
                 _profileService.AddCoins(definition.Price);
                 return ShopPurchaseStatus.AlreadyOwned;
             }
+
+            _profileService.RegisterShopPurchase(definition.Price);
+            _badgeService?.HandleShopPurchase();
             return ShopPurchaseStatus.Success;
         }
     }

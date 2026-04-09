@@ -142,7 +142,9 @@ namespace UIScripts.Lessons.Controllers
                 yield break;
             }
 
-            if (_lessonService == null || !_lessonService.TryCompleteLesson(totalQuestions, correctAnswers, out LessonCompletionResult result))
+            float elapsedSeconds = _popupFactory.CurrentLessonElapsedSeconds;
+
+            if (_lessonService == null || !_lessonService.TryCompleteLesson(totalQuestions, correctAnswers, elapsedSeconds, out LessonCompletionResult result))
             {
                 _lastCompletionResult = null;
                 yield return ExitToMainMenu();

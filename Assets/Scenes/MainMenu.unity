@@ -579,6 +579,8 @@ MonoBehaviour:
   canvas: {fileID: 2002965566}
   mainMenu: {fileID: 299963168}
   settingsPopup: {fileID: 8799290417940247260, guid: 10e40ffe23c67334e88a976e826c963f, type: 3}
+  badgeInfoPrefab: {fileID: 1692901401874003531, guid: bdb0e91c90588bd459d2079ece031dc8, type: 3}
+  badgeInfoDurationSeconds: 3.5
   profileImage: {fileID: 754057402}
   avatarCatalog: {fileID: 11400000, guid: a1c9f81832b08ce4bb19982118d1ee98, type: 2}
 --- !u!1001 &284149784

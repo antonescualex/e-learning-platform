@@ -7,6 +7,7 @@ namespace Lessons
         public LessonId LessonId { get; }
         public int TotalQuestions { get; }
         public int CorrectAnswers { get; }
+        public float ElapsedSeconds { get; }
         public int CoinsReward { get; }
         public int ExperienceReward { get; }
         public BoosterDefinition AwardedBooster { get; }
@@ -17,6 +18,7 @@ namespace Lessons
             LessonId lessonId,
             int totalQuestions,
             int correctAnswers,
+            float elapsedSeconds,
             int coinsReward,
             int experienceReward,
             BoosterDefinition awardedBooster = null,
@@ -25,6 +27,7 @@ namespace Lessons
             LessonId = lessonId;
             TotalQuestions = totalQuestions;
             CorrectAnswers = correctAnswers;
+            ElapsedSeconds = elapsedSeconds;
             CoinsReward = coinsReward;
             ExperienceReward = experienceReward;
             AwardedBooster = awardedBooster;

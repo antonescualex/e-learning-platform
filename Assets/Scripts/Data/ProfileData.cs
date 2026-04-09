@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Enums;
 using UnityEngine;
 
@@ -15,14 +16,20 @@ namespace Data
         [SerializeField] private int _coins;
         [SerializeField] private string _avatarId;
         [SerializeField] private string _createdAt;
+        [SerializeField] private string _lastLoginDate;
+        [SerializeField] private int _currentLoginStreak;
         [SerializeField] private int _completedLessonsCount;
         [SerializeField] private int _incompleteLessonsCount;
         [SerializeField] private int _lessonsSinceLastSpecialItemDrop;
+        [SerializeField] private int _totalShopPurchases;
+        [SerializeField] private int _totalCoinsSpentInShop;
 
         [SerializeField] private List<string> _badgeItemIds = new List<string>();
         [SerializeField] private List<string> _boosterItemIds = new List<string>();
         [SerializeField] private List<string> _rewardItemIds = new List<string>();
         [SerializeField] private List<string> _accessoryItemIds = new List<string>();
+
+        private const string LoginDateFormat = "yyyy-MM-dd";
 
         public string Id => _id;
         public string PlayerName => _playerName;
@@ -31,6 +38,9 @@ namespace Data
         public int Coins => _coins;
         public string AvatarId => _avatarId;
         public string CreatedAt => _createdAt;
+        public int CurrentLoginStreak => _currentLoginStreak;
+        public int TotalShopPurchases => _totalShopPurchases;
+        public int TotalCoinsSpentInShop => _totalCoinsSpentInShop;
 
         public IReadOnlyList<string> BadgeItemIds => _badgeItemIds;
         public IReadOnlyList<string> BoosterItemIds => _boosterItemIds;
@@ -50,6 +60,21 @@ namespace Data
             _currentExperience = 0;
             _coins = 0;
             _createdAt = DateTime.Now.ToString("d");
+            RegisterDailyLogin(DateTime.Now);
+        }
+
+        public void EnsureDataIntegrity()
+        {
+            _badgeItemIds ??= new List<string>();
+            _boosterItemIds ??= new List<string>();
+            _rewardItemIds ??= new List<string>();
+            _accessoryItemIds ??= new List<string>();
+            _currentLoginStreak = Mathf.Max(0, _currentLoginStreak);
+            _completedLessonsCount = Mathf.Max(0, _completedLessonsCount);
+            _incompleteLessonsCount = Mathf.Max(0, _incompleteLessonsCount);
+            _lessonsSinceLastSpecialItemDrop = Mathf.Max(0, _lessonsSinceLastSpecialItemDrop);
+            _totalShopPurchases = Mathf.Max(0, _totalShopPurchases);
+            _totalCoinsSpentInShop = Mathf.Max(0, _totalCoinsSpentInShop);
         }
 
         public IReadOnlyList<string> GetItemIds(ProfileItemCategory profileItemCategory)
@@ -151,6 +176,47 @@ namespace Data
             _incompleteLessonsCount++;
         }
 
+        public bool RegisterDailyLogin(DateTime currentDate)
+        {
+            currentDate = currentDate.Date;
+
+            if (!TryParseStoredDate(_lastLoginDate, out DateTime lastLoginDate))
+            {
+                _lastLoginDate = FormatStoredDate(currentDate);
+                _currentLoginStreak = 1;
+                return true;
+            }
+
+            if (currentDate <= lastLoginDate)
+            {
+                return false;
+            }
+
+            _currentLoginStreak = currentDate == lastLoginDate.AddDays(1)
+                ? Mathf.Max(1, _currentLoginStreak + 1)
+                : 1;
+
+            _lastLoginDate = FormatStoredDate(currentDate);
+            return true;
+        }
+
+        public void RegisterShopPurchase(int spentCoins)
+        {
+            if (spentCoins <= 0) return;
+
+            _totalShopPurchases++;
+            _totalCoinsSpentInShop += spentCoins;
+        }
+
+        public bool TryAddBadgeItem(string itemId)
+        {
+            if (string.IsNullOrEmpty(itemId)) return false;
+            if (_badgeItemIds.Contains(itemId)) return false;
+
+            _badgeItemIds.Add(itemId);
+            return true;
+        }
+
         public bool TryAddBoosterItem(string itemId)
         {
             if (string.IsNullOrEmpty(itemId)) return false;
@@ -165,6 +231,19 @@ namespace Data
             return true;
         }
 
+        private static bool TryParseStoredDate(string value, out DateTime result)
+        {
+            return DateTime.TryParseExact(
+                value,
+                LoginDateFormat,
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out result);
+        }
 
+        private static string FormatStoredDate(DateTime date)
+        {
+            return date.ToString(LoginDateFormat, CultureInfo.InvariantCulture);
+        }
     }
 }

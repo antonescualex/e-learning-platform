@@ -833,6 +833,8 @@ MonoBehaviour:
   pauseMenuPrefab: {fileID: 5230556618230378364, guid: 4155b3a8cd1e1e14d84c2355c56363d3, type: 3}
   shapeSpriteCatalog: {fileID: 11400000, guid: cdd0ee1e2e6139c4481de3bd80431c18, type: 2}
   canvas: {fileID: 1275978145}
+  badgeInfoPrefab: {fileID: 1692901401874003531, guid: bdb0e91c90588bd459d2079ece031dc8, type: 3}
+  badgeInfoDurationSeconds: 3.5
   mathLessonContentCatalog: {fileID: 11400000, guid: 03ac8d5576468e64d8444554df7f60b4, type: 2}
   questionsPerSession: 5
   loadingOverlay: {fileID: 679363860}

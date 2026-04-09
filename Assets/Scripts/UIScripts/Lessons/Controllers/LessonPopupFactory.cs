@@ -52,6 +52,7 @@ namespace UIScripts.Lessons.Controllers
         }
 
         public bool HasPauseMenuOpen => _pauseMenuPopup != null;
+        public float CurrentLessonElapsedSeconds => _lessonTimer != null ? _lessonTimer.ElapsedSeconds : 0f;
 
         public bool TryOpenTextChoiceLesson(
             LessonId lessonId,

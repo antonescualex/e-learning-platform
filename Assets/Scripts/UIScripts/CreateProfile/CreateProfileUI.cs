@@ -13,10 +13,12 @@ namespace UIScripts.CreateProfile
         [SerializeField] private Button signUpButton;
 
         private IProfileService _profileService;
+        private IBadgeService _badgeService;
 
         private void Start()
         {
             ServiceContainer.TryResolve<IProfileService>(out _profileService);
+            ServiceContainer.TryResolve<IBadgeService>(out _badgeService);
         }
 
         private void Awake()
@@ -36,6 +38,7 @@ namespace UIScripts.CreateProfile
             if (_profileService == null) return;
 
             _profileService.CreateNewProfile(playerNameInputField.text.Trim());
+            _badgeService?.HandleAppOpened();
             SceneManager.LoadScene("MainMenu");
         }
     }

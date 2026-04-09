@@ -7,6 +7,7 @@ using Data.StaticData.Lesson;
 using Recognissimo;
 using Recognissimo.Components;
 using TMPro;
+using UIScripts.Bootstrap;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -428,6 +429,7 @@ namespace UIScripts.Lessons.Views
                 _correctAnswers++;
             }
 
+            AudioManager.Instance?.PlayAnswerFeedback(isCorrect);
             recognizedSpeechText.text = recognizedText.Trim();
             _advanceCoroutine = StartCoroutine(AdvanceAfterFeedback());
         }

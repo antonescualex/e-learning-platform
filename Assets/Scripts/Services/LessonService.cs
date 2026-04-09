@@ -18,6 +18,7 @@ namespace Services
         private readonly IProfileService _profileService;
         private readonly BoosterCatalog _boosterCatalog;
         private readonly RewardCatalog _rewardCatalog;
+        private readonly IBadgeService _badgeService;
 
         private readonly int _baseCoinsReward = 10;
         private readonly int _baseExperienceReward = 20;
@@ -29,11 +30,13 @@ namespace Services
         public LessonService(
             IProfileService profileService,
             BoosterCatalog boosterCatalog,
-            RewardCatalog rewardCatalog)
+            RewardCatalog rewardCatalog,
+            IBadgeService badgeService)
         {
             _profileService = profileService;
             _boosterCatalog = boosterCatalog;
             _rewardCatalog = rewardCatalog;
+            _badgeService = badgeService;
         }
 
         public void StartLesson(LessonId lessonId)
@@ -53,7 +56,7 @@ namespace Services
             return true;
         }
 
-        public bool TryCompleteLesson(int totalQuestions, int correctAnswers, out LessonCompletionResult result)
+        public bool TryCompleteLesson(int totalQuestions, int correctAnswers, float elapsedSeconds, out LessonCompletionResult result)
         {
             result = null;
 
@@ -65,14 +68,18 @@ namespace Services
             NormalizeScore(ref totalQuestions, ref correctAnswers);
 
             LessonId lessonId = _activeLessonId.Value;
-            result = CreateCompletionResult(lessonId, totalQuestions, correctAnswers);
+            result = CreateCompletionResult(lessonId, totalQuestions, correctAnswers, elapsedSeconds);
 
             ApplyRewards(result);
             _activeLessonId = null;
             return true;
         }
 
-        private LessonCompletionResult CreateCompletionResult(LessonId lessonId, int totalQuestions, int correctAnswers)
+        private LessonCompletionResult CreateCompletionResult(
+            LessonId lessonId,
+            int totalQuestions,
+            int correctAnswers,
+            float elapsedSeconds)
         {
             int coinsReward = _baseCoinsReward + correctAnswers * _coinsPerCorrectAnswer;
             int experienceReward = _baseExperienceReward + correctAnswers * _experiencePerCorrectAnswer;
@@ -82,6 +89,7 @@ namespace Services
                 lessonId,
                 totalQuestions,
                 correctAnswers,
+                Mathf.Max(0f, elapsedSeconds),
                 coinsReward,
                 experienceReward,
                 awardedBooster,
@@ -103,6 +111,8 @@ namespace Services
             {
                 _profileService?.TryAddRewardItem(result.AwardedReward.Id);
             }
+
+            _badgeService?.HandleLessonCompleted(result);
         }
 
         private void ResolveSpecialDrops(out BoosterDefinition awardedBooster, out RewardDefinition awardedReward)

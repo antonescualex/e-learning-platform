@@ -289,6 +289,7 @@ MonoBehaviour:
   priceText: {fileID: 8223977775775084226}
   coinImage: {fileID: 6582377950537957290}
   buyButton: {fileID: 3245348136868214183}
+  ownedButtonSprite: {fileID: 21300000, guid: b4b024c6ca6464483b99578de7edfd49, type: 3}
 --- !u!1 &5202858505663140814
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,27 +982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 2651247454864404333}
-    - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SwapSprite
-      objectReference: {fileID: 0}
-    - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1009,10 +990,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2864486697453313632, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
       insertIndex: -1
       addedObject: {fileID: 785774185648310427}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2864486698032309936, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2651247454864404333}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
 --- !u!114 &3245348136868214183 stripped
 MonoBehaviour:
@@ -1035,20 +1013,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2864486698032309936, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
   m_PrefabInstance: {fileID: 6956425727311211077}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2651247454864404333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5137062559547510005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5848b7832d53944bdbdff853c73925a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enabledSprite: {fileID: 21300000, guid: c80ad0f5bc8d143378e1c7bd05fe5fe1, type: 3}
-  disabledSprite: {fileID: 21300000, guid: b4b024c6ca6464483b99578de7edfd49, type: 3}
 --- !u!114 &8223977775775084226 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1345239700985742471, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}

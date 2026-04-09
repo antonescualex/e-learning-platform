@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Data.StaticData.Lesson;
 using TMPro;
+using UIScripts.Bootstrap;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityText2Speech;
@@ -149,12 +150,14 @@ namespace UIScripts.Lessons.Views
             WriteCorrectlyQuestionDefinition current = _questions[_currentQuestionIndex];
             string userAnswer = Normalize(answerInput != null ? answerInput.text : string.Empty);
             string expectedAnswer = Normalize(current.ExpectedAnswer);
+            bool isCorrect = userAnswer == expectedAnswer;
 
-            if (userAnswer == expectedAnswer)
+            if (isCorrect)
             {
                 _correctAnswers++;
             }
 
+            AudioManager.Instance?.PlayAnswerFeedback(isCorrect);
             _currentQuestionIndex++;
             RenderCurrentQuestion();
         }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UIScripts.Bootstrap;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -183,6 +184,7 @@ namespace UIScripts.Lessons.Views
                 CorrectAnswers++;
             }
 
+            AudioManager.Instance?.PlayAnswerFeedback(isCorrectAnswer);
             IsWaitingForNextQuestion = true;
             ApplyAnswerFeedback(selectedAnswerIndex, isCorrectAnswer);
 
