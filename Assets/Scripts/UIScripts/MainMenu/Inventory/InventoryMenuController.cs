@@ -1,10 +1,11 @@
 using System.Collections;
 using App;
 using Data.StaticData;
-using Data.StaticData.Accessory;
+using Data.StaticData.Shop;
 using Services;
 using Services.Interfaces;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UIScripts.MainMenu.Inventory
 {
@@ -18,11 +19,13 @@ namespace UIScripts.MainMenu.Inventory
         [SerializeField] private GameObject buttons;
         [SerializeField] private Canvas canvas;
 
+        [FormerlySerializedAs("accessoryCatalog")]
         [Header("Accessory Catalog")]
-        [SerializeField] private AccessoryCatalog accessoryCatalog;
+        [SerializeField] private ShopCatalog shopCatalog;
 
         private GameObject _currentPopup;
         private IInventoryService _inventoryService;
+        private IProfileService _profileService;
 
         public void OpenInventory()
         {
@@ -31,6 +34,10 @@ namespace UIScripts.MainMenu.Inventory
             if (_inventoryService == null)
             {
                 ServiceContainer.TryResolve<IInventoryService>(out _inventoryService);
+            }
+            if (_profileService == null)
+            {
+                ServiceContainer.TryResolve<IProfileService>(out _profileService);
             }
 
             StartCoroutine(OpenInventoryWithDelay());
@@ -59,7 +66,7 @@ namespace UIScripts.MainMenu.Inventory
             _currentPopup.transform.SetAsLastSibling();
 
             var popup = _currentPopup.GetComponent<InventoryView>();
-            popup.Init(this, _inventoryService);
+            popup.Init(this, _inventoryService, _profileService);
 
             _currentPopup.GetComponent<Ricimi.Popup>()?.Open();
         }

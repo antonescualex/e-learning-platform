@@ -29,3 +29,35 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 90fcbbce7125942bd8e00327e9a5f7f3, type: 3}
   - id: girl_4
     sprite: {fileID: 21300000, guid: 2614b6638b39c461b9c20e54e9a8f33c, type: 3}
+  - id: firefighter_male
+    sprite: {fileID: 21300000, guid: bbab5b347be4891478b66398d616cbbc, type: 3}
+  - id: wizard_male
+    sprite: {fileID: 21300000, guid: 62b59eaf924700f49ab47a48d1b8b51e, type: 3}
+  - id: doctor_male
+    sprite: {fileID: 21300000, guid: b380f48d7c18f784cac61de1df46f892, type: 3}
+  - id: hipster_male
+    sprite: {fileID: 21300000, guid: 8b8775d43ca53964ba71fd5f3cf9fed7, type: 3}
+  - id: basketball_male
+    sprite: {fileID: 21300000, guid: 612c79c5b91037b429240298b70fb7cd, type: 3}
+  - id: rocker_male
+    sprite: {fileID: 21300000, guid: 620f627454728524ba9c89bf7e3f570e, type: 3}
+  - id: king_male
+    sprite: {fileID: 21300000, guid: 631b0a070251a4146a6945ebb0155210, type: 3}
+  - id: policeman_male
+    sprite: {fileID: 21300000, guid: 9ed0492d856049d41a559327ca5fb2b6, type: 3}
+  - id: chef_female
+    sprite: {fileID: 21300000, guid: 0bfd0e75fb27f6d45b11a12b87f4c054, type: 3}
+  - id: fairy_female
+    sprite: {fileID: 21300000, guid: 71a4cbb85146fae4fb53aa70df25004c, type: 3}
+  - id: mermaid_female
+    sprite: {fileID: 21300000, guid: c51b1555103e37147bc0b088a700b141, type: 3}
+  - id: princess_female
+    sprite: {fileID: 21300000, guid: 731013ae9d253db4da2595b54494304a, type: 3}
+  - id: rocker_female
+    sprite: {fileID: 21300000, guid: 3035bfcad9622724091d104a7b679a36, type: 3}
+  - id: tennis_female
+    sprite: {fileID: 21300000, guid: 0ad8e4a9c4ae77746b1f2e7d4ff96729, type: 3}
+  - id: witch_female
+    sprite: {fileID: 21300000, guid: 9f8c135dd330bea4c8a9f6be7db24526, type: 3}
+  - id: queen_female
+    sprite: {fileID: 21300000, guid: df108ca0a09826e4bbebf3b40ff9e423, type: 3}

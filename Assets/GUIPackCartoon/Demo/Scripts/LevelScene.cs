@@ -5,7 +5,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Ricimi
+namespace GUIPackCartoon.Demo.Scripts
 {
     // This class manages the level scene of the demo. It handles the left and right
     // selection buttons that are used to navigate across the available levels and their

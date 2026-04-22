@@ -5,7 +5,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Ricimi
+namespace GUIPackCartoon.Demo.Scripts
 {
     // This class manages the rotation of the example spin wheel in the demo.
     public class SpinWheel : MonoBehaviour

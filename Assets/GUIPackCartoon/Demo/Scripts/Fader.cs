@@ -5,7 +5,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Ricimi
+namespace GUIPackCartoon.Demo.Scripts
 {
     // Utility class for smoothly fading a UI CanvasGroup.
     public class Fader : MonoBehaviour

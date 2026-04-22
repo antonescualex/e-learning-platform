@@ -1,6 +1,7 @@
 using System;
 using Data.StaticData;
-using Data.StaticData.Accessory;
+using Data.StaticData.Shop;
+using Enums;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,12 +20,12 @@ namespace UIScripts.MainMenu.Shop
         [SerializeField] private Sprite ownedButtonSprite;
 
         private Action _onBuyClicked;
-        private AccessoryDefinition _definition;
+        private ShopItemDefinition _definition;
         private bool _isOwned;
         private Image _buyButtonBackgroundImage;
         private Sprite _availableButtonSprite;
 
-        public void Setup(AccessoryDefinition definition, bool isOwned, Action onBuyClicked)
+        public void Setup(ShopItemDefinition definition, bool isOwned, Action onBuyClicked)
         {
             if (definition == null) return;
             if (iconImage == null || titleText == null || descriptionText == null || priceText == null) return;
@@ -35,6 +36,11 @@ namespace UIScripts.MainMenu.Shop
             _onBuyClicked = onBuyClicked;
 
             iconImage.sprite = definition.Icon;
+            if (definition.Category == ShopItemCategory.Background)
+            {
+                iconImage.rectTransform.sizeDelta = new Vector2(80, 80);
+            }
+            
             titleText.text = definition.Title;
             descriptionText.text = definition.Description;
             CacheButtonVisualState();

@@ -2,10 +2,11 @@
 // This code can only be used under the standard Unity Asset Store End User License Agreement.
 // A Copy of the Asset Store EULA is available at http://unity3d.com/company/legal/as_terms.
 
+using Ricimi;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Ricimi
+namespace GUIPackCartoon.Demo.Scripts
 {
     // Specialized behavior for the popup that opens before selecting a level to play in
     // the demo. It showcases how to create a specialized popup with custom behavior: in this

@@ -5,7 +5,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Ricimi
+namespace GUIPackCartoon.Demo.Scripts
 {
     // Utility class for swapping the color of a UI Image between two predefined values.
     public class ColorSwapper : MonoBehaviour

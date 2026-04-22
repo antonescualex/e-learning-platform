@@ -2,10 +2,11 @@
 // This code can only be used under the standard Unity Asset Store End User License Agreement.
 // A Copy of the Asset Store EULA is available at http://unity3d.com/company/legal/as_terms.
 
+using Ricimi;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Ricimi
+namespace GUIPackCartoon.Demo.Scripts
 {
     // This class handles updating the sound UI widgets depending on the player's selection.
     public class SoundManager : MonoBehaviour

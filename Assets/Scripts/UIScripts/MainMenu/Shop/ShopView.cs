@@ -1,4 +1,6 @@
 using Data.StaticData;
+using Data.StaticData.Shop;
+using Enums;
 using Services;
 using Services.Interfaces;
 using UIScripts.Bootstrap;
@@ -36,20 +38,22 @@ namespace UIScripts.MainMenu.Shop
                 if (view == null) continue;
 
                 bool isOwned = _shopService.IsOwned(definition.Id);
-                view.Setup(definition, isOwned, () => OnBuyPressed(view, definition.Id));
+                view.Setup(definition, isOwned, () => OnBuyPressed(view, definition));
             }
         }
 
-        private void OnBuyPressed(ShopItemView itemView, string accessoryId)
+        private void OnBuyPressed(ShopItemView itemView, ShopItemDefinition definition)
         {
             if (_shopService == null) return;
             if (itemView == null) return;
-
-            var result = _shopService.TryBuy(accessoryId);
-            if (result == ShopPurchaseStatus.Success)
+            if (definition == null) return;
+            
+            var result = _shopService.TryBuy(definition.Id);
+            if (result != ShopPurchaseStatus.Success) return;
+            
+            if(definition.Category != ShopItemCategory.Booster)
             {
                 itemView.MarkAsOwned();
-                return;
             }
         }
 

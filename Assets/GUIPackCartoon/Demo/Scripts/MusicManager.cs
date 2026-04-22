@@ -5,7 +5,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Ricimi
+namespace GUIPackCartoon.Demo.Scripts
 {
     // This class handles updating the music UI widgets depending on the player's selection.
     public class MusicManager : MonoBehaviour

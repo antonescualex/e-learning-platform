@@ -1,6 +1,7 @@
 using Data;
-using Data.StaticData.Accessory;
+using Data.StaticData.Background;
 using Data.StaticData.Item;
+using Data.StaticData.Shop;
 using Repositories;
 using Services;
 using Services.Interfaces;
@@ -8,18 +9,19 @@ using Storage;
 using UIScripts.Bootstrap;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace App
 {
     public class App : MonoBehaviour
     {
-        private static readonly float LOADING_TIME = 1.5f;
+        private static readonly float LoadingTime = 1.5f;
 
         [SerializeField] private BadgeCatalog badgeCatalog;
         [SerializeField] private BoosterCatalog boosterCatalog;
-        [SerializeField] private RewardCatalog rewardCatalog;
-        [SerializeField] private AccessoryCatalog accessoryCatalog;
-        [SerializeField] private string lessonContentBaseUrl = global::Services.LessonContentService.DefaultBaseUrl;
+        [SerializeField] private BackgroundCatalog backgroundCatalog;
+        [FormerlySerializedAs("accessoryCatalog")] [SerializeField] private ShopCatalog shopCatalog;
+        [SerializeField] private string lessonContentBaseUrl = LessonContentService.DefaultBaseUrl;
 
         public static App Instance { get; private set; }
 
@@ -49,17 +51,17 @@ namespace App
 
             var badgeService = new BadgeService(badgeCatalog, profileService);
             ServiceContainer.Register<IBadgeService>(badgeService);
+            
+            var boosterService = new BoosterService(boosterCatalog, profileService);
+            ServiceContainer.Register<IBoosterService>(boosterService);
 
             var settingsService = new SettingsService(settingsRepository);
             settingsService.LoadOrDefault();
             ServiceContainer.Register<ISettingsService>(settingsService);
-
-            ServiceContainer.Register<IProfileItemsService>(
-                new ProfileItemsService(badgeCatalog, boosterCatalog, rewardCatalog, profileService));
-            ServiceContainer.Register<ILessonService>(new LessonService(profileService, boosterCatalog, rewardCatalog, badgeService));
+            ServiceContainer.Register<ILessonService>(new LessonService(profileService, boosterCatalog, badgeService));
             ServiceContainer.Register<ILessonContentService>(new LessonContentService(lessonContentBaseUrl));
-            ServiceContainer.Register<IInventoryService>(new InventoryService(accessoryCatalog, profileService));
-            ServiceContainer.Register<IShopService>(new ShopService(accessoryCatalog, profileService, badgeService));
+            ServiceContainer.Register<IInventoryService>(new InventoryService(backgroundCatalog, profileService));
+            ServiceContainer.Register<IShopService>(new ShopService(shopCatalog, profileService, badgeService));
         }
 
         private void Start()
@@ -76,11 +78,11 @@ namespace App
             if (profileService.TryLoadProfile())
             {
                 badgeService.HandleAppOpened();
-                Invoke("LoadMainMenuScene", LOADING_TIME);
+                Invoke("LoadMainMenuScene", LoadingTime);
             }
             else
             {
-                Invoke("LoadCreateProfileScene", LOADING_TIME);
+                Invoke("LoadCreateProfileScene", LoadingTime);
             }
         }
 

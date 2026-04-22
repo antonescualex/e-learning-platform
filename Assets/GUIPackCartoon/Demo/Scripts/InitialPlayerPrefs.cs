@@ -4,7 +4,7 @@
 
 using UnityEngine;
 
-namespace Ricimi
+namespace GUIPackCartoon.Demo.Scripts
 {
     // Utility class to force the music and sound effects to be enabled on first launch.
     public class InitialPlayerPrefs : MonoBehaviour

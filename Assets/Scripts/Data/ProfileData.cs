@@ -15,19 +15,19 @@ namespace Data
         [SerializeField] private int _currentExperience;
         [SerializeField] private int _coins;
         [SerializeField] private string _avatarId;
+        [SerializeField] private string _backgroundId;
         [SerializeField] private string _createdAt;
         [SerializeField] private string _lastLoginDate;
         [SerializeField] private int _currentLoginStreak;
         [SerializeField] private int _completedLessonsCount;
         [SerializeField] private int _incompleteLessonsCount;
-        [SerializeField] private int _lessonsSinceLastSpecialItemDrop;
         [SerializeField] private int _totalShopPurchases;
         [SerializeField] private int _totalCoinsSpentInShop;
 
         [SerializeField] private List<string> _badgeItemIds = new List<string>();
         [SerializeField] private List<string> _boosterItemIds = new List<string>();
-        [SerializeField] private List<string> _rewardItemIds = new List<string>();
-        [SerializeField] private List<string> _accessoryItemIds = new List<string>();
+        [SerializeField] private List<string> _avatarItemIds = new List<string>();
+        [SerializeField] private List<string> _backgroundItemIds = new List<string>();
 
         private const string LoginDateFormat = "yyyy-MM-dd";
 
@@ -37,6 +37,7 @@ namespace Data
         public int CurrentExperience => _currentExperience;
         public int Coins => _coins;
         public string AvatarId => _avatarId;
+        public string BackgroundId => _backgroundId;
         public string CreatedAt => _createdAt;
         public int CurrentLoginStreak => _currentLoginStreak;
         public int TotalShopPurchases => _totalShopPurchases;
@@ -44,35 +45,37 @@ namespace Data
 
         public IReadOnlyList<string> BadgeItemIds => _badgeItemIds;
         public IReadOnlyList<string> BoosterItemIds => _boosterItemIds;
-        public IReadOnlyList<string> RewardItemIds => _rewardItemIds;
-        public IReadOnlyList<string> AccessoryItemIds => _accessoryItemIds;
+        public IReadOnlyList<string> AvatarItemIds => _avatarItemIds;
+        public IReadOnlyList<string> BackgroundItemIds => _backgroundItemIds;
 
         public int ExperienceToNextLevel => CalculateExperienceNeededForNextLevel(_level);
         public int CompletedLessonsCount => _completedLessonsCount;
         public int IncompleteLessonsCount => _incompleteLessonsCount;
-        public int LessonsSinceLastSpecialItemDrop => _lessonsSinceLastSpecialItemDrop;
 
         public ProfileData(string playerName)
         {
             _id = Guid.NewGuid().ToString();
             _playerName = playerName;
             _level = 1;
+            _avatarId = "boy_3";
+            _backgroundId = "default_background";
             _currentExperience = 0;
             _coins = 0;
             _createdAt = DateTime.Now.ToString("d");
             RegisterDailyLogin(DateTime.Now);
+            AddDefaultAvatarIds();
+            AddDefaultBackgroundIds();
         }
 
         public void EnsureDataIntegrity()
         {
             _badgeItemIds ??= new List<string>();
             _boosterItemIds ??= new List<string>();
-            _rewardItemIds ??= new List<string>();
-            _accessoryItemIds ??= new List<string>();
+            _avatarItemIds ??= new List<string>();
+            _backgroundItemIds ??= new List<string>();
             _currentLoginStreak = Mathf.Max(0, _currentLoginStreak);
             _completedLessonsCount = Mathf.Max(0, _completedLessonsCount);
             _incompleteLessonsCount = Mathf.Max(0, _incompleteLessonsCount);
-            _lessonsSinceLastSpecialItemDrop = Mathf.Max(0, _lessonsSinceLastSpecialItemDrop);
             _totalShopPurchases = Mathf.Max(0, _totalShopPurchases);
             _totalCoinsSpentInShop = Mathf.Max(0, _totalCoinsSpentInShop);
         }
@@ -85,16 +88,19 @@ namespace Data
                     return _badgeItemIds;
                 case ProfileItemCategory.Boosters:
                     return _boosterItemIds;
-                case ProfileItemCategory.Rewards:
-                    return _rewardItemIds;
                 default:
                     return _badgeItemIds;
             }
         }
-
-        public IReadOnlyList<string> GetAccessoryIds()
+        
+        public IReadOnlyList<string> GetAvatarIds()
         {
-            return AccessoryItemIds;
+            return AvatarItemIds;
+        }
+        
+        public IReadOnlyList<string> GetBackgroundIds()
+        {
+            return BackgroundItemIds;
         }
 
         public void SetPlayerName(string newName)
@@ -132,6 +138,12 @@ namespace Data
             if (string.IsNullOrEmpty(avatarId)) return;
             _avatarId = avatarId;
         }
+        
+        public void SetBackground(string backgroundId)
+        {
+            if (string.IsNullOrEmpty(backgroundId)) return;
+            _backgroundId = backgroundId;
+        }
 
         public bool TrySpendCoins(int amount)
         {
@@ -142,19 +154,53 @@ namespace Data
             return true;
         }
 
-        public bool HasAccessory(string accessoryId)
+        public bool HasAvatar(string avatarId)
         {
-            if (string.IsNullOrEmpty(accessoryId)) return false;
-            return _accessoryItemIds.Contains(accessoryId);
+            if (string.IsNullOrEmpty(avatarId)) return false;
+            return _avatarItemIds.Contains(avatarId);
         }
 
-        public bool TryAddAccessory(string accessoryId)
+        public bool HasBackground(string backgroundId)
         {
-            if (string.IsNullOrEmpty(accessoryId)) return false;
-            if (_accessoryItemIds.Contains(accessoryId)) return false;
-
-            _accessoryItemIds.Add(accessoryId);
+            if (string.IsNullOrEmpty(backgroundId)) return false;
+            return _backgroundItemIds.Contains(backgroundId);
+        }
+        
+        public bool TryAddAvatar(string avatarId)
+        {
+            if (string.IsNullOrEmpty(avatarId)) return false;
+            if (_avatarItemIds.Contains(avatarId)) return false;
+            
+            _avatarItemIds.Add(avatarId);
             return true;
+        }
+        
+        public bool TryAddBackground(string backgroundId)
+        {
+            if (string.IsNullOrEmpty(backgroundId)) return false;
+            if (_backgroundItemIds.Contains(backgroundId)) return false;
+            
+            _backgroundItemIds.Add(backgroundId);
+            return true;
+        }
+
+        public bool AddDefaultAvatarIds()
+        {
+            bool changed = false;
+            List<string> defaultAvatarIds = new List<string> { "boy_3", "girl_1", "boy_1", "girl_3", "boy_4", "girl_2", "boy_2", "girl_4" };
+            foreach (var avatarId in defaultAvatarIds)
+            {
+                if (TryAddAvatar(avatarId))
+                {
+                    changed = true;
+                }
+            }
+            return changed;
+        }
+
+        public bool AddDefaultBackgroundIds()
+        {
+            return TryAddBackground("default_background");
         }
 
         private static int CalculateExperienceNeededForNextLevel(int currentLevel)
@@ -165,10 +211,9 @@ namespace Data
             return Mathf.RoundToInt(baseExperience * Mathf.Pow(growth, currentLevel - 1));
         }
 
-        public void RegisterCompletedLesson(bool receivedSpecialItem)
+        public void RegisterCompletedLesson()
         {
             _completedLessonsCount++;
-            _lessonsSinceLastSpecialItemDrop = receivedSpecialItem ? 0 : _lessonsSinceLastSpecialItemDrop + 1;
         }
 
         public void RegisterIncompleteLesson()
@@ -221,13 +266,6 @@ namespace Data
         {
             if (string.IsNullOrEmpty(itemId)) return false;
             _boosterItemIds.Add(itemId);
-            return true;
-        }
-
-        public bool TryAddRewardItem(string itemId)
-        {
-            if (string.IsNullOrEmpty(itemId)) return false;
-            _rewardItemIds.Add(itemId);
             return true;
         }
 

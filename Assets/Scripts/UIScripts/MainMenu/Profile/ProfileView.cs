@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Data;
 using Data.StaticData.Item;
 using Enums;
-using Services;
 using Services.Interfaces;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +18,6 @@ namespace UIScripts.MainMenu.Profile
         [SerializeField] private TMP_Text createdAtText;
         [SerializeField] private TMP_Text badgesText;
         [SerializeField] private TMP_Text boostersText;
-        [SerializeField] private TMP_Text rewardsText;
         [SerializeField] private TMP_Text itemsText;
         [SerializeField] private TMP_Text lessonsCompletedText;
         [SerializeField] private TMP_Text lessonsFailedText;
@@ -39,15 +35,11 @@ namespace UIScripts.MainMenu.Profile
         [SerializeField] private Transform itemPopupParent;
         [SerializeField] private GameObject badgePopupPrefab;
         [SerializeField] private GameObject boosterPopupPrefab;
-        [SerializeField] private GameObject rewardPopupPrefab;
-
-        // [Header("Page Buttons")] 
-        // [SerializeField]private Button leftArrowButton;
-        // [SerializeField]private Button rightArrowButton;
 
         private ProfileMenuController _menuController;
         private IProfileService _profileService;
-        private IProfileItemsService _itemsService;
+        private IBadgeService _badgeService;
+        private IBoosterService _boosterService;
 
         private readonly List<ProfileItemSlotView> _itemList = new List<ProfileItemSlotView>();
 
@@ -56,14 +48,12 @@ namespace UIScripts.MainMenu.Profile
         private bool _popEnabled;
         private GameObject _currentItemPopup;
 
-        // private const int PageSize = 4;
-        // private int _currentPage = 0;
-
-        public void Init(ProfileMenuController menuController, IProfileService profileService, IProfileItemsService itemsService)
+        public void Init(ProfileMenuController menuController, IProfileService profileService, IBadgeService badgeService, IBoosterService boosterService)
         {
             _menuController = menuController;
             _profileService = profileService;
-            _itemsService = itemsService;
+            _badgeService = badgeService;
+            _boosterService = boosterService;
 
             if (categoryDropwdown != null)
             {
@@ -145,8 +135,8 @@ namespace UIScripts.MainMenu.Profile
             if (createdAtText != null) createdAtText.text = "Member since: " + profileData.CreatedAt;
             if (badgesText != null) badgesText.text = profileData.BadgeItemIds.Count.ToString();
             if (boostersText != null) boostersText.text = profileData.BoosterItemIds.Count.ToString();
-            if (rewardsText != null) rewardsText.text = profileData.RewardItemIds.Count.ToString();
-            if (itemsText != null) itemsText.text = profileData.AccessoryItemIds.Count.ToString();
+            if (itemsText != null) itemsText.text =
+                (profileData.BackgroundItemIds.Count + profileData.AvatarItemIds.Count).ToString();
             if (lessonsCompletedText != null) lessonsCompletedText.text = profileData.CompletedLessonsCount.ToString();
             if (lessonsFailedText != null) lessonsFailedText.text = profileData.IncompleteLessonsCount.ToString();
             RefreshItems();
@@ -217,11 +207,21 @@ namespace UIScripts.MainMenu.Profile
             ClearItems();
 
             if (_profileService == null || !_profileService.HasProfile) return;
-            if (_itemsService == null) return;
             if (itemsContainer == null || itemPrefab == null) return;
-
-            var category = GetSelectedCategory();
-            var definitions = _itemsService.GetAllItems(category);
+            
+            IReadOnlyList<ProfileItemDefinition> definitions;
+            switch (GetSelectedCategory())
+            {
+                case ProfileItemCategory.Badges:
+                    definitions = _badgeService != null ? _badgeService.GetBadges() : new List<ProfileItemDefinition>();
+                    break;
+                case ProfileItemCategory.Boosters:
+                    definitions = _boosterService != null ? _boosterService.GetBoosters() : new List<ProfileItemDefinition>();
+                    break;
+                default:
+                    definitions = new List<ProfileItemDefinition>();
+                    break;
+            }
 
             for (int i = 0; i < definitions.Count; i++)
             {
@@ -261,9 +261,6 @@ namespace UIScripts.MainMenu.Profile
                 case ProfileItemCategory.Boosters:
                     HandleBoosterClicked(itemDefinition as BoosterDefinition);
                     break;
-                case ProfileItemCategory.Rewards:
-                    HandleRewardClicked(itemDefinition as RewardDefinition);
-                    break;
             }
         }
 
@@ -290,15 +287,17 @@ namespace UIScripts.MainMenu.Profile
             if (boosterDefinition == null) return;
             if (boosterPopupPrefab == null || itemPopupParent == null) return;
 
-            // TODO: instantiate and initialize booster popup.
-        }
+            DestroyCurrentItemPopup();
 
-        private void HandleRewardClicked(RewardDefinition rewardDefinition)
-        {
-            if (rewardDefinition == null) return;
-            if (rewardPopupPrefab == null || itemPopupParent == null) return;
+            _currentItemPopup = Instantiate(boosterPopupPrefab, itemPopupParent, false);
+            _currentItemPopup.transform.SetAsLastSibling();
 
-            // TODO: instantiate and initialize reward popup.
+            BoosterPopupView boosterPopupView = _currentItemPopup.GetComponent<BoosterPopupView>();
+            boosterPopupView?.Bind(boosterDefinition);
+
+            ProfileItemPopup popup = _currentItemPopup.GetComponent<ProfileItemPopup>();
+            popup?.SetPopupCanvas(itemPopupParent);
+            popup?.Open();
         }
 
         private void DestroyCurrentItemPopup()

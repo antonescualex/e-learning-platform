@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Data.StaticData;
-using Data.StaticData.Accessory;
+using Data.StaticData.Shop;
+using Enums;
 
 namespace Services.Interfaces
 {
@@ -11,12 +12,13 @@ namespace Services.Interfaces
         AccessoryNotFound,
         InvalidPrice,
         AlreadyOwned,
+        InvalidPurchase,
         NotEnoughCoins
     }
 
     public interface IShopService
     {
-        IReadOnlyList<AccessoryDefinition> GetItems();
+        IReadOnlyList<ShopItemDefinition> GetItems();
         bool IsOwned(string accessoryId);
         ShopPurchaseStatus TryBuy(string accessoryId);
     }

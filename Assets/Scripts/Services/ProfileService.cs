@@ -25,6 +25,10 @@ namespace Services
             {
                 _profileData = loadedData;
                 _profileData?.EnsureDataIntegrity();
+                if (_profileData.AddDefaultAvatarIds() || _profileData.AddDefaultBackgroundIds())
+                {
+                    SaveProfile();
+                }
                 NotifyProfileChanged();
                 return true;
             }
@@ -76,6 +80,14 @@ namespace Services
             NotifyProfileChanged();
         }
 
+        public void SetBackground(string backgroundId)
+        {
+            if (_profileData == null) return;
+            _profileData.SetBackground(backgroundId);
+            SaveProfile();
+            NotifyProfileChanged();
+        }
+
         public void SaveProfile()
         {
             if (_profileData == null) return;
@@ -93,20 +105,38 @@ namespace Services
             NotifyProfileChanged();
             return true;
         }
-
-        public bool HasAccessory(string accessoryId)
+        
+        public bool HasAvatar(string avatarId)
         {
             if (_profileData == null) return false;
-            return _profileData.HasAccessory(accessoryId);
+            return _profileData.HasAvatar(avatarId);
         }
 
-        public bool TryAddAccessory(string accessoryId)
+        public bool HasBackground(string backgroundId)
         {
             if (_profileData == null) return false;
-
-            bool added = _profileData.TryAddAccessory(accessoryId);
+            return _profileData.HasBackground(backgroundId);
+        }
+        
+        public bool TryAddAvatar(string avatarId)
+        {
+            if (_profileData == null) return false;
+            
+            bool added = _profileData.TryAddAvatar(avatarId);
             if (!added) return false;
+            
+            SaveProfile();
+            NotifyProfileChanged();
+            return true;
+        }
 
+        public bool TryAddBackground(string backgroundId)
+        {
+            if (_profileData == null) return false;
+            
+            bool added = _profileData.TryAddBackground(backgroundId);
+            if (!added) return false;
+            
             SaveProfile();
             NotifyProfileChanged();
             return true;
@@ -117,6 +147,18 @@ namespace Services
             if (_profileData == null) return false;
 
             bool added = _profileData.TryAddBadgeItem(itemId);
+            if (!added) return false;
+
+            SaveProfile();
+            NotifyProfileChanged();
+            return true;
+        }
+        
+        public bool TryAddBoosterItem(string itemId)
+        {
+            if (_profileData == null) return false;
+
+            bool added = _profileData.TryAddBoosterItem(itemId);
             if (!added) return false;
 
             SaveProfile();
@@ -140,11 +182,11 @@ namespace Services
             ProfileChanged?.Invoke(_profileData);
         }
 
-        public void RegisterCompletedLesson(bool receivedSpecialItem)
+        public void RegisterCompletedLesson()
         {
             if (_profileData == null) return;
 
-            _profileData.RegisterCompletedLesson(receivedSpecialItem);
+            _profileData.RegisterCompletedLesson();
             SaveProfile();
             NotifyProfileChanged();
         }
@@ -165,30 +207,6 @@ namespace Services
             _profileData.RegisterShopPurchase(spentCoins);
             SaveProfile();
             NotifyProfileChanged();
-        }
-
-        public bool TryAddBoosterItem(string itemId)
-        {
-            if (_profileData == null) return false;
-
-            bool added = _profileData.TryAddBoosterItem(itemId);
-            if (!added) return false;
-
-            SaveProfile();
-            NotifyProfileChanged();
-            return true;
-        }
-
-        public bool TryAddRewardItem(string itemId)
-        {
-            if (_profileData == null) return false;
-
-            bool added = _profileData.TryAddRewardItem(itemId);
-            if (!added) return false;
-
-            SaveProfile();
-            NotifyProfileChanged();
-            return true;
         }
     }
 }

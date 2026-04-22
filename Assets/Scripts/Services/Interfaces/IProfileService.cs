@@ -17,19 +17,20 @@ namespace Services.Interfaces
         void AddCoins(int amount);
         bool AddExperience(int amount);
         void SetAvatar(string avatarId);
+        void SetBackground(string backgroundId);
 
         bool TrySpendCoins(int amount);
-        bool HasAccessory(string accessoryId);
-        bool TryAddAccessory(string accessoryId);
+        bool HasAvatar(string avatarId);
+        bool HasBackground(string backgroundId);
+        bool TryAddAvatar(string avatarId);
+        bool TryAddBackground(string backgroundId);
         bool TryAddBadgeItem(string itemId);
+        bool TryAddBoosterItem(string itemId);
 
         void RegisterDailyLogin();
-        void RegisterCompletedLesson(bool receivedSpecialItem);
+        void RegisterCompletedLesson();
         void RegisterIncompleteLesson();
         void RegisterShopPurchase(int spentCoins);
-
-        bool TryAddBoosterItem(string itemId);
-        bool TryAddRewardItem(string itemId);
 
         void SaveProfile();
     }

@@ -1,3 +1,4 @@
+using Data.StaticData.Item;
 using Services;
 using Services.Interfaces;
 using UnityEngine;
@@ -11,11 +12,13 @@ namespace UIScripts.MainMenu.Inventory
 
         private InventoryMenuController _menuController;
         private IInventoryService _inventoryService;
+        private IProfileService _profileService;
 
-        public void Init(InventoryMenuController menuController, IInventoryService inventoryService)
+        public void Init(InventoryMenuController menuController, IInventoryService inventoryService, IProfileService profileService)
         {
             _menuController = menuController;
             _inventoryService = inventoryService;
+            _profileService = profileService;
             Populate();
         }
 
@@ -33,20 +36,28 @@ namespace UIScripts.MainMenu.Inventory
                 var itemGameObject = Instantiate(itemPrefab, content, false);
                 var view = itemGameObject.GetComponent<InventoryItemView>();
                 view.Bind(item);
+                view.EquipRequested += OnEquipRequested;
             }
         }
+        
+        public void OnClosePressed()
+        {
+            _menuController.CloseInventory();
+        }
 
+        private void OnEquipRequested(InventoryItem inventoryItem)
+        {
+            if (_profileService == null || inventoryItem == null) return;
+            
+            _profileService.SetBackground(inventoryItem.Id);
+        }
+        
         private void ClearContent()
         {
             for (int i = content.childCount - 1; i >= 0; i--)
             {
                 Destroy(content.GetChild(i).gameObject);
             }
-        }
-
-        public void OnClosePressed()
-        {
-            _menuController.CloseInventory();
         }
     }
 }

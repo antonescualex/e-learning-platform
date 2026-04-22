@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using App;
 using Data.StaticData;
-using Data.StaticData.Accessory;
+using Data.StaticData.Shop;
 using Services;
 using Services.Interfaces;
 using Unity.VisualScripting;
@@ -22,7 +22,7 @@ namespace UIScripts.MainMenu.Shop
         [SerializeField] private Canvas canvas;
 
         [Header("Accessory Catalog")]
-        [SerializeField] private AccessoryCatalog catalog;
+        [SerializeField] private ShopCatalog catalog;
 
         private GameObject _currentPopup;
         private IShopService _shopService;

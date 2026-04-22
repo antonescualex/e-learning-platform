@@ -456,8 +456,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::App
   badgeCatalog: {fileID: 11400000, guid: 6fab4f1d959514f48a66a4e37119e0e1, type: 2}
   boosterCatalog: {fileID: 11400000, guid: f52b7fb0732fbde419cba6f52e0b1e8a, type: 2}
-  rewardCatalog: {fileID: 11400000, guid: 7c5598494e1789b4eaabc2452ecf8992, type: 2}
-  accessoryCatalog: {fileID: 11400000, guid: e67c860a158a66d479bed168681e917f, type: 2}
+  backgroundCatalog: {fileID: 11400000, guid: b7ef62faff013164a9e1850ac9f70576, type: 2}
+  shopCatalog: {fileID: 11400000, guid: e67c860a158a66d479bed168681e917f, type: 2}
   lessonContentBaseUrl: http://localhost:8080
 --- !u!1 &569698285
 GameObject:

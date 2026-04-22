@@ -10,9 +10,6 @@ namespace Lessons
         public float ElapsedSeconds { get; }
         public int CoinsReward { get; }
         public int ExperienceReward { get; }
-        public BoosterDefinition AwardedBooster { get; }
-        public RewardDefinition AwardedReward { get; }
-        public bool HasSpecialItems => AwardedBooster != null || AwardedReward != null;
 
         public LessonCompletionResult(
             LessonId lessonId,
@@ -20,9 +17,7 @@ namespace Lessons
             int correctAnswers,
             float elapsedSeconds,
             int coinsReward,
-            int experienceReward,
-            BoosterDefinition awardedBooster = null,
-            RewardDefinition awardedReward = null)
+            int experienceReward)
         {
             LessonId = lessonId;
             TotalQuestions = totalQuestions;
@@ -30,8 +25,6 @@ namespace Lessons
             ElapsedSeconds = elapsedSeconds;
             CoinsReward = coinsReward;
             ExperienceReward = experienceReward;
-            AwardedBooster = awardedBooster;
-            AwardedReward = awardedReward;
         }
     }
 }

@@ -3,7 +3,6 @@
     public enum ProfileItemCategory
     {
         Badges,
-        Boosters,
-        Rewards
+        Boosters
     }
 }

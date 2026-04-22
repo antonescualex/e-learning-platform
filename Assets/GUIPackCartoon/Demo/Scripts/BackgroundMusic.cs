@@ -5,7 +5,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Ricimi
+namespace GUIPackCartoon.Demo.Scripts
 {
     // This class manages the audio source used to play the looping background song
     // in the demo. The player can choose to mute the music, and this preference is

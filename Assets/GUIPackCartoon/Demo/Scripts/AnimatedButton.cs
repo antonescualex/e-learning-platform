@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace Ricimi
+namespace GUIPackCartoon.Demo.Scripts
 {
     // This class is based on the official source code for Unity's UI Button (which can
     // be found here: https://bitbucket.org/Unity-Technologies/ui), but adds a delay before

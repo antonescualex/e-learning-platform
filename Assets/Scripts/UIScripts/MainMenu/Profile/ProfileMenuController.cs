@@ -19,12 +19,14 @@ namespace UIScripts.MainMenu.Profile
 
         private GameObject _currentPopup;
         private IProfileService _profileService;
-        private IProfileItemsService _itemsService;
+        private IBadgeService _badgeService;
+        private IBoosterService _boosterService;
 
         private void Start()
         {
             ServiceContainer.TryResolve<IProfileService>(out _profileService);
-            ServiceContainer.TryResolve<IProfileItemsService>(out _itemsService);
+            ServiceContainer.TryResolve<IBadgeService>(out _badgeService);
+            ServiceContainer.TryResolve<IBoosterService>(out _boosterService);
         }
 
         public void OpenProfile()
@@ -57,7 +59,7 @@ namespace UIScripts.MainMenu.Profile
             _currentPopup.transform.SetAsLastSibling();
 
             var popup = _currentPopup.GetComponent<ProfileView>();
-            popup.Init(this, _profileService, _itemsService);
+            popup.Init(this, _profileService, _badgeService, _boosterService);
 
             _currentPopup.GetComponent<Ricimi.Popup>()?.Open();
         }
