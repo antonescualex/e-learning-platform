@@ -58,7 +58,7 @@ namespace App
             var settingsService = new SettingsService(settingsRepository);
             settingsService.LoadOrDefault();
             ServiceContainer.Register<ISettingsService>(settingsService);
-            ServiceContainer.Register<ILessonService>(new LessonService(profileService, boosterCatalog, badgeService));
+            ServiceContainer.Register<ILessonService>(new LessonService(profileService, boosterService, badgeService));
             ServiceContainer.Register<ILessonContentService>(new LessonContentService(lessonContentBaseUrl));
             ServiceContainer.Register<IInventoryService>(new InventoryService(backgroundCatalog, profileService));
             ServiceContainer.Register<IShopService>(new ShopService(shopCatalog, profileService, badgeService));

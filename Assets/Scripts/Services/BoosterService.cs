@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Data.StaticData.Item;
 using Enums;
 using Services.Interfaces;
@@ -7,6 +8,9 @@ namespace Services
 {
     public class BoosterService : IBoosterService
     {
+        private const int DefaultMultiplier = 1;
+        private const int ActiveBoosterMultiplier = 2;
+        
         private BoosterCatalog _boosterCatalog;
         private IProfileService _profileService;
 
@@ -34,6 +38,45 @@ namespace Services
             }
 
             return result;
+        }
+
+        public bool TryActivateBooster(string boosterItemId)
+        {
+            if(IsBoosterActive()) return false;
+            
+            BoosterDefinition booster = _boosterCatalog.GetBoosterById(boosterItemId);
+            if (booster == null) return false;
+
+            bool removed = _profileService.ProfileData.TryRemoveBoosterItem(boosterItemId);
+            if (!removed) return false;
+
+            _profileService.ProfileData.ActivateBooster(
+                booster.BoosterType,
+                booster.DurationSeconds);
+
+            _profileService.SaveProfile();
+            return true;
+        }
+
+        public int GetRewardMultiplier(BoosterType boosterType)
+        {
+            return _profileService.ProfileData.IsBoosterActive(boosterType) ? 2 : 1;
+        }
+
+        public TimeSpan GetRemainingTime(BoosterType boosterType)
+        {
+            return _profileService.ProfileData.GetBoosterRemainingTime(boosterType);
+        }
+
+        public bool IsBoosterActive(BoosterType boosterType)
+        {
+            return _profileService.ProfileData.IsBoosterActive(boosterType);
+        }
+
+        public bool IsBoosterActive()
+        {
+            return _profileService.ProfileData.IsBoosterActive(BoosterType.DoubleXP) ||
+                   _profileService.ProfileData.IsBoosterActive(BoosterType.DoubleCoins);
         }
     }
 }

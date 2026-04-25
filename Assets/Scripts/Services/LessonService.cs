@@ -11,8 +11,8 @@ namespace Services
     public class LessonService : ILessonService
     {
         private readonly IProfileService _profileService;
-        private readonly BoosterCatalog _boosterCatalog;
         private readonly IBadgeService _badgeService;
+        private readonly IBoosterService _boosterService;
 
         private readonly int _baseCoinsReward = 10;
         private readonly int _baseExperienceReward = 20;
@@ -23,11 +23,11 @@ namespace Services
 
         public LessonService(
             IProfileService profileService,
-            BoosterCatalog boosterCatalog,
+            IBoosterService boosterService,
             IBadgeService badgeService)
         {
             _profileService = profileService;
-            _boosterCatalog = boosterCatalog;
+            _boosterService = boosterService;
             _badgeService = badgeService;
         }
 
@@ -75,6 +75,9 @@ namespace Services
         {
             int coinsReward = _baseCoinsReward + correctAnswers * _coinsPerCorrectAnswer;
             int experienceReward = _baseExperienceReward + correctAnswers * _experiencePerCorrectAnswer;
+            
+            coinsReward *= _boosterService.GetRewardMultiplier(BoosterType.DoubleCoins);
+            experienceReward *= _boosterService.GetRewardMultiplier(BoosterType.DoubleXP);
 
             return new LessonCompletionResult(
                 lessonId,

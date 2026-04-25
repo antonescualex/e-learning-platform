@@ -23,6 +23,8 @@ namespace Data
         [SerializeField] private int _incompleteLessonsCount;
         [SerializeField] private int _totalShopPurchases;
         [SerializeField] private int _totalCoinsSpentInShop;
+        [SerializeField] private string _doubleCoinsBoosterExirialDate;
+        [SerializeField] private string _doubleXpBoosterExirialDate;
 
         [SerializeField] private List<string> _badgeItemIds = new List<string>();
         [SerializeField] private List<string> _boosterItemIds = new List<string>();
@@ -267,6 +269,69 @@ namespace Data
             if (string.IsNullOrEmpty(itemId)) return false;
             _boosterItemIds.Add(itemId);
             return true;
+        }
+        
+        public bool TryRemoveBoosterItem(string itemId)
+        {
+            if (string.IsNullOrEmpty(itemId)) return false;
+
+            return _boosterItemIds.Remove(itemId);
+        }
+        
+        public void ActivateBooster(BoosterType boosterType, int durationSeconds)
+        {
+            DateTime now = DateTime.Now;
+            DateTime currentExpiration = GetBoosterExpiration(boosterType);
+
+            DateTime startTime = currentExpiration > now ? currentExpiration : now;
+            DateTime newExpiration = startTime.AddSeconds(durationSeconds);
+
+            SetBoosterExpiration(boosterType, newExpiration);
+        }
+        
+        public bool IsBoosterActive(BoosterType boosterType)
+        {
+            return GetBoosterExpiration(boosterType) > DateTime.Now;
+        }
+        
+        public TimeSpan GetBoosterRemainingTime(BoosterType boosterType)
+        {
+            DateTime expiration = GetBoosterExpiration(boosterType);
+
+            if (expiration <= DateTime.Now)
+            {
+                return TimeSpan.Zero;
+            }
+
+            return expiration - DateTime.Now;
+        }
+        
+        private DateTime GetBoosterExpiration(BoosterType boosterType)
+        {
+            string value = boosterType == BoosterType.DoubleCoins
+                ? _doubleCoinsBoosterExirialDate
+                : _doubleXpBoosterExirialDate;
+
+            if (DateTime.TryParse(value, out DateTime expiration))
+            {
+                return expiration;
+            }
+
+            return DateTime.MinValue;
+        }
+
+        private void SetBoosterExpiration(BoosterType boosterType, DateTime expiration)
+        {
+            string value = expiration.ToString();
+
+            if (boosterType == BoosterType.DoubleCoins)
+            {
+                _doubleCoinsBoosterExirialDate = value;
+            }
+            else
+            {
+                _doubleXpBoosterExirialDate = value;
+            }
         }
 
         private static bool TryParseStoredDate(string value, out DateTime result)

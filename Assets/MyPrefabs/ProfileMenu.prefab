@@ -3251,6 +3251,7 @@ MonoBehaviour:
   itemPopupParent: {fileID: 6008943308515221747}
   badgePopupPrefab: {fileID: 3692242985089613756, guid: d8445c18c3d89394b89cecf2cb7e4a2f, type: 3}
   boosterPopupPrefab: {fileID: 6745525656427084584, guid: c2c5faeb9cd98d84c936ec39cca2fb64, type: 3}
+  boosterDeniedPrefab: {fileID: 4659509948245029883, guid: ae9d35a8a329bd94dad80661c3ca5c33, type: 3}
 --- !u!1 &8580823579853543874
 GameObject:
   m_ObjectHideFlags: 0

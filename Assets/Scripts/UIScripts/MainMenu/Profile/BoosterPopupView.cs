@@ -1,5 +1,7 @@
-﻿using Data.StaticData.Item;
+﻿using App;
+using Data.StaticData.Item;
 using Enums;
+using Services.Interfaces;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,12 +15,35 @@ namespace UIScripts.MainMenu.Profile
         [SerializeField] private TMP_Text boosterDescriptionText;
         [SerializeField] private Button okButton;
 
+        private BoosterDefinition _boosterDefinition;
+        
         public void Bind(BoosterDefinition boosterDefinition)
         {
             if (boosterDefinition == null) return;
+            
+            _boosterDefinition = boosterDefinition;
 
             CreateBoosterName(boosterDefinition);
             CreateBoosterDescription(boosterDefinition);
+            
+            if (okButton != null)
+            {
+                okButton.onClick.RemoveAllListeners();
+                okButton.onClick.AddListener(OnOkPressed);
+            }
+        }
+
+        private void OnOkPressed()
+        {
+            if (_boosterDefinition == null) return;
+
+            if (!ServiceContainer.TryResolve<IBoosterService>(out IBoosterService boosterService))
+                return;
+
+            bool activated = boosterService.TryActivateBooster(_boosterDefinition.Id);
+            if (!activated) return;
+
+            GetComponent<ProfileItemPopup>()?.Close();
         }
 
         public void CreateBoosterDescription(BoosterDefinition boosterDefinition)

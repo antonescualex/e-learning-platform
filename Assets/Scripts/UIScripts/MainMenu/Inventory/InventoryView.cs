@@ -2,6 +2,7 @@ using Data.StaticData.Item;
 using Services;
 using Services.Interfaces;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UIScripts.MainMenu.Inventory
 {
@@ -35,7 +36,7 @@ namespace UIScripts.MainMenu.Inventory
 
                 var itemGameObject = Instantiate(itemPrefab, content, false);
                 var view = itemGameObject.GetComponent<InventoryItemView>();
-                view.Bind(item);
+                view.Bind(item, _profileService.ProfileData.BackgroundId == item.Id);
                 view.EquipRequested += OnEquipRequested;
             }
         }
@@ -50,6 +51,7 @@ namespace UIScripts.MainMenu.Inventory
             if (_profileService == null || inventoryItem == null) return;
             
             _profileService.SetBackground(inventoryItem.Id);
+            Populate();
         }
         
         private void ClearContent()

@@ -35,6 +35,7 @@ namespace UIScripts.MainMenu.Profile
         [SerializeField] private Transform itemPopupParent;
         [SerializeField] private GameObject badgePopupPrefab;
         [SerializeField] private GameObject boosterPopupPrefab;
+        [SerializeField] private GameObject boosterDeniedPrefab;
 
         private ProfileMenuController _menuController;
         private IProfileService _profileService;
@@ -285,16 +286,24 @@ namespace UIScripts.MainMenu.Profile
         private void HandleBoosterClicked(BoosterDefinition boosterDefinition)
         {
             if (boosterDefinition == null) return;
-            if (boosterPopupPrefab == null || itemPopupParent == null) return;
+            if (boosterPopupPrefab == null || itemPopupParent == null || boosterDeniedPrefab == null) return;
 
+            bool isBoosterActive = _boosterService.IsBoosterActive();
+            
+            GameObject popupPrefab = isBoosterActive ? boosterDeniedPrefab : boosterPopupPrefab;
+            if (popupPrefab == null) return;
+            
             DestroyCurrentItemPopup();
 
-            _currentItemPopup = Instantiate(boosterPopupPrefab, itemPopupParent, false);
+            _currentItemPopup = Instantiate(popupPrefab, itemPopupParent, false);
             _currentItemPopup.transform.SetAsLastSibling();
 
-            BoosterPopupView boosterPopupView = _currentItemPopup.GetComponent<BoosterPopupView>();
-            boosterPopupView?.Bind(boosterDefinition);
-
+            if (!isBoosterActive)
+            {
+                BoosterPopupView boosterPopupView = _currentItemPopup.GetComponent<BoosterPopupView>();
+                boosterPopupView?.Bind(boosterDefinition);
+            }
+            
             ProfileItemPopup popup = _currentItemPopup.GetComponent<ProfileItemPopup>();
             popup?.SetPopupCanvas(itemPopupParent);
             popup?.Open();
