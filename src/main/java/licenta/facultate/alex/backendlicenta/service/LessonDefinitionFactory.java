@@ -1,5 +1,6 @@
 package licenta.facultate.alex.backendlicenta.service;
 
+import licenta.facultate.alex.backendlicenta.model.LessonId;
 import licenta.facultate.alex.backendlicenta.model.LessonRequestContext;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
@@ -26,10 +27,14 @@ public class LessonDefinitionFactory {
 
                 Type-specific rules:
                 %s
+                
+                Lesson-specific rules:
+                %s
                 """.formatted(
                 context.clientLessonId(),
                 context.lessonId().promptHint(),
-                typeSpecificRules(context.lessonType())
+                typeSpecificRules(context.lessonType()),
+                lessonSpecificRules(context.lessonId())
         );
     }
 
@@ -122,6 +127,39 @@ public class LessonDefinitionFactory {
                     Prefer simple present-tense wording with familiar words.
                     Avoid numbers, abbreviations, names, quotes, semicolons, answer options, blanks, and unusual punctuation.
                     All PassageText values must be different.
+                    """;
+            default -> "";
+        };
+    }
+
+    private String lessonSpecificRules(LessonId lessonId) {
+        return switch (lessonId) {
+            case MATHEMATICS_ADD_AND_SUBTRACT -> """
+                    Generate only arithmetic questions in the exact format "A + B = ?" or "A - B = ?".
+                    Use small whole numbers suitable for children.
+                    Across the full set, distribute addition and subtraction as evenly as possible; the difference between their counts must not exceed 1.
+                    Keep all QuestionText values different.
+                    Do not use equivalent duplicates such as "2 + 3 = ?" and "3 + 2 = ?".
+                    For subtraction, keep all results non-negative.
+                    The correct answer must be a whole number and must match the arithmetic expression exactly.
+                    Do not repeat the same correct result in the same set.
+                    All Answers values must be whole-number strings only.
+                    Wrong answers must be distinct, plausible, and close to the correct answer.
+                    Distribute CorrectAnswerIndex as evenly as possible across 0, 1, 2, and 3; the difference between the most used and least used index must not exceed 1.
+                    """;
+            case MATHEMATICS_MULTIPLY_AND_DIVIDE -> """
+                    Generate only arithmetic questions in the exact format "A x B = ?" or "A / B = ?".
+                    Use small whole numbers suitable for children.
+                    Across the full set, distribute multiplication and division as evenly as possible; the difference between their counts must not exceed 1.
+                    Keep all QuestionText values different.
+                    Do not use equivalent duplicates such as "3 x 4 = ?" and "4 x 3 = ?".
+                    Do not use inverse duplicates such as "3 x 4 = ?" and "12 / 3 = ?" in the same set.
+                    For division, every answer must be exact with no remainder, fraction, or decimal.
+                    The correct answer must be a whole number and must match the arithmetic expression exactly.
+                    Do not repeat the same correct result in the same set.
+                    All Answers values must be whole-number strings only.
+                    Wrong answers must be distinct, plausible, and close to the correct answer.
+                    Distribute CorrectAnswerIndex as evenly as possible across 0, 1, 2, and 3; the difference between the most used and least used index must not exceed 1.
                     """;
             default -> "";
         };
