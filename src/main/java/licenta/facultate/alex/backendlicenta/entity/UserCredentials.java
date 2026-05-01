@@ -106,6 +106,13 @@ public class UserCredentials {
         this.profile = profile;
     }
 
+    public void attachProfile(UserProfile profile) {
+        this.profile = profile;
+        if (profile != null && profile.getCredentials() != this) {
+            profile.setCredentials(this);
+        }
+    }
+
     @PrePersist
     void prePersist() {
         OffsetDateTime now = OffsetDateTime.now();

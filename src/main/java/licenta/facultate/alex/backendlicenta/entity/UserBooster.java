@@ -27,8 +27,8 @@ public class UserBooster {
     }
 
     public UserBooster(UserProfile profile, String boosterItemId, Integer quantity) {
-        this.profile = profile;
         this.id = new UserBoosterId(null, boosterItemId);
+        setProfile(profile);
         this.quantity = quantity;
     }
 
@@ -46,6 +46,9 @@ public class UserBooster {
 
     public void setProfile(UserProfile profile) {
         this.profile = profile;
+        if (this.id != null) {
+            this.id.setUserId(profile == null ? null : profile.getUserId());
+        }
     }
 
     public Integer getQuantity() {

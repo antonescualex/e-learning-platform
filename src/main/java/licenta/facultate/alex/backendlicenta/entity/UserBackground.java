@@ -23,6 +23,11 @@ public class UserBackground {
     protected UserBackground() {
     }
 
+    public UserBackground(UserProfile profile, String backgroundId) {
+        this.id = new UserBackgroundId(null, backgroundId);
+        setProfile(profile);
+    }
+
     public UserBackgroundId getId() {
         return id;
     }
@@ -37,6 +42,9 @@ public class UserBackground {
 
     public void setProfile(UserProfile profile) {
         this.profile = profile;
+        if (this.id != null) {
+            this.id.setUserId(profile == null ? null : profile.getUserId());
+        }
     }
 
     public OffsetDateTime getAcquiredAt() {
@@ -45,11 +53,6 @@ public class UserBackground {
 
     public void setAcquiredAt(OffsetDateTime acquiredAt) {
         this.acquiredAt = acquiredAt;
-    }
-
-    public UserBackground(UserProfile profile, String backgroundId) {
-        this.profile = profile;
-        this.id = new UserBackgroundId(null, backgroundId);
     }
 
     @PrePersist

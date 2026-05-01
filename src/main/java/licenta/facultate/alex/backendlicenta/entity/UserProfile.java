@@ -84,7 +84,7 @@ public class UserProfile {
     }
 
     public UserProfile(UserCredentials credentials, String playerName) {
-        this.credentials = credentials;
+        setCredentials(credentials);
         this.playerName = playerName;
     }
 
@@ -102,6 +102,11 @@ public class UserProfile {
 
     public void setCredentials(UserCredentials credentials) {
         this.credentials = credentials;
+        this.userId = credentials == null ? null : credentials.getUserId();
+
+        if (credentials != null && credentials.getProfile() != this) {
+            credentials.setProfile(this);
+        }
     }
 
     public String getPlayerName() {
@@ -262,6 +267,34 @@ public class UserProfile {
 
     public void setBoosters(List<UserBooster> boosters) {
         this.boosters = boosters;
+    }
+
+    public void addBadge(UserBadge badge) {
+        if (badge != null && !badges.contains(badge)) {
+            badges.add(badge);
+            badge.setProfile(this);
+        }
+    }
+
+    public void addAvatar(UserAvatar avatar) {
+        if (avatar != null && !avatars.contains(avatar)) {
+            avatars.add(avatar);
+            avatar.setProfile(this);
+        }
+    }
+
+    public void addBackground(UserBackground background) {
+        if (background != null && !backgrounds.contains(background)) {
+            backgrounds.add(background);
+            background.setProfile(this);
+        }
+    }
+
+    public void addBooster(UserBooster booster) {
+        if (booster != null && !boosters.contains(booster)) {
+            boosters.add(booster);
+            booster.setProfile(this);
+        }
     }
 
     @PrePersist

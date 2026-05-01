@@ -24,8 +24,8 @@ public class UserAvatar {
     }
 
     public UserAvatar(UserProfile profile, String avatarId) {
-        this.profile = profile;
         this.id = new UserAvatarId(null, avatarId);
+        setProfile(profile);
     }
 
     public UserAvatarId getId() {
@@ -42,6 +42,9 @@ public class UserAvatar {
 
     public void setProfile(UserProfile profile) {
         this.profile = profile;
+        if (this.id != null) {
+            this.id.setUserId(profile == null ? null : profile.getUserId());
+        }
     }
 
     public OffsetDateTime getAcquiredAt() {

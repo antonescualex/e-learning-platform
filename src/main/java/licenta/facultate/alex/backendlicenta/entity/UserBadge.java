@@ -23,6 +23,11 @@ public class UserBadge {
     protected UserBadge() {
     }
 
+    public UserBadge(UserProfile profile, String badgeId) {
+        this.id = new UserBadgeId(null, badgeId);
+        setProfile(profile);
+    }
+
     public UserBadgeId getId() {
         return id;
     }
@@ -37,6 +42,9 @@ public class UserBadge {
 
     public void setProfile(UserProfile profile) {
         this.profile = profile;
+        if (this.id != null) {
+            this.id.setUserId(profile == null ? null : profile.getUserId());
+        }
     }
 
     public OffsetDateTime getUnlockedAt() {
@@ -45,11 +53,6 @@ public class UserBadge {
 
     public void setUnlockedAt(OffsetDateTime unlockedAt) {
         this.unlockedAt = unlockedAt;
-    }
-
-    public UserBadge(UserProfile profile, String badgeId) {
-        this.profile = profile;
-        this.id = new UserBadgeId(null, badgeId);
     }
 
     @PrePersist
