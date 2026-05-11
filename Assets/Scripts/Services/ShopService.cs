@@ -1,6 +1,11 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using Auth;
 using Data.StaticData;
 using Data.StaticData.Shop;
+using Dto;
+using Dto.Profile;
 using Enums;
 using Services.Interfaces;
 
@@ -11,12 +16,14 @@ namespace Services
         private readonly ShopCatalog _catalog;
         private readonly IProfileService _profileService;
         private readonly IBadgeService _badgeService;
+        private readonly IProfileClient _profileClient;
 
-        public ShopService(ShopCatalog catalog, IProfileService profileService, IBadgeService badgeService)
+        public ShopService(ShopCatalog catalog, IProfileService profileService, IBadgeService badgeService, IProfileClient profileClient)
         {
             _catalog = catalog;
             _profileService = profileService;
             _badgeService = badgeService;
+            _profileClient = profileClient;
         }
 
         public IReadOnlyList<ShopItemDefinition> GetItems()
@@ -50,46 +57,83 @@ namespace Services
             }
         }
 
-        public ShopPurchaseStatus TryBuy(string itemId)
+        public IEnumerator TryBuy(
+            string itemId,
+            Action<ShopPurchaseStatus> onComplete,
+            Action<string> onError)
         {
             if (_profileService == null || !_profileService.HasProfile)
-                return ShopPurchaseStatus.ProfileNotLoaded;
+            {
+                onComplete?.Invoke(ShopPurchaseStatus.ProfileNotLoaded);
+                yield break;
+            }
 
             if (_catalog == null)
-                return ShopPurchaseStatus.AccessoryNotFound;
+            {
+                onComplete?.Invoke(ShopPurchaseStatus.AccessoryNotFound);
+                yield break;
+            }
 
             var definition = _catalog.GetById(itemId);
             if (definition == null)
-                return ShopPurchaseStatus.AccessoryNotFound;
-
-            if (definition.Category == ShopItemCategory.Avatar && _profileService.HasAvatar(itemId))
-                return ShopPurchaseStatus.AlreadyOwned;
-
-            if (definition.Category == ShopItemCategory.Background && _profileService.HasBackground(itemId))
-                return ShopPurchaseStatus.AlreadyOwned;
-
-            if (!_profileService.TrySpendCoins(definition.Price))
-                return ShopPurchaseStatus.NotEnoughCoins;
-
-            bool added;
-            if (definition.Category == ShopItemCategory.Avatar)
-                added = _profileService.TryAddAvatar(itemId);
-            else if (definition.Category == ShopItemCategory.Background)
-                added = _profileService.TryAddBackground(itemId);
-            else if (definition.Category == ShopItemCategory.Booster)
-                added = _profileService.TryAddBoosterItem(itemId);
-            else added = false;
-            
-            if (!added)
             {
-                _profileService.AddCoins(definition.Price);
-                return ShopPurchaseStatus.AlreadyOwned;
+                onComplete?.Invoke(ShopPurchaseStatus.AccessoryNotFound);
+                yield break;
             }
 
-            _profileService.RegisterShopPurchase(definition.Price);
-            _badgeService?.HandleShopPurchase();
+            if (definition.Category == ShopItemCategory.Avatar && _profileService.HasAvatar(itemId))
+            {
+                onComplete?.Invoke(ShopPurchaseStatus.AlreadyOwned);
+                yield break;
+            }
 
-            return ShopPurchaseStatus.Success;
+            if (definition.Category == ShopItemCategory.Background && _profileService.HasBackground(itemId))
+            {
+                onComplete?.Invoke(ShopPurchaseStatus.AlreadyOwned);
+                yield break;
+            }
+
+            ProfileAwardResponse response = null;
+            string errorMessage = null;
+
+            switch (definition.Category)
+            {
+                case ShopItemCategory.Avatar:
+                    yield return _profileClient.PurchaseAvatar(
+                        itemId,
+                        result => response = result,
+                        error => errorMessage = error);
+                    break;
+
+                case ShopItemCategory.Background:
+                    yield return _profileClient.PurchaseBackground(
+                        itemId,
+                        result => response = result,
+                        error => errorMessage = error);
+                    break;
+
+                case ShopItemCategory.Booster:
+                    yield return _profileClient.PurchaseBooster(
+                        itemId,
+                        result => response = result,
+                        error => errorMessage = error);
+                    break;
+
+                default:
+                    onComplete?.Invoke(ShopPurchaseStatus.InvalidPurchase);
+                    yield break;
+            }
+
+            if (!string.IsNullOrWhiteSpace(errorMessage) || response == null || response.Profile == null)
+            {
+                onError?.Invoke(errorMessage);
+                onComplete?.Invoke(ShopPurchaseStatus.RequestFailed);
+                yield break;
+            }
+
+            _profileService.SetLoadedProfile(ProfileMapper.ToProfileData(response.Profile));
+            _badgeService?.EnqueueAwardedBadges(response.AwardedBadgeIds);
+            onComplete?.Invoke(ShopPurchaseStatus.Success);
         }
     }
 }

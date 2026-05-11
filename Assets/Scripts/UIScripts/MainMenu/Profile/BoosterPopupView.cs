@@ -1,4 +1,5 @@
-﻿using App;
+﻿using System.Collections;
+using App;
 using Data.StaticData.Item;
 using Enums;
 using Services.Interfaces;
@@ -16,6 +17,7 @@ namespace UIScripts.MainMenu.Profile
         [SerializeField] private Button okButton;
 
         private BoosterDefinition _boosterDefinition;
+        private bool _isActivating;
         
         public void Bind(BoosterDefinition boosterDefinition)
         {
@@ -36,12 +38,43 @@ namespace UIScripts.MainMenu.Profile
         private void OnOkPressed()
         {
             if (_boosterDefinition == null) return;
+            if (_isActivating) return;
 
             if (!ServiceContainer.TryResolve<IBoosterService>(out IBoosterService boosterService))
                 return;
 
-            bool activated = boosterService.TryActivateBooster(_boosterDefinition.Id);
-            if (!activated) return;
+            StartCoroutine(ActivateBooster(boosterService));
+        }
+        
+        private IEnumerator ActivateBooster(IBoosterService boosterService)
+        {
+            _isActivating = true;
+
+            if (okButton != null)
+            {
+                okButton.interactable = false;
+            }
+
+            bool activated = false;
+            string error = null;
+
+            yield return boosterService.ActivateBooster(
+                _boosterDefinition.Id,
+                () => activated = true,
+                message => error = message);
+
+            _isActivating = false;
+
+            if (okButton != null)
+            {
+                okButton.interactable = true;
+            }
+
+            if (!activated)
+            {
+                Debug.LogWarning("Activate booster failed:\n" + error);
+                yield break;
+            }
 
             GetComponent<ProfileItemPopup>()?.Close();
         }

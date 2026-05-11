@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using Enums;
 using Lessons;
 using Services.Interfaces;
+using UnityEngine;
 
 namespace UIScripts.Lessons.Controllers
 {
@@ -124,8 +126,28 @@ namespace UIScripts.Lessons.Controllers
 
             _popupFactory.DestroyPauseMenuImmediate();
             _lastCompletionResult = null;
-            _profileService?.RegisterIncompleteLesson();
-            _lessonService?.CancelLesson();
+
+            if (_lessonService != null)
+            {
+                bool reported = false;
+                string reportError = null;
+                float elapsedSeconds = _popupFactory.CurrentLessonElapsedSeconds;
+
+                yield return _lessonService.RegisterIncompleteLesson(
+                    elapsedSeconds,
+                    () => reported = true,
+                    error => reportError = error);
+
+                if (!reported)
+                {
+                    if (!string.IsNullOrWhiteSpace(reportError))
+                    {
+                        Debug.LogWarning("Report incomplete lesson failed:\n" + reportError);
+                    }
+
+                    _lessonService.CancelLesson();
+                }
+            }
 
             yield return ExitToMainMenu();
         }
@@ -142,10 +164,32 @@ namespace UIScripts.Lessons.Controllers
                 yield break;
             }
 
+            if (_lessonService == null)
+            {
+                _lastCompletionResult = null;
+                yield return ExitToMainMenu();
+                yield break;
+            }
+
             float elapsedSeconds = _popupFactory.CurrentLessonElapsedSeconds;
 
-            if (_lessonService == null || !_lessonService.TryCompleteLesson(totalQuestions, correctAnswers, elapsedSeconds, out LessonCompletionResult result))
+            LessonCompletionResult result = null;
+            string completionError = null;
+
+            yield return _lessonService.CompleteLesson(
+                totalQuestions,
+                correctAnswers,
+                elapsedSeconds,
+                completedResult => result = completedResult,
+                error => completionError = error);
+
+            if (result == null)
             {
+                if (!string.IsNullOrWhiteSpace(completionError))
+                {
+                    Debug.LogWarning("Complete lesson failed:\n" + completionError);
+                }
+
                 _lastCompletionResult = null;
                 yield return ExitToMainMenu();
                 yield break;

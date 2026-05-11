@@ -1,5 +1,6 @@
 using System.Collections;
 using App;
+using Auth;
 using Data.StaticData;
 using Data.StaticData.Shop;
 using Services;
@@ -26,6 +27,7 @@ namespace UIScripts.MainMenu.Inventory
         private GameObject _currentPopup;
         private IInventoryService _inventoryService;
         private IProfileService _profileService;
+        private IProfileClient _profileClient;
 
         public void OpenInventory()
         {
@@ -39,6 +41,8 @@ namespace UIScripts.MainMenu.Inventory
             {
                 ServiceContainer.TryResolve<IProfileService>(out _profileService);
             }
+            if (_profileClient == null)
+                ServiceContainer.TryResolve<IProfileClient>(out _profileClient);
 
             StartCoroutine(OpenInventoryWithDelay());
         }
@@ -66,7 +70,7 @@ namespace UIScripts.MainMenu.Inventory
             _currentPopup.transform.SetAsLastSibling();
 
             var popup = _currentPopup.GetComponent<InventoryView>();
-            popup.Init(this, _inventoryService, _profileService);
+            popup.Init(this, _inventoryService, _profileService, _profileClient);
 
             _currentPopup.GetComponent<Ricimi.Popup>()?.Open();
         }

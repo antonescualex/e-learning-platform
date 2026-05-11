@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Auth;
 using Data;
 using Data.StaticData.Item;
 using Enums;
@@ -41,20 +42,23 @@ namespace UIScripts.MainMenu.Profile
         private IProfileService _profileService;
         private IBadgeService _badgeService;
         private IBoosterService _boosterService;
+        private IProfileClient _profileClient;
 
         private readonly List<ProfileItemSlotView> _itemList = new List<ProfileItemSlotView>();
 
+        private bool _isUpdatingName;
         private bool _isEditingName;
         private bool _ignoreEvents;
         private bool _popEnabled;
         private GameObject _currentItemPopup;
 
-        public void Init(ProfileMenuController menuController, IProfileService profileService, IBadgeService badgeService, IBoosterService boosterService)
+        public void Init(ProfileMenuController menuController, IProfileService profileService, IBadgeService badgeService, IBoosterService boosterService, IProfileClient profileClient)
         {
             _menuController = menuController;
             _profileService = profileService;
             _badgeService = badgeService;
             _boosterService = boosterService;
+            _profileClient = profileClient;
 
             if (categoryDropwdown != null)
             {
@@ -176,18 +180,60 @@ namespace UIScripts.MainMenu.Profile
         private void OnNameEndEdit(string value)
         {
             if (_ignoreEvents) return;
-            if (_profileService == null) return;
+            if (_profileService == null || _profileClient == null) return;
+            if (_isUpdatingName) return;
 
-            _profileService.SetPlayerName(value);
-
-            if (playerNameInput != null && _profileService.HasProfile)
+            string newName = value?.Trim();
+            if (string.IsNullOrWhiteSpace(newName))
             {
-                _ignoreEvents = true;
-                playerNameInput.SetTextWithoutNotify(_profileService.ProfileData.PlayerName);
-                _ignoreEvents = false;
+                RestoreCurrentProfileName();
+                SetNameEditing(false);
+                return;
+            }
+
+            if (_profileService.HasProfile && newName == _profileService.ProfileData.PlayerName)
+            {
+                SetNameEditing(false);
+                return;
+            }
+
+            StartCoroutine(UpdatePlayerName(newName));
+        }
+        
+        private IEnumerator UpdatePlayerName(string newName)
+        {
+            _isUpdatingName = true;
+
+            ProfileDto profileDto = null;
+            string error = null;
+
+            yield return _profileClient.UpdatePlayerName(
+                newName,
+                dto => profileDto = dto,
+                message => error = message);
+
+            _isUpdatingName = false;
+
+            if (!string.IsNullOrWhiteSpace(error) || profileDto == null)
+            {
+                Debug.LogWarning("Update player name failed:\n" + error);
+                RestoreCurrentProfileName();
+                SetNameEditing(false);
+                yield break;
             }
 
             SetNameEditing(false);
+            _profileService.SetLoadedProfile(ProfileMapper.ToProfileData(profileDto));
+        }
+
+        private void RestoreCurrentProfileName()
+        {
+            if (playerNameInput == null) return;
+            if (_profileService == null || !_profileService.HasProfile) return;
+
+            _ignoreEvents = true;
+            playerNameInput.SetTextWithoutNotify(_profileService.ProfileData.PlayerName);
+            _ignoreEvents = false;
         }
 
         private void OnDropdownChanged(int index)

@@ -11,9 +11,7 @@ namespace Services.Interfaces
 
         IReadOnlyList<ProfileItemDefinition> GetBadges();
         
-        void HandleAppOpened();
-        void HandleLessonCompleted(LessonCompletionResult result);
-        void HandleShopPurchase();
+        void EnqueueAwardedBadges(IEnumerable<string> badgeIds);
         bool TryDequeueNotification(out BadgeDefinition badgeDefinition);
     }
 }

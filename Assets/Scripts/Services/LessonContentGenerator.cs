@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using Auth;
+using Dto;
+using Dto.Error;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -119,15 +122,6 @@ namespace Services
             }
 
             return "Lesson backend request failed: " + request.error;
-        }
-
-        [Serializable]
-        private sealed class ApiErrorResponse
-        {
-            public string Code;
-            public string Message;
-            public string[] Details;
-            public string CorrelationId;
         }
     }
 }

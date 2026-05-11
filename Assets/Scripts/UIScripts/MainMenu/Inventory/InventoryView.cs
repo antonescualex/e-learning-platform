@@ -1,3 +1,5 @@
+using System.Collections;
+using Auth;
 using Data.StaticData.Item;
 using Services;
 using Services.Interfaces;
@@ -14,12 +16,15 @@ namespace UIScripts.MainMenu.Inventory
         private InventoryMenuController _menuController;
         private IInventoryService _inventoryService;
         private IProfileService _profileService;
+        private IProfileClient _profileClient;
+        private bool _isSelectingBackground;
 
-        public void Init(InventoryMenuController menuController, IInventoryService inventoryService, IProfileService profileService)
+        public void Init(InventoryMenuController menuController, IInventoryService inventoryService, IProfileService profileService, IProfileClient profileClient)
         {
             _menuController = menuController;
             _inventoryService = inventoryService;
             _profileService = profileService;
+            _profileClient = profileClient;
             Populate();
         }
 
@@ -50,8 +55,7 @@ namespace UIScripts.MainMenu.Inventory
         {
             if (_profileService == null || inventoryItem == null) return;
             
-            _profileService.SetBackground(inventoryItem.Id);
-            Populate();
+            StartCoroutine(SelectBackground(inventoryItem.Id));
         }
         
         private void ClearContent()
@@ -60,6 +64,34 @@ namespace UIScripts.MainMenu.Inventory
             {
                 Destroy(content.GetChild(i).gameObject);
             }
+        }
+        
+        private IEnumerator SelectBackground(string backgroundId)
+        {
+            if (_isSelectingBackground) yield break;
+            if (_profileClient == null || _profileService == null) yield break;
+
+            _isSelectingBackground = true;
+
+            ProfileDto profileDto = null;
+            string error = null;
+
+            yield return _profileClient.SelectBackground(
+                backgroundId,
+                dto => profileDto = dto,
+                message => error = message);
+
+            _isSelectingBackground = false;
+
+            if (!string.IsNullOrWhiteSpace(error) || profileDto == null)
+            {
+                Debug.LogWarning("Select background failed:\n" + error);
+                Populate();
+                yield break;
+            }
+
+            _profileService.SetLoadedProfile(ProfileMapper.ToProfileData(profileDto));
+            Populate();
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Auth;
 using Data.StaticData.Item;
 using Enums;
 using Services.Interfaces;
@@ -13,11 +15,13 @@ namespace Services
         
         private BoosterCatalog _boosterCatalog;
         private IProfileService _profileService;
+        private IProfileClient _profileClient;
 
-        public BoosterService(BoosterCatalog boosterCatalog, IProfileService profileService)
+        public BoosterService(BoosterCatalog boosterCatalog, IProfileService profileService, IProfileClient profileClient)
         {
             _boosterCatalog = boosterCatalog;
             _profileService = profileService;
+            _profileClient = profileClient;
         }
         
         public IReadOnlyList<ProfileItemDefinition> GetBoosters()
@@ -40,22 +44,40 @@ namespace Services
             return result;
         }
 
-        public bool TryActivateBooster(string boosterItemId)
+        public IEnumerator ActivateBooster(
+            string boosterItemId,
+            Action onSuccess,
+            Action<string> onError)
         {
-            if(IsBoosterActive()) return false;
-            
-            BoosterDefinition booster = _boosterCatalog.GetBoosterById(boosterItemId);
-            if (booster == null) return false;
+            if (string.IsNullOrWhiteSpace(boosterItemId))
+            {
+                onError?.Invoke("BoosterItemId is required.");
+                yield break;
+            }
 
-            bool removed = _profileService.ProfileData.TryRemoveBoosterItem(boosterItemId);
-            if (!removed) return false;
+            if (_profileClient == null || _profileService == null)
+            {
+                onError?.Invoke("Booster service is not initialized.");
+                yield break;
+            }
 
-            _profileService.ProfileData.ActivateBooster(
-                booster.BoosterType,
-                booster.DurationSeconds);
+            ProfileDto profileDto = null;
+            string error = null;
 
-            _profileService.SaveProfile();
-            return true;
+            yield return _profileClient.ActivateBooster(
+                boosterItemId,
+                dto => profileDto = dto,
+                message => error = message);
+
+            if (!string.IsNullOrWhiteSpace(error) || profileDto == null)
+            {
+                onError?.Invoke(error);
+                yield break;
+            }
+
+            _profileService.SetLoadedProfile(ProfileMapper.ToProfileData(profileDto));
+
+            onSuccess?.Invoke();
         }
 
         public int GetRewardMultiplier(BoosterType boosterType)

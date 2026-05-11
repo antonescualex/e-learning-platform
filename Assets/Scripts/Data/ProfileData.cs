@@ -13,6 +13,7 @@ namespace Data
         [SerializeField] private string _playerName;
         [SerializeField] private int _level;
         [SerializeField] private int _currentExperience;
+        [SerializeField] private int _experienceNeededForNextLevel;
         [SerializeField] private int _coins;
         [SerializeField] private string _avatarId;
         [SerializeField] private string _backgroundId;
@@ -31,8 +32,6 @@ namespace Data
         [SerializeField] private List<string> _avatarItemIds = new List<string>();
         [SerializeField] private List<string> _backgroundItemIds = new List<string>();
 
-        private const string LoginDateFormat = "yyyy-MM-dd";
-
         public string Id => _id;
         public string PlayerName => _playerName;
         public int Level => _level;
@@ -40,7 +39,17 @@ namespace Data
         public int Coins => _coins;
         public string AvatarId => _avatarId;
         public string BackgroundId => _backgroundId;
-        public string CreatedAt => _createdAt;
+
+        public string CreatedAt
+        {
+            get
+            {
+                if(string.IsNullOrEmpty(_createdAt)) return string.Empty;
+                if(DateTimeOffset.TryParse(_createdAt, out DateTimeOffset date)) return date.ToString("yyyy.MM.dd");
+                return _createdAt;
+            }
+        }
+
         public int CurrentLoginStreak => _currentLoginStreak;
         public int TotalShopPurchases => _totalShopPurchases;
         public int TotalCoinsSpentInShop => _totalCoinsSpentInShop;
@@ -50,24 +59,9 @@ namespace Data
         public IReadOnlyList<string> AvatarItemIds => _avatarItemIds;
         public IReadOnlyList<string> BackgroundItemIds => _backgroundItemIds;
 
-        public int ExperienceToNextLevel => CalculateExperienceNeededForNextLevel(_level);
+        public int ExperienceToNextLevel => _experienceNeededForNextLevel;
         public int CompletedLessonsCount => _completedLessonsCount;
         public int IncompleteLessonsCount => _incompleteLessonsCount;
-
-        public ProfileData(string playerName)
-        {
-            _id = Guid.NewGuid().ToString();
-            _playerName = playerName;
-            _level = 1;
-            _avatarId = "boy_3";
-            _backgroundId = "default_background";
-            _currentExperience = 0;
-            _coins = 0;
-            _createdAt = DateTime.Now.ToString("d");
-            RegisterDailyLogin(DateTime.Now);
-            AddDefaultAvatarIds();
-            AddDefaultBackgroundIds();
-        }
 
         public void EnsureDataIntegrity()
         {
@@ -94,67 +88,6 @@ namespace Data
                     return _badgeItemIds;
             }
         }
-        
-        public IReadOnlyList<string> GetAvatarIds()
-        {
-            return AvatarItemIds;
-        }
-        
-        public IReadOnlyList<string> GetBackgroundIds()
-        {
-            return BackgroundItemIds;
-        }
-
-        public void SetPlayerName(string newName)
-        {
-            if (string.IsNullOrEmpty(newName)) return;
-
-            _playerName = newName.Trim();
-        }
-
-        public void AddCoins(int amount)
-        {
-            if (amount <= 0) return;
-            _coins += amount;
-        }
-
-        public bool AddExperience(int amount)
-        {
-            if (amount <= 0) return false;
-
-            _currentExperience += amount;
-            bool leveledUp = false;
-
-            while (_currentExperience >= ExperienceToNextLevel)
-            {
-                _currentExperience -= ExperienceToNextLevel;
-                _level++;
-                leveledUp = true;
-            }
-
-            return leveledUp;
-        }
-
-        public void SetAvatar(string avatarId)
-        {
-            if (string.IsNullOrEmpty(avatarId)) return;
-            _avatarId = avatarId;
-        }
-        
-        public void SetBackground(string backgroundId)
-        {
-            if (string.IsNullOrEmpty(backgroundId)) return;
-            _backgroundId = backgroundId;
-        }
-
-        public bool TrySpendCoins(int amount)
-        {
-            if (amount <= 0) return false;
-            if (_coins < amount) return false;
-
-            _coins -= amount;
-            return true;
-        }
 
         public bool HasAvatar(string avatarId)
         {
@@ -167,43 +100,6 @@ namespace Data
             if (string.IsNullOrEmpty(backgroundId)) return false;
             return _backgroundItemIds.Contains(backgroundId);
         }
-        
-        public bool TryAddAvatar(string avatarId)
-        {
-            if (string.IsNullOrEmpty(avatarId)) return false;
-            if (_avatarItemIds.Contains(avatarId)) return false;
-            
-            _avatarItemIds.Add(avatarId);
-            return true;
-        }
-        
-        public bool TryAddBackground(string backgroundId)
-        {
-            if (string.IsNullOrEmpty(backgroundId)) return false;
-            if (_backgroundItemIds.Contains(backgroundId)) return false;
-            
-            _backgroundItemIds.Add(backgroundId);
-            return true;
-        }
-
-        public bool AddDefaultAvatarIds()
-        {
-            bool changed = false;
-            List<string> defaultAvatarIds = new List<string> { "boy_3", "girl_1", "boy_1", "girl_3", "boy_4", "girl_2", "boy_2", "girl_4" };
-            foreach (var avatarId in defaultAvatarIds)
-            {
-                if (TryAddAvatar(avatarId))
-                {
-                    changed = true;
-                }
-            }
-            return changed;
-        }
-
-        public bool AddDefaultBackgroundIds()
-        {
-            return TryAddBackground("default_background");
-        }
 
         private static int CalculateExperienceNeededForNextLevel(int currentLevel)
         {
@@ -211,82 +107,6 @@ namespace Data
             float growth = 1.5f;
 
             return Mathf.RoundToInt(baseExperience * Mathf.Pow(growth, currentLevel - 1));
-        }
-
-        public void RegisterCompletedLesson()
-        {
-            _completedLessonsCount++;
-        }
-
-        public void RegisterIncompleteLesson()
-        {
-            _incompleteLessonsCount++;
-        }
-
-        public bool RegisterDailyLogin(DateTime currentDate)
-        {
-            currentDate = currentDate.Date;
-
-            if (!TryParseStoredDate(_lastLoginDate, out DateTime lastLoginDate))
-            {
-                _lastLoginDate = FormatStoredDate(currentDate);
-                _currentLoginStreak = 1;
-                return true;
-            }
-
-            if (currentDate <= lastLoginDate)
-            {
-                return false;
-            }
-
-            _currentLoginStreak = currentDate == lastLoginDate.AddDays(1)
-                ? Mathf.Max(1, _currentLoginStreak + 1)
-                : 1;
-
-            _lastLoginDate = FormatStoredDate(currentDate);
-            return true;
-        }
-
-        public void RegisterShopPurchase(int spentCoins)
-        {
-            if (spentCoins <= 0) return;
-
-            _totalShopPurchases++;
-            _totalCoinsSpentInShop += spentCoins;
-        }
-
-        public bool TryAddBadgeItem(string itemId)
-        {
-            if (string.IsNullOrEmpty(itemId)) return false;
-            if (_badgeItemIds.Contains(itemId)) return false;
-
-            _badgeItemIds.Add(itemId);
-            return true;
-        }
-
-        public bool TryAddBoosterItem(string itemId)
-        {
-            if (string.IsNullOrEmpty(itemId)) return false;
-            _boosterItemIds.Add(itemId);
-            return true;
-        }
-        
-        public bool TryRemoveBoosterItem(string itemId)
-        {
-            if (string.IsNullOrEmpty(itemId)) return false;
-
-            return _boosterItemIds.Remove(itemId);
-        }
-        
-        public void ActivateBooster(BoosterType boosterType, int durationSeconds)
-        {
-            DateTime now = DateTime.Now;
-            DateTime currentExpiration = GetBoosterExpiration(boosterType);
-
-            DateTime startTime = currentExpiration > now ? currentExpiration : now;
-            DateTime newExpiration = startTime.AddSeconds(durationSeconds);
-
-            SetBoosterExpiration(boosterType, newExpiration);
         }
         
         public bool IsBoosterActive(BoosterType boosterType)
@@ -318,35 +138,6 @@ namespace Data
             }
 
             return DateTime.MinValue;
-        }
-
-        private void SetBoosterExpiration(BoosterType boosterType, DateTime expiration)
-        {
-            string value = expiration.ToString();
-
-            if (boosterType == BoosterType.DoubleCoins)
-            {
-                _doubleCoinsBoosterExirialDate = value;
-            }
-            else
-            {
-                _doubleXpBoosterExirialDate = value;
-            }
-        }
-
-        private static bool TryParseStoredDate(string value, out DateTime result)
-        {
-            return DateTime.TryParseExact(
-                value,
-                LoginDateFormat,
-                CultureInfo.InvariantCulture,
-                DateTimeStyles.None,
-                out result);
-        }
-
-        private static string FormatStoredDate(DateTime date)
-        {
-            return date.ToString(LoginDateFormat, CultureInfo.InvariantCulture);
         }
     }
 }

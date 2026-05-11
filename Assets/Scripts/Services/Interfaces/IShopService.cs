@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using Data.StaticData;
 using Data.StaticData.Shop;
@@ -13,13 +15,17 @@ namespace Services.Interfaces
         InvalidPrice,
         AlreadyOwned,
         InvalidPurchase,
-        NotEnoughCoins
+        NotEnoughCoins,
+        RequestFailed
     }
 
     public interface IShopService
     {
         IReadOnlyList<ShopItemDefinition> GetItems();
         bool IsOwned(string accessoryId);
-        ShopPurchaseStatus TryBuy(string accessoryId);
+        IEnumerator TryBuy(
+            string itemId,
+            Action<ShopPurchaseStatus> onComplete,
+            Action<string> onError);
     }
 }

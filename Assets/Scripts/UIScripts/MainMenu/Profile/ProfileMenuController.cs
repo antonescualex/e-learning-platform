@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using App;
+using Auth;
 using Services;
 using Services.Interfaces;
 using UnityEngine;
@@ -21,12 +22,14 @@ namespace UIScripts.MainMenu.Profile
         private IProfileService _profileService;
         private IBadgeService _badgeService;
         private IBoosterService _boosterService;
+        private IProfileClient _profileClient;
 
         private void Start()
         {
             ServiceContainer.TryResolve<IProfileService>(out _profileService);
             ServiceContainer.TryResolve<IBadgeService>(out _badgeService);
             ServiceContainer.TryResolve<IBoosterService>(out _boosterService);
+            ServiceContainer.TryResolve<IProfileClient>(out _profileClient);
         }
 
         public void OpenProfile()
@@ -59,7 +62,7 @@ namespace UIScripts.MainMenu.Profile
             _currentPopup.transform.SetAsLastSibling();
 
             var popup = _currentPopup.GetComponent<ProfileView>();
-            popup.Init(this, _profileService, _badgeService, _boosterService);
+            popup.Init(this, _profileService, _badgeService, _boosterService, _profileClient);
 
             _currentPopup.GetComponent<Ricimi.Popup>()?.Open();
         }

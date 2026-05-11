@@ -1,7 +1,13 @@
+using System.Collections;
+using Auth;
+using Auth.Interfaces;
 using Data;
 using Data.StaticData.Background;
 using Data.StaticData.Item;
 using Data.StaticData.Shop;
+using Dto;
+using Dto.Auth;
+using Dto.Profile;
 using Repositories;
 using Services;
 using Services.Interfaces;
@@ -36,56 +42,121 @@ namespace App
             DontDestroyOnLoad(gameObject);
 
             ServiceContainer.Reset();
+            
+            var authSession = new AuthSession();
+            ServiceContainer.Register(authSession);
+            
+            IProfileClient profileClient = new ProfileClient(lessonContentBaseUrl, authSession);
+            ServiceContainer.Register<IProfileClient>(profileClient);
+
+            ISessionStorage sessionStorage = new PlayerPrefsSessionStorage("Learnity.RefreshToken");
+            ServiceContainer.Register<ISessionStorage>(sessionStorage);
+
+            IAuthClient authClient = new AuthClient(lessonContentBaseUrl, authSession);
+            ServiceContainer.Register<IAuthClient>(authClient);
 
             IStorage storage = new JsonStorage("E-LearningApp");
             ServiceContainer.Register<IStorage>(storage);
 
-            var profileRepository = new ProfileRepository(storage);
-            ServiceContainer.Register<IRepository<ProfileData>>(profileRepository);
-
             var settingsRepository = new SettingsRepository(storage);
             ServiceContainer.Register<IRepository<SettingsData>>(settingsRepository);
 
-            var profileService = new ProfileService(profileRepository);
+            var profileService = new ProfileService();
             ServiceContainer.Register<IProfileService>(profileService);
 
             var badgeService = new BadgeService(badgeCatalog, profileService);
             ServiceContainer.Register<IBadgeService>(badgeService);
             
-            var boosterService = new BoosterService(boosterCatalog, profileService);
+            var boosterService = new BoosterService(boosterCatalog, profileService, profileClient);
             ServiceContainer.Register<IBoosterService>(boosterService);
 
             var settingsService = new SettingsService(settingsRepository);
             settingsService.LoadOrDefault();
             ServiceContainer.Register<ISettingsService>(settingsService);
-            ServiceContainer.Register<ILessonService>(new LessonService(profileService, boosterService, badgeService));
+            ServiceContainer.Register<ILessonService>(new LessonService(profileService, boosterService, badgeService, profileClient));
             ServiceContainer.Register<ILessonContentService>(new LessonContentService(lessonContentBaseUrl));
             ServiceContainer.Register<IInventoryService>(new InventoryService(backgroundCatalog, profileService));
-            ServiceContainer.Register<IShopService>(new ShopService(shopCatalog, profileService, badgeService));
+            ServiceContainer.Register<IShopService>(new ShopService(shopCatalog, profileService, badgeService, profileClient));
         }
 
         private void Start()
         {
             ISettingsService settingsService = ServiceContainer.Resolve<ISettingsService>();
-            IProfileService profileService = ServiceContainer.Resolve<IProfileService>();
-            IBadgeService badgeService = ServiceContainer.Resolve<IBadgeService>();
 
             if (AudioManager.Instance != null)
             {
                 AudioManager.Instance.ApplySettings(settingsService.CurrentSettings);
             }
-
-            if (profileService.TryLoadProfile())
-            {
-                badgeService.HandleAppOpened();
-                Invoke("LoadMainMenuScene", LoadingTime);
-            }
-            else
-            {
-                Invoke("LoadCreateProfileScene", LoadingTime);
-            }
+            
+            StartCoroutine(BootstrapApplication());
         }
+        
+        private IEnumerator BootstrapApplication()
+        {
+            AuthSession authSession = ServiceContainer.Resolve<AuthSession>();
+            ISessionStorage sessionStorage = ServiceContainer.Resolve<ISessionStorage>();
+            IAuthClient authClient = ServiceContainer.Resolve<IAuthClient>();
+            IProfileClient profileClient = ServiceContainer.Resolve<IProfileClient>();
+            IProfileService profileService = ServiceContainer.Resolve<IProfileService>();
 
+            if (!sessionStorage.TryLoadRefreshToken(out string storedRefreshToken))
+            {
+                Invoke(nameof(LoadCreateProfileScene), LoadingTime);
+                yield break;
+            }
+
+            authSession.SetRefreshToken(storedRefreshToken);
+
+            AuthTokensResponse refreshedTokens = null;
+            string refreshError = null;
+
+            yield return authClient.RefreshSession(
+                storedRefreshToken,
+                tokens => refreshedTokens = tokens,
+                error => refreshError = error);
+
+            if (!string.IsNullOrWhiteSpace(refreshError) || refreshedTokens == null)
+            {
+                Debug.LogWarning("Refresh failed. Clearing local auth session.\n" + refreshError);
+
+                authSession.Clear();
+                sessionStorage.ClearRefreshToken();
+
+                Invoke(nameof(LoadCreateProfileScene), LoadingTime);
+                yield break;
+            }
+
+            authSession.ApplyTokens(refreshedTokens);
+            sessionStorage.SaveRefreshToken(refreshedTokens.RefreshToken);
+
+            ProfileAwardResponse loginResponse = null;
+            string profileError = null;
+
+            yield return profileClient.DailyLogin(
+                response => loginResponse = response,
+                error => profileError = error);
+
+            if (!string.IsNullOrWhiteSpace(profileError) || loginResponse == null)
+            {
+                Debug.LogWarning("Profile bootstrap failed. Clearing local auth session.\n" + profileError);
+
+                authSession.Clear();
+                sessionStorage.ClearRefreshToken();
+
+                Invoke(nameof(LoadCreateProfileScene), LoadingTime);
+                yield break;
+            }
+
+            profileService.SetLoadedProfile(ProfileMapper.ToProfileData(loginResponse.Profile));
+
+            if (ServiceContainer.TryResolve<IBadgeService>(out IBadgeService badgeService))
+            {
+                badgeService.EnqueueAwardedBadges(loginResponse.AwardedBadgeIds);
+            }
+
+            Invoke(nameof(LoadMainMenuScene), LoadingTime);
+        }
+        
         private void LoadMainMenuScene()
         {
             SceneManager.LoadScene("MainMenu");
@@ -94,14 +165,6 @@ namespace App
         private void LoadCreateProfileScene()
         {
             SceneManager.LoadScene("CreateProfile");
-        }
-
-        private void OnApplicationQuit()
-        {
-            if (ServiceContainer.TryResolve<IProfileService>(out IProfileService profileService))
-            {
-                profileService.SaveProfile();
-            }
         }
     }
 }

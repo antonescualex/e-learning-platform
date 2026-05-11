@@ -1,6 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using Auth;
 using Data.StaticData.Item;
+using Dto;
+using Dto.Lesson;
+using Dto.Profile;
 using Enums;
 using Lessons;
 using Services.Interfaces;
@@ -13,6 +18,7 @@ namespace Services
         private readonly IProfileService _profileService;
         private readonly IBadgeService _badgeService;
         private readonly IBoosterService _boosterService;
+        private readonly IProfileClient _profileClient;
 
         private readonly int _baseCoinsReward = 10;
         private readonly int _baseExperienceReward = 20;
@@ -24,11 +30,13 @@ namespace Services
         public LessonService(
             IProfileService profileService,
             IBoosterService boosterService,
-            IBadgeService badgeService)
+            IBadgeService badgeService,
+            IProfileClient profileClient)
         {
             _profileService = profileService;
             _boosterService = boosterService;
             _badgeService = badgeService;
+            _profileClient = profileClient;
         }
 
         public void StartLesson(LessonId lessonId)
@@ -48,23 +56,46 @@ namespace Services
             return true;
         }
 
-        public bool TryCompleteLesson(int totalQuestions, int correctAnswers, float elapsedSeconds, out LessonCompletionResult result)
+        public IEnumerator CompleteLesson(int totalQuestions, int correctAnswers, float elapsedSeconds, Action<LessonCompletionResult> onSuccess, Action<string> onError)
         {
-            result = null;
-
             if (!_activeLessonId.HasValue)
             {
-                return false;
+                onError?.Invoke("No active lesson.");
+                yield break;
             }
 
             NormalizeScore(ref totalQuestions, ref correctAnswers);
 
             LessonId lessonId = _activeLessonId.Value;
-            result = CreateCompletionResult(lessonId, totalQuestions, correctAnswers, elapsedSeconds);
+            LessonCompletionResult result = CreateCompletionResult(lessonId, totalQuestions, correctAnswers, elapsedSeconds);
 
-            ApplyRewards(result);
+            var request = new CompleteLessonRequest
+            {
+                LessonId = lessonId.ToString(),
+                Completed = true,
+                CorrectAnswersCount = correctAnswers,
+                QuestionCount = totalQuestions,
+                AwardedExperience = result.ExperienceReward,
+                AwardedCoins = result.CoinsReward,
+                ElapsedSeconds = result.ElapsedSeconds
+            };
+
+            ProfileAwardResponse response = null;
+            string error = null;
+
+            yield return _profileClient.CompleteLesson(request, r => response = r, e => error = e);
+
+            if (!string.IsNullOrWhiteSpace(error) || response == null || response.Profile == null)
+            {
+                onError?.Invoke(error);
+                yield break;
+            }
+
+            _profileService.SetLoadedProfile(ProfileMapper.ToProfileData(response.Profile));
+            _badgeService?.EnqueueAwardedBadges(response.AwardedBadgeIds);
+
             _activeLessonId = null;
-            return true;
+            onSuccess?.Invoke(result);
         }
 
         private LessonCompletionResult CreateCompletionResult(
@@ -87,14 +118,50 @@ namespace Services
                 coinsReward,
                 experienceReward);
         }
-
-        private void ApplyRewards(LessonCompletionResult result)
+        
+        public IEnumerator RegisterIncompleteLesson(
+            float elapsedSeconds,
+            Action onSuccess,
+            Action<string> onError)
         {
-            _profileService?.AddCoins(result.CoinsReward);
-            _profileService?.AddExperience(result.ExperienceReward);
-            _profileService?.RegisterCompletedLesson();
+            if (!_activeLessonId.HasValue)
+            {
+                onSuccess?.Invoke();
+                yield break;
+            }
 
-            _badgeService?.HandleLessonCompleted(result);
+            LessonId lessonId = _activeLessonId.Value;
+
+            var request = new CompleteLessonRequest
+            {
+                LessonId = lessonId.ToString(),
+                Completed = false,
+                CorrectAnswersCount = 0,
+                QuestionCount = 1,
+                AwardedExperience = 0,
+                AwardedCoins = 0,
+                ElapsedSeconds = Mathf.Max(0f, elapsedSeconds)
+            };
+
+            ProfileAwardResponse response = null;
+            string error = null;
+
+            yield return _profileClient.CompleteLesson(
+                request,
+                r => response = r,
+                e => error = e);
+
+            if (!string.IsNullOrWhiteSpace(error) || response == null || response.Profile == null)
+            {
+                onError?.Invoke(error);
+                yield break;
+            }
+
+            _profileService.SetLoadedProfile(ProfileMapper.ToProfileData(response.Profile));
+            _badgeService?.EnqueueAwardedBadges(response.AwardedBadgeIds);
+
+            _activeLessonId = null;
+            onSuccess?.Invoke();
         }
 
         private static void NormalizeScore(ref int totalQuestions, ref int correctAnswers)

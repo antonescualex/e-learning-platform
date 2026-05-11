@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Enums;
 using Lessons;
 
@@ -7,7 +9,16 @@ namespace Services.Interfaces
     {
         void StartLesson(LessonId lessonId);
         bool TryGetActiveLesson(out LessonId lessonId);
-        bool TryCompleteLesson(int totalQuestions, int correctAnswers, float elapsedSeconds, out LessonCompletionResult result);
+        IEnumerator CompleteLesson(
+            int totalQuestions,
+            int correctAnswers,
+            float elapsedSeconds,
+            Action<LessonCompletionResult> onSuccess,
+            Action<string> onError);
+        IEnumerator RegisterIncompleteLesson(
+            float elapsedSeconds,
+            Action onSuccess,
+            Action<string> onError);
         void CancelLesson();
     }
 }

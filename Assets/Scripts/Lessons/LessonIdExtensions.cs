@@ -1,25 +1,10 @@
 using Data.StaticData.Lesson;
+using Enums;
 
 namespace Lessons
 {
     public static class LessonIdExtensions
     {
-        public static LessonSubject GetSubject(this LessonId lessonId)
-        {
-            switch (lessonId)
-            {
-                case LessonId.MathematicsNaturalNumbers:
-                case LessonId.MathematicsGeometricalShapes:
-                case LessonId.MathematicsAddAndSubtract:
-                case LessonId.MathematicsWhatIsTheTime:
-                case LessonId.MathematicsMeasurements:
-                case LessonId.MathematicsMultiplyAndDivide:
-                    return LessonSubject.Mathematics;
-                default:
-                    return LessonSubject.English;
-            }
-        }
-
         public static string ToDisplayName(this LessonId lessonId)
         {
             switch (lessonId)
@@ -38,11 +23,6 @@ namespace Lessons
                 case LessonId.EnglishSyllableDivision: return "Syllable division";
                 default: return lessonId.ToString();
             }
-        }
-
-        public static string ToDisplayName(this LessonSubject subject)
-        {
-            return subject == LessonSubject.Mathematics ? "Mathematics" : "English";
         }
 
         public static LessonViewType GetViewType(this LessonId lessonId)

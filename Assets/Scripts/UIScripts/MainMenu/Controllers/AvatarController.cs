@@ -1,4 +1,6 @@
+using System.Collections;
 using App;
+using Auth;
 using Data;
 using Data.StaticData.Avatar;
 using Services.Interfaces;
@@ -14,10 +16,13 @@ namespace UIScripts.MainMenu.Controllers
 
         private Toggle[] _toggles;
         private IProfileService _profileService;
+        private IProfileClient _profileClient;
         private bool _ignore;
+        private bool _isSelectingAvatar;
 
         private void Awake()
         {
+            ServiceContainer.TryResolve<IProfileClient>(out _profileClient);
             ServiceContainer.TryResolve<IProfileService>(out _profileService);
             _toggles = GetComponentsInChildren<Toggle>(true);
         }
@@ -95,7 +100,34 @@ namespace UIScripts.MainMenu.Controllers
             string avatarId = toggle.gameObject.name;
             if (avatarCatalog != null && !avatarCatalog.ContainsId(avatarId)) return;
 
-            _profileService.SetAvatar(avatarId);
+            StartCoroutine(SelectAvatar(avatarId));
+        }
+        
+        private IEnumerator SelectAvatar(string avatarId)
+        {
+            if (_isSelectingAvatar) yield break;
+            if (_profileClient == null || _profileService == null) yield break;
+
+            _isSelectingAvatar = true;
+
+            ProfileDto profileDto = null;
+            string error = null;
+
+            yield return _profileClient.SelectAvatar(
+                avatarId,
+                dto => profileDto = dto,
+                message => error = message);
+
+            _isSelectingAvatar = false;
+
+            if (!string.IsNullOrWhiteSpace(error) || profileDto == null)
+            {
+                Debug.LogWarning("Select avatar failed:\n" + error);
+                Refresh();
+                yield break;
+            }
+
+            _profileService.SetLoadedProfile(ProfileMapper.ToProfileData(profileDto));
         }
     }
 }
