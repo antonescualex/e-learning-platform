@@ -15,7 +15,8 @@ import java.util.List;
 @ConfigurationProperties(prefix = "app")
 public record AppProperties(
         @Valid OpenAi openai,
-        @Valid Cors cors
+        @Valid Cors cors,
+        @Valid Auth auth
 ) {
     public record OpenAi(
             @NotBlank String baseUrl,
@@ -29,6 +30,19 @@ public record AppProperties(
 
     public record Cors(
             @NotNull List<@NotBlank String> allowedOrigins
+    ) {
+    }
+
+    public record Auth(
+            @Valid Jwt jwt
+    ) {
+    }
+
+    public record Jwt(
+            @NotBlank String issuer,
+            @NotBlank String secret,
+            @NotNull Duration accessTokenTtl,
+            @NotNull Duration refreshTokenTtl
     ) {
     }
 }

@@ -33,4 +33,39 @@ public final class AuthDtos {
             @JsonProperty("Username") String username,
             @JsonProperty("PlayerName") String playerName
     ){}
+
+    public record LoginRequest(
+            @JsonProperty("Username")
+            @NotBlank
+            String username,
+
+            @JsonProperty("Password")
+            @NotBlank
+            String password
+    ) {}
+
+    public record RefreshRequest(
+            @JsonProperty("RefreshToken")
+            @NotBlank
+            String refreshToken
+    ) {}
+
+    public record AuthenticatedUser(
+            @JsonProperty("UserId") String userId,
+            @JsonProperty("Username") String username,
+            @JsonProperty("PlayerName") String playerName
+    ) {}
+
+    public record AuthResponse(
+            @JsonProperty("AccessToken") String accessToken,
+            @JsonProperty("RefreshToken") String refreshToken,
+            @JsonProperty("TokenType") String tokenType,
+            @JsonProperty("AccessTokenExpiresInSeconds") long accessTokenExpiresInSeconds,
+            @JsonProperty("RefreshTokenExpiresInSeconds") long refreshTokenExpiresInSeconds,
+            @JsonProperty("User") AuthenticatedUser user
+    ) {}
+
+    public record LogoutAllResponse(
+            @JsonProperty("Message") String message
+    ) {}
 }
