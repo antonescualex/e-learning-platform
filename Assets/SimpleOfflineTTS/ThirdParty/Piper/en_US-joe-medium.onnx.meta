@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 6668234d2da67664b97a4ec6052894b3
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/Piper/en_US-joe-medium.onnx
+  uploadId: 913098
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: f22407ba6b4157b4a93d0a670bd3dd57, type: 3}
+  dynamicDimConfigs:
+  - name: batch_size
+    size: -1
+  - name: phonemes
+    size: -1

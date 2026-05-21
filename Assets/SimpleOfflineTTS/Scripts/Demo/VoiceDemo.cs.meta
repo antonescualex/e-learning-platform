@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 80916ef7073a424439d5f366ef7464a9
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/Scripts/Demo/VoiceDemo.cs
+  uploadId: 913098

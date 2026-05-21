@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 2e14acf3313ccc0459b17f736a965b09
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/Scripts/Editor/SupertonicVoiceImporter.cs
+  uploadId: 913098

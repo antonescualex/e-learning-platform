@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 18541e1db78144988ccc394f1ccad1b5
+timeCreated: 1528628947
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scripts/Runtime/GlyphTable.cs
+  uploadId: 913098

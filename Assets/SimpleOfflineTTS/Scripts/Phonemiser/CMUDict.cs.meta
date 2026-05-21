@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 0141eb303b6f7f045b7a7b52f9ddcded
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/Scripts/Phonemiser/CMUDict.cs
+  uploadId: 913098

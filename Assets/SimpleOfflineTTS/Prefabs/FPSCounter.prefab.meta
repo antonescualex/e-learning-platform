@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 82e2c580f2b5dfc43881bc9305a834f6
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/Prefabs/FPSCounter.prefab
+  uploadId: 913098

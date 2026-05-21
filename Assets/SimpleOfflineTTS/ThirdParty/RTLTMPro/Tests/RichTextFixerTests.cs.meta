@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 4bb0aec7acdaa9b469e74d07012d94e5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Tests/RichTextFixerTests.cs
+  uploadId: 913098

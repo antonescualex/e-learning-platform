@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: dbbe2797b93ba9e4f95e3419b2c2c8be
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4890085278179872738
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scenes/Big Rich Text ArabicSettings.lighting
+  uploadId: 913098

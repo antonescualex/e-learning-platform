@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 0369d0af1b12c4546b1d9826fe49b885
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Resources/Shaders/TMPro_SurfaceOutline.cginc
+  uploadId: 913098

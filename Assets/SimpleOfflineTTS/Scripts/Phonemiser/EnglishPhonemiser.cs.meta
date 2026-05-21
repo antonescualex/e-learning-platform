@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: f2cc26c22e6c52e4c9479cab1d249d36
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/Scripts/Phonemiser/EnglishPhonemiser.cs
+  uploadId: 913098

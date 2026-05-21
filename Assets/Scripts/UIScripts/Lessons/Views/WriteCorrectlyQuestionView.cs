@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Data.StaticData.Lesson;
+using SimpleOfflineTTS;
 using TMPro;
 using UIScripts.Bootstrap;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityText2Speech;
 
 namespace UIScripts.Lessons.Views
 {
@@ -19,8 +20,7 @@ namespace UIScripts.Lessons.Views
         [SerializeField] private Button submitButton;
         [SerializeField] private Button repeatAudioButton;
         [SerializeField] private Button backButton;
-        [SerializeField] private USgs speechSystem;
-        [SerializeField] private float playbackStartTimeout = 8f;
+        [SerializeField] private TTSVoice speechSystem;
         [SerializeField] private float playbackEndBuffer = 0.1f;
 
         private readonly List<WriteCorrectlyQuestionDefinition> _questions = new List<WriteCorrectlyQuestionDefinition>();
@@ -108,22 +108,23 @@ namespace UIScripts.Lessons.Views
 
             yield return null;
 
-            speechSystem.ReceiveTextToSpeech(sentence);
+            Task speakTask = speechSystem.Speak(sentence);
 
-            float elapsed = 0f;
-            while (elapsed < playbackStartTimeout &&
-                   (speechSystem.audioPlayer == null || !speechSystem.audioPlayer.isPlaying))
+            while (!speakTask.IsCompleted)
             {
-                elapsed += Time.unscaledDeltaTime;
                 yield return null;
             }
 
-            if (speechSystem.audioPlayer != null)
+            if (speakTask.IsFaulted)
             {
-                while (speechSystem.audioPlayer.isPlaying)
-                {
-                    yield return null;
-                }
+                Debug.LogException(speakTask.Exception);
+                SetActionButtonsInteractable(true);
+                yield break;
+            }
+
+            while (speechSystem.IsSpeaking())
+            {
+                yield return null;
             }
 
             yield return new WaitForSeconds(playbackEndBuffer);

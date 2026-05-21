@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 6c94da37c5a2c4647b3402112923f36f
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/Scripts/Inference/TTSInferencePiper.cs
+  uploadId: 913098

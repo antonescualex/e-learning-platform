@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: efaa5d1da2ab49f18656612ae8728881
+timeCreated: 1528812071
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scripts/Runtime/Types/EnglishNumbers.cs
+  uploadId: 913098

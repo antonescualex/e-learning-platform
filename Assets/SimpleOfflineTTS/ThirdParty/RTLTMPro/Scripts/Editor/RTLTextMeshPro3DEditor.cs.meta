@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 78ad6df39df8bcb4895e2bec1a24d018
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scripts/Editor/RTLTextMeshPro3DEditor.cs
+  uploadId: 913098

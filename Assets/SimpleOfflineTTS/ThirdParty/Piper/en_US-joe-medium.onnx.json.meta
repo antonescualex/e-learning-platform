@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b6b2ad58df42be94ebff49ecabada78c
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/Piper/en_US-joe-medium.onnx.json
+  uploadId: 913098

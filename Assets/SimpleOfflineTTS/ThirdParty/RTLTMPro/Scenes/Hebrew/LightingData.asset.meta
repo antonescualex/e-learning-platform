@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6fa4b4cd27f9d5e4c8d2f48b280b8801
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 112000000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scenes/Hebrew/LightingData.asset
+  uploadId: 913098

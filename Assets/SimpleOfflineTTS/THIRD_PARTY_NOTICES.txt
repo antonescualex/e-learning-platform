@@ -1,0 +1,76 @@
+SimpleOfflineTTS
+Third Party Notices
+
+This asset includes third-party software and model files.
+Each component remains licensed under its respective license
+as detailed below.
+
+The Open RAIL-M license applies only to the Supertonic model
+files and not to the SimpleOfflineTTS source code or other
+proprietary components of this asset.
+
+------------------------------------------------------------
+Supertonic TTS Models
+------------------------------------------------------------
+
+Source:
+ThirdParty/Supertonic-TTS-3
+
+License:
+BigScience Open RAIL-M License (August 18, 2022)
+
+The Supertonic TTS models (including ONNX model files and voice
+style data such as F1.json, M1.json, etc.) are not authored by the
+publisher of this Unity Asset.
+
+These models are provided unmodified and are licensed under the
+BigScience Open RAIL-M License. Use of these models is subject to
+the terms and use-based restrictions defined in that license,
+including Attachment A (which restricts use for medical advice,
+deepfakes without consent, discrimination, and other harms).
+
+A full copy of the Open RAIL-M License is included in:
+ThirdParty/Supertonic-TTS-3/LICENSE.txt
+
+By using the Supertonic models, you agree to comply with the
+Open RAIL-M License and its use-based restrictions.
+
+------------------------------------------------------------
+Piper TTS Models
+------------------------------------------------------------
+
+Source:
+https://github.com/rhasspy/piper
+
+License:
+MIT License
+
+The Piper models and related inference components are licensed
+under the MIT License. A copy of the MIT License is included in:
+
+ThirdParty/Piper/LICENSE.txt
+
+------------------------------------------------------------
+NotoSans Font
+------------------------------------------------------------
+
+Source:
+https://fonts.google.com/noto
+
+License:
+SIL Open Font License 1.1
+
+The NotoSans font is licensed under the SIL Open Font License 1.1.
+A copy of the OFL license is included in:
+
+ThirdParty/NotoSans/LICENSE.txt
+
+------------------------------------------------------------
+
+The publisher of SimpleOfflineTTS does not claim ownership of any
+third-party models, fonts, or external components included in this
+package. All such components remain subject to their respective
+licenses.
+
+For questions regarding third-party licensing, please refer to
+the individual license files included with this asset.

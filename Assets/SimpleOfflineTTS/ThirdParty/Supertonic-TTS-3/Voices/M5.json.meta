@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 590aac7d092290f4c896ad4410b05a74
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/Supertonic-TTS-3/Voices/M5.json
+  uploadId: 913098

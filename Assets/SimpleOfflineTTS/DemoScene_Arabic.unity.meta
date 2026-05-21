@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 05653d8d220532b41a44636c3b1e1995
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/DemoScene_Arabic.unity
+  uploadId: 913098

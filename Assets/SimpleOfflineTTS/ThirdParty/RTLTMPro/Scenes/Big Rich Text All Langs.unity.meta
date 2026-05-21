@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 138ec9ac4b24133459970c469393297c
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scenes/Big Rich Text All
+    Langs.unity
+  uploadId: 913098

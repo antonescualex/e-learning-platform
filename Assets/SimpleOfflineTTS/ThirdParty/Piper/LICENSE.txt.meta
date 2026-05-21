@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 759afc62772cab645ab3c5e26dc778d8
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/Piper/LICENSE.txt
+  uploadId: 913098

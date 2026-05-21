@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 99c9720ab356a0642a771bea13969a05
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scenes/Multiline.unity
+  uploadId: 913098

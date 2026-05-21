@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0c8e60b0f165e474cbd2c45444272bdb
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 112000000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scenes/Simple Test/LightingData.asset
+  uploadId: 913098

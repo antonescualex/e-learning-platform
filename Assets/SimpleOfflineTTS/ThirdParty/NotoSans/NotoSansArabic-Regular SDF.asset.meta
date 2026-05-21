@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3f778eba27855d64da0bbacce7a0d51f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/NotoSans/NotoSansArabic-Regular SDF.asset
+  uploadId: 913098

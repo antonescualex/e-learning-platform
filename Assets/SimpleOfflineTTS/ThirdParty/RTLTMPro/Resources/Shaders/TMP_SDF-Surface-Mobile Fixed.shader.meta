@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 03223b7219fce87408a41ff72efa7943
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Resources/Shaders/TMP_SDF-Surface-Mobile
+    Fixed.shader
+  uploadId: 913098

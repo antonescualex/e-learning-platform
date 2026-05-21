@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 16b63553270f433db437205db640a8b8
+timeCreated: 1563990538
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scripts/Runtime/TashkeelFixer.cs
+  uploadId: 913098

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d06a3212046998e4abf066680de65192
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/README.md
+  uploadId: 913098

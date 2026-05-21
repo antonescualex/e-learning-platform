@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d1c0fe2968a06eb45ba34c0ca271d04b
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/THIRD_PARTY_NOTICES.txt
+  uploadId: 913098

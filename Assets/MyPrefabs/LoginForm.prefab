@@ -1101,6 +1101,14 @@ PrefabInstance:
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
+    - target: {fileID: 2136200260768305458, guid: 51b10c5779fe14b46ac78c45304ec4e0, type: 3}
+      propertyPath: m_InputType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136200260768305458, guid: 51b10c5779fe14b46ac78c45304ec4e0, type: 3}
+      propertyPath: m_ContentType
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2448460770579805180, guid: 51b10c5779fe14b46ac78c45304ec4e0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

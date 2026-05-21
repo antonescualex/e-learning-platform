@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 69fef42ce8f5a8d4f852c3d89199a87a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4890085278179872738
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scenes/ZeroWidthNoJoinerSettings.lighting
+  uploadId: 913098

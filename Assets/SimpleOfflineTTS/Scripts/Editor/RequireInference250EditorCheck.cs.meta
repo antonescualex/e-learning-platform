@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 7d38f9cc4730c2b4fb115f7b19d7b7ac
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/Scripts/Editor/RequireInference250EditorCheck.cs
+  uploadId: 913098

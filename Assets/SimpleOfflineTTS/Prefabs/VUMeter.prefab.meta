@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c356ae4b366b5c64b81409fd868b952c
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/Prefabs/VUMeter.prefab
+  uploadId: 913098

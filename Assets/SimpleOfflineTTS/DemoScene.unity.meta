@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6f8ed4d7bcf0abe4cbdae5c3e22cd4fd
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/DemoScene.unity
+  uploadId: 913098

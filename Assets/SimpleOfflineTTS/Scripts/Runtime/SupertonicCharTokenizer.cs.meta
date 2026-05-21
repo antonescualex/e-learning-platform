@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 74bb59a9fd3a62046aa04ccf968e6cbc
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/Scripts/Runtime/SupertonicCharTokenizer.cs
+  uploadId: 913098

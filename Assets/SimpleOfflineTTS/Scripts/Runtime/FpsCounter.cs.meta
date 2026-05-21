@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 8662b830fcbf20642b151beebedbe365
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/Scripts/Runtime/FpsCounter.cs
+  uploadId: 913098

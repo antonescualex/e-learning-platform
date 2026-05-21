@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e94bff6265c64db40b3f79435314e7e9
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/CMUDict/cmudict-0.7b-daddis.txt
+  uploadId: 913098

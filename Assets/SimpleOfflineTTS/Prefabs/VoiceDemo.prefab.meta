@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1087a9b7dc6983248bf5d3c6d1e6bbf9
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/Prefabs/VoiceDemo.prefab
+  uploadId: 913098

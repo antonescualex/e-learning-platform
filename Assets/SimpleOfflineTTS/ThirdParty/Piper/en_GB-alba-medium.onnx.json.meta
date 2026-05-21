@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c2541c4bef259854b89ef86392975a51
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/Piper/en_GB-alba-medium.onnx.json
+  uploadId: 913098

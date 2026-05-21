@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 441ee7abb0657cf4c815298fb23bd9e2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/NotoSans/NotoSansCJKkr-Regular SDF.asset
+  uploadId: 913098

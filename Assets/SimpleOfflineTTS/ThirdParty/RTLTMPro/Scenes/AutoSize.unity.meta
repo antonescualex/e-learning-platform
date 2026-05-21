@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 85a0701b1cacea14e8b078c54900a12d
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scenes/AutoSize.unity
+  uploadId: 913098

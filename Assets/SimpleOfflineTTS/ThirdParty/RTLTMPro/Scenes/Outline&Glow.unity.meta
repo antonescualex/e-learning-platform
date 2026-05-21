@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c90128dba1a4d4d4788518bc2f0f8111
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scenes/Outline&Glow.unity
+  uploadId: 913098

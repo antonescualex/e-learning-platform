@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a2cf5e68362ebbf47a1b8985ea222c48
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/NotoSans/LICENSE.txt
+  uploadId: 913098

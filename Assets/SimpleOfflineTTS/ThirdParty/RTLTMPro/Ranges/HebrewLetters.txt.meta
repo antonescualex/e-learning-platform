@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6d5c113b138e403479422de26f728ec0
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Ranges/HebrewLetters.txt
+  uploadId: 913098

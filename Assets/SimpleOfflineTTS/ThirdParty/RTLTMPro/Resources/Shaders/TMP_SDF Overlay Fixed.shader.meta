@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: f1332782db23b1b41924c0a0c5f711e9
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Resources/Shaders/TMP_SDF
+    Overlay Fixed.shader
+  uploadId: 913098

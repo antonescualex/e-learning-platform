@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: e90392f1b4179634fadf729e8e5f8030
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/Piper/en_US-lessac-medium_fp16.sentis
+  uploadId: 913098
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: d416c695138885743b59877b4a1c2f5a, type: 3}
+  dynamicDimConfigs:
+  - name: batch_size
+    size: -1
+  - name: phonemes
+    size: -1

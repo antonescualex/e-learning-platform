@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 206279cab35539a4286dc80a0434dcbd
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/Scripts/Runtime/VUMeter.cs
+  uploadId: 913098

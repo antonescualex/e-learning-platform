@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e67765f71ee0eee47af710dfa3a87337
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scenes/Arabic Tashkeel.unity
+  uploadId: 913098

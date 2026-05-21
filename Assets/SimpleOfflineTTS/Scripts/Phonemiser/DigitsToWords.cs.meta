@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 67b1465b8ff35904a8eed3b68e773257
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/Scripts/Phonemiser/DigitsToWords.cs
+  uploadId: 913098

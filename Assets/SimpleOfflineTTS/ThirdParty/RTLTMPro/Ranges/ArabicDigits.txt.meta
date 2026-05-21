@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3f708fa11682ef243859097979dfb427
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Ranges/ArabicDigits.txt
+  uploadId: 913098

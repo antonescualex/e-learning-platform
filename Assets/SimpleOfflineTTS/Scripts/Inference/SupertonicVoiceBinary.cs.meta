@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: fe54876e38418e240841031805e38259
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/Scripts/Inference/SupertonicVoiceBinary.cs
+  uploadId: 913098

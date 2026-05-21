@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: c4d3ac12902d6f24a8c9ebf76f9ea768
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Fonts/segoeui Arabic Glow
+    SDF.mat
+  uploadId: 913098

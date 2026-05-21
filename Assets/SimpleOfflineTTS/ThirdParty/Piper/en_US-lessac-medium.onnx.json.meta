@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4c524ccc2a994ad40ab3025dd44d28e5
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/Piper/en_US-lessac-medium.onnx.json
+  uploadId: 913098

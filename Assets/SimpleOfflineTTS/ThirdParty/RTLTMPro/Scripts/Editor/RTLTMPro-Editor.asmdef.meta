@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4c81503a5307f1b40987538bf4048d1f
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scripts/Editor/RTLTMPro-Editor.asmdef
+  uploadId: 913098

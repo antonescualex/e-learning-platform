@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2f4c87d4689c4a940a9bcccf6a59e92b
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scenes/Multi-Language.unity
+  uploadId: 913098

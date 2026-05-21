@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 164fb981c3eeae0488e44e339f3ed3d7
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Tests/RTLTMPro-Tests.asmdef
+  uploadId: 913098

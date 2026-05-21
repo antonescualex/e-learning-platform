@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 80cf635b87ac4f34bf87bfb6e16c8173
+timeCreated: 1528653010
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scripts/Runtime/Types/HinduNumbers.cs
+  uploadId: 913098

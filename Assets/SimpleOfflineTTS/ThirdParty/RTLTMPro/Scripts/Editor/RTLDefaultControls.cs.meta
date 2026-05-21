@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 54ad372a5b5741c781a9844f3b0b5939
+timeCreated: 1528675499
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scripts/Editor/RTLDefaultControls.cs
+  uploadId: 913098

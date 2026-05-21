@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: e713aa08c366b764caa82807c2e59a32
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/Supertonic-TTS-3/duration_predictor_fp16.sentis
+  uploadId: 913098
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: d416c695138885743b59877b4a1c2f5a, type: 3}
+  dynamicDimConfigs:
+  - name: batch_size
+    size: -1
+  - name: text_length
+    size: -1

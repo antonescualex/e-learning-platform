@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7f55c02916d3ba14fbd9cec3ded3ec74
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scenes/Big Rich Text Farsi.unity
+  uploadId: 913098

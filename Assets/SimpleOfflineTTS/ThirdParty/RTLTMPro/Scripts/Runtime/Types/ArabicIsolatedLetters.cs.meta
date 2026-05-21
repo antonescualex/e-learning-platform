@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 8dd81b4441b2491c9a226ddcacecc4fb
+timeCreated: 1528629015
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scripts/Runtime/Types/ArabicIsolatedLetters.cs
+  uploadId: 913098

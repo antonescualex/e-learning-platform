@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8853bda3b8a941e46809d69e2cb0d48d
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339958
+  packageName: Simple Offline Text-to-Speech (TTS)
+  packageVersion: 1.0.0
+  assetPath: Assets/SimpleOfflineTTS/ThirdParty/RTLTMPro/Scenes/InputField.unity
+  uploadId: 913098
