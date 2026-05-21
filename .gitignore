@@ -34,6 +34,14 @@
 # Visual Studio cache directory
 .vs/
 
+# IDE/editor settings
+.idea/
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
 # Gradle cache directory
 .gradle/
 

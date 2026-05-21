@@ -1,0 +1,177 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d727e15b473e4e22b78daa171618e320, type: 3}
+  m_Name: ShopCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::Data.StaticData.AccessoryCatalog
+  shopItemDefinitions:
+  - Id: booster_double_xp_10m
+    Icon: {fileID: 21300000, guid: 0d553cdcce71f433e9a9e8b07cb09331, type: 3}
+    Title: Double XP(10m)
+    Description: This is a booster that doubles the experience you achive after finishing
+      lessons for 10 minutes.
+    Price: 800
+    Category: 2
+  - Id: booster_double_xp_30m
+    Icon: {fileID: 21300000, guid: 368237e77379444e38c3e17c9c37b67d, type: 3}
+    Title: Double XP(30m)
+    Description: This is a booster that doubles the experience you achive after finishing
+      lessons for 30 minutes.
+    Price: 1500
+    Category: 2
+  - Id: booster_double_xp_1h
+    Icon: {fileID: 21300000, guid: ecaff360c11374bdebeffff4f731c76c, type: 3}
+    Title: Double XP(1h)
+    Description: This is a booster that doubles the experience you achive after finishing
+      lessons for 1 hour.
+    Price: 2800
+    Category: 2
+  - Id: booster_double_coins_10m
+    Icon: {fileID: 21300000, guid: e9168aa3eb0ef448498944526901d35c, type: 3}
+    Title: Double Coins(10m)
+    Description: This is a booster that doubles the coins you receive after finishing
+      lessons for 10 minutes.
+    Price: 1000
+    Category: 2
+  - Id: booster_double_coins_30m
+    Icon: {fileID: 21300000, guid: 583f02b89cabe4bb8950b242bfabec48, type: 3}
+    Title: Double Coins(30m)
+    Description: This is a booster that doubles the coins you receive after finishing
+      lessons for 30 minutes.
+    Price: 2900
+    Category: 2
+  - Id: booster_double_coins_1h
+    Icon: {fileID: 21300000, guid: 601f890e5856d402aaf6134937d55250, type: 3}
+    Title: Double Coins(1h)
+    Description: This is a booster that doubles the coins you receive after finishing
+      lessons for 1 hour.
+    Price: 5700
+    Category: 2
+  - Id: hipster_male
+    Icon: {fileID: 21300000, guid: 8b8775d43ca53964ba71fd5f3cf9fed7, type: 3}
+    Title: Hipster Male Skin
+    Description: A magical apple.
+    Price: 800
+    Category: 0
+  - Id: rocker_male
+    Icon: {fileID: 21300000, guid: 620f627454728524ba9c89bf7e3f570e, type: 3}
+    Title: Rocker Male Skin
+    Description: A very nice ice cream.
+    Price: 1000
+    Category: 0
+  - Id: police_male
+    Icon: {fileID: 21300000, guid: 9ed0492d856049d41a559327ca5fb2b6, type: 3}
+    Title: Policeman Skin
+    Description: A tasty pudding.
+    Price: 1300
+    Category: 0
+  - Id: doctor_male
+    Icon: {fileID: 21300000, guid: b380f48d7c18f784cac61de1df46f892, type: 3}
+    Title: Doctor Male Skin
+    Description: A red strawberry.
+    Price: 1500
+    Category: 0
+  - Id: firefighter_male
+    Icon: {fileID: 21300000, guid: bbab5b347be4891478b66398d616cbbc, type: 3}
+    Title: Firefighter Male Skin
+    Description: A red strawberry.
+    Price: 1800
+    Category: 0
+  - Id: basketball_male
+    Icon: {fileID: 21300000, guid: 612c79c5b91037b429240298b70fb7cd, type: 3}
+    Title: Basketball Player Male Skin
+    Description: A red strawberry.
+    Price: 2400
+    Category: 0
+  - Id: wizard_male
+    Icon: {fileID: 21300000, guid: 62b59eaf924700f49ab47a48d1b8b51e, type: 3}
+    Title: Wizard Male Skin
+    Description: A red strawberry.
+    Price: 4600
+    Category: 0
+  - Id: king_male
+    Icon: {fileID: 21300000, guid: 631b0a070251a4146a6945ebb0155210, type: 3}
+    Title: King Male Skin
+    Description: A red strawberry.
+    Price: 6200
+    Category: 0
+  - Id: rocker_female
+    Icon: {fileID: 21300000, guid: 3035bfcad9622724091d104a7b679a36, type: 3}
+    Title: Rocker Female Skin
+    Description: A red strawberry.
+    Price: 800
+    Category: 0
+  - Id: chef_female
+    Icon: {fileID: 21300000, guid: 0bfd0e75fb27f6d45b11a12b87f4c054, type: 3}
+    Title: Chef Female Skin
+    Description: A red strawberry.
+    Price: 1000
+    Category: 0
+  - Id: tennis_female
+    Icon: {fileID: 21300000, guid: 0ad8e4a9c4ae77746b1f2e7d4ff96729, type: 3}
+    Title: Tennis Female Skin
+    Description: A red strawberry.
+    Price: 1300
+    Category: 0
+  - Id: witch_female
+    Icon: {fileID: 21300000, guid: 9f8c135dd330bea4c8a9f6be7db24526, type: 3}
+    Title: Witch Female Skin
+    Description: A red strawberry.
+    Price: 1500
+    Category: 0
+  - Id: fairy_female
+    Icon: {fileID: 21300000, guid: 71a4cbb85146fae4fb53aa70df25004c, type: 3}
+    Title: Fairy Female Skin
+    Description: A red strawberry.
+    Price: 1800
+    Category: 0
+  - Id: princess_female
+    Icon: {fileID: 21300000, guid: 731013ae9d253db4da2595b54494304a, type: 3}
+    Title: Princess Female Skin
+    Description: A red strawberry.
+    Price: 2400
+    Category: 0
+  - Id: mermaid_female
+    Icon: {fileID: 21300000, guid: c51b1555103e37147bc0b088a700b141, type: 3}
+    Title: Mermaid Female Skin
+    Description: A red strawberry.
+    Price: 4800
+    Category: 0
+  - Id: queen_female
+    Icon: {fileID: 21300000, guid: df108ca0a09826e4bbebf3b40ff9e423, type: 3}
+    Title: Queen Female Skin
+    Description: A red strawberry.
+    Price: 4800
+    Category: 0
+  - Id: desert_background
+    Icon: {fileID: -1552793410881824618, guid: 297659b433692994390ad8ff8823abf4, type: 3}
+    Title: Desert Background
+    Description: A nice desert background for you.
+    Price: 400
+    Category: 1
+  - Id: jungle_background
+    Icon: {fileID: -667207897711923402, guid: 6b3945e13a5128548a9e89fcb1f85853, type: 3}
+    Title: Jungle Background
+    Description: A nice jungle background for you.
+    Price: 800
+    Category: 1
+  - Id: mountain_background
+    Icon: {fileID: -8570700753974066762, guid: 246882e3acb717e42a3a4d7aaa214dbc, type: 3}
+    Title: Mountain Background
+    Description: A nice mountain background for you.
+    Price: 1200
+    Category: 1
+  - Id: ocean_background
+    Icon: {fileID: 147434752360468177, guid: 23a762ca3c69dbe41b013763c139dc8b, type: 3}
+    Title: Ocean Background
+    Description: A nice ocean background for you.
+    Price: 1400
+    Category: 1
