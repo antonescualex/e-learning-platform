@@ -24,6 +24,9 @@ import java.util.Map;
 @Service
 public class MeService {
 
+    private static final int MIN_LENGTH = 3;
+    private static final int MAX_LENGTH = 100;
+
     private static final Map<String, BoosterActivation> BOOSTER_ACTIVATIONS = Map.of(
             "booster_double_xp_10m", new BoosterActivation(BoosterEffect.DOUBLE_XP, Duration.ofMinutes(10)),
             "booster_double_xp_30m", new BoosterActivation(BoosterEffect.DOUBLE_XP, Duration.ofMinutes(30)),
@@ -111,18 +114,17 @@ public class MeService {
     @Transactional
     public MeDtos.ProfileResponse updateProfile(String userId, String username, MeDtos.UpdateProfileRequest request) {
         UserProfile profile = loadRequiredProfile(userId);
-
         String playerName = request.playerName().trim();
-        if (playerName.length() < 3 || playerName.length() > 100) {
+
+        if (playerName.length() < MIN_LENGTH || playerName.length() > MAX_LENGTH) {
             throw new ApiException(
                     HttpStatus.BAD_REQUEST,
                     "INVALID_PLAYER_NAME",
-                    "Player name must be between 3 and 100 characters"
+                    "Player name must be between " + MIN_LENGTH + " and " + MAX_LENGTH + " characters."
             );
         }
 
         profile.setPlayerName(playerName);
-
         return getProfile(userId, username);
     }
 

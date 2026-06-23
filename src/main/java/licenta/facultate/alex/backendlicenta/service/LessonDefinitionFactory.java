@@ -105,20 +105,20 @@ public class LessonDefinitionFactory {
                     ExpectedAnswer must be the same English word split into syllables with hyphens.
                     """;
             case WRITE_CORRECTLY -> """
-                Each item must contain SentenceText and ExpectedAnswer.
-                SentenceText must be a short child-friendly English sentence written correctly, with normal capitalization and punctuation.
-                ExpectedAnswer must contain exactly the same sentence content as SentenceText, but normalized for typing practice:
-                remove ending punctuation,
-                remove commas and apostrophes,
-                use lowercase only,
-                keep words in the same order,
-                do not change vocabulary,
-                do not add or remove words,
-                do not paraphrase.
-                Example:
-                SentenceText: "The cat is sleeping."
-                ExpectedAnswer: "the cat is sleeping"
-                """;
+                    Each item must contain SentenceText and ExpectedAnswer.
+                    SentenceText must be a short child-friendly English sentence written correctly, with normal capitalization and punctuation.
+                    ExpectedAnswer must contain exactly the same sentence content as SentenceText, but normalized for typing practice:
+                    remove ending punctuation,
+                    remove commas and apostrophes,
+                    use lowercase only,
+                    keep words in the same order,
+                    do not change vocabulary,
+                    do not add or remove words,
+                    do not paraphrase.
+                    Example:
+                    SentenceText: "The cat is sleeping."
+                    ExpectedAnswer: "the cat is sleeping"
+                    """;
             case READ_TOGETHER -> """
                     Each item must contain only PassageText.
                     PassageText must be a very short child-friendly English read-aloud passage.
@@ -158,6 +158,31 @@ public class LessonDefinitionFactory {
                     The correct answer must be a whole number and must match the arithmetic expression exactly.
                     Do not repeat the same correct result in the same set.
                     All Answers values must be whole-number strings only.
+                    Wrong answers must be distinct, plausible, and close to the correct answer.
+                    Distribute CorrectAnswerIndex as evenly as possible across 0, 1, 2, and 3; the difference between the most used and least used index must not exceed 1.
+                    """;
+            case MATHEMATICS_NATURAL_NUMBERS -> """
+                    Generate only exercises about natural numbers using decimal digits.
+                    Use small natural numbers suitable for children.
+                    Questions must be logically meaningful and must require the child to reason about natural numbers.
+                    Do not generate trivial restatements such as "How many birds are there if you have three birds?".
+                    Across the full set, diversify the question types as much as possible.
+                    Use a mix of skills such as:
+                    - finding the number before a given number,
+                    - finding the number after a given number,
+                    - choosing the greater number,
+                    - choosing the smaller number,
+                    - identifying the number between two numbers,
+                    - completing a simple counting sequence,
+                    - choosing the greatest or smallest number from the answer options.
+                    Do not use the same question pattern more than twice in the same set.
+                    Keep all QuestionText values different.
+                    Do not use emoji, icons, pictograms, special math symbols, accented letters, superscripts, subscripts, or any non-ASCII characters.
+                    Use only standard keyboard characters: letters A-Z/a-z, digits 0-9, spaces, and basic punctuation such as ?, ., ,, -, +, /, and =.
+                    Use words like "greater than", "less than", "before", "after", and "between" instead of comparison symbols.
+                    The correct answer must be a natural number and must match the question exactly.
+                    Do not repeat the same correct result in the same set.
+                    All Answers values must be natural-number strings only.
                     Wrong answers must be distinct, plausible, and close to the correct answer.
                     Distribute CorrectAnswerIndex as evenly as possible across 0, 1, 2, and 3; the difference between the most used and least used index must not exceed 1.
                     """;
