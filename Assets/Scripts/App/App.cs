@@ -88,6 +88,9 @@ namespace App
                 AudioManager.Instance.ApplySettings(settingsService.CurrentSettings);
             }
             
+            // PlayerPrefs.DeleteKey("Learnity.RefreshToken");
+            // PlayerPrefs.Save();
+            
             StartCoroutine(BootstrapApplication());
         }
         

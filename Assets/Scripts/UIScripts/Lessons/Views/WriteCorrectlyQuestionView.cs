@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using App;
 using Data.StaticData.Lesson;
+using Services.Interfaces;
 using SimpleOfflineTTS;
 using TMPro;
 using UIScripts.Bootstrap;
@@ -25,6 +27,8 @@ namespace UIScripts.Lessons.Views
 
         private readonly List<WriteCorrectlyQuestionDefinition> _questions = new List<WriteCorrectlyQuestionDefinition>();
 
+        private ISettingsService _settingsService;
+        private bool _musicMuted;
         private Action _onBackRequested;
         private Action<int, int> _onCompleted;
         private int _currentQuestionIndex;
@@ -65,13 +69,46 @@ namespace UIScripts.Lessons.Views
                 backButton.onClick.AddListener(OnBackClicked);
             }
 
+            MuteBackgroundMusic();
             RenderCurrentQuestion();
         }
 
+        private void MuteBackgroundMusic()
+        {
+            if (AudioManager.Instance == null) return;
+            if (!ServiceContainer.TryResolve<ISettingsService>(out _settingsService)) return;
+            if (_settingsService.CurrentSettings == null) return;
+            
+            var mutedSettings = _settingsService.CurrentSettings.Copy();
+            mutedSettings.MusicEnabled = false;
+            
+            AudioManager.Instance.ApplySettings(mutedSettings);
+            _musicMuted = true;
+        }
+
+        private void RestoreAudioSettings()
+        {
+            if(AudioManager.Instance == null) return;
+            
+            if (!_musicMuted) return;
+            _musicMuted = false;
+            
+            if (_settingsService == null) 
+            {
+                ServiceContainer.TryResolve<ISettingsService>(out _settingsService);
+            }
+
+            if (_settingsService?.CurrentSettings != null)
+            {
+                AudioManager.Instance.ApplySettings(_settingsService.CurrentSettings);
+            }
+        }
+        
         private void RenderCurrentQuestion()
         {
             if (_currentQuestionIndex >= _questions.Count)
             {
+                RestoreAudioSettings();
                 _onCompleted?.Invoke(_questions.Count, _correctAnswers);
                 return;
             }
@@ -180,6 +217,11 @@ namespace UIScripts.Lessons.Views
         private void OnBackClicked()
         {
             _onBackRequested?.Invoke();
+        }
+
+        private void OnDestroy()
+        {
+            RestoreAudioSettings();
         }
     }
 }

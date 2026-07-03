@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using App;
 using Auth;
 using Dto.Auth;
@@ -49,11 +50,12 @@ namespace UIScripts.Auth
             SetStatus(string.Empty);
         }
 
-        public IEnumerator CompleteAuthentication(AuthTokensResponse tokens)
+        public IEnumerator CompleteAuthentication(AuthTokensResponse tokens, Action onSuccess = null, Action<string> onError = null, float loadDelaySeconds = 0f)
         {
             if (tokens == null)
             {
                 SetStatus("Authentication response is empty.");
+                onError?.Invoke("Authentication response is empty.");
                 yield break;
             }
 
@@ -75,12 +77,20 @@ namespace UIScripts.Auth
             if (!string.IsNullOrWhiteSpace(profileError))
             {
                 SetStatus(profileError);
+                onError?.Invoke(profileError);
                 yield break;
             }
 
             _profileService.SetLoadedProfile(ProfileMapper.ToProfileData(loginResponse.Profile));
             
             _badgeService.EnqueueAwardedBadges(loginResponse.AwardedBadgeIds);
+            onSuccess?.Invoke();
+
+            if (loadDelaySeconds > 0f)
+            {
+                yield return new WaitForSeconds(loadDelaySeconds);
+            }
+            
             SceneManager.LoadScene(mainMenuSceneName);
         }
 

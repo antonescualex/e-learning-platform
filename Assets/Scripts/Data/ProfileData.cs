@@ -45,7 +45,7 @@ namespace Data
             get
             {
                 if(string.IsNullOrEmpty(_createdAt)) return string.Empty;
-                if(DateTimeOffset.TryParse(_createdAt, out DateTimeOffset date)) return date.ToString("yyyy.MM.dd");
+                if(DateTimeOffset.TryParse(_createdAt, out DateTimeOffset date)) return date.ToString("dd.MM.yyyy");
                 return _createdAt;
             }
         }

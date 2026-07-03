@@ -5,6 +5,7 @@ using Auth.Interfaces;
 using Dto.Auth;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UIScripts.Auth
@@ -16,12 +17,18 @@ namespace UIScripts.Auth
         [SerializeField] private TMP_InputField passwordInputField;
         [SerializeField] private Button loginButton;
         [SerializeField] private Button showSignupButton;
+        [SerializeField] private GameObject successPopup;
+        [SerializeField] private GameObject failPopup;
+        [FormerlySerializedAs("successPopupDuration")] [SerializeField] private float popupDuration = 2f;
 
         private IAuthClient _authClient;
         private bool _isSubmitting;
 
         private void Awake()
         {
+            if(successPopup != null) successPopup.SetActive(false);
+            if(failPopup != null) failPopup.SetActive(false);
+            
             if (loginButton != null)
             {
                 loginButton.onClick.AddListener(OnLoginClicked);
@@ -67,6 +74,9 @@ namespace UIScripts.Auth
             _isSubmitting = true;
             RefreshButtonState();
             authSceneController.SetStatus(string.Empty);
+            
+            successPopup?.SetActive(false);
+            failPopup?.SetActive(false);
 
             string username = usernameInputField.text.Trim();
             string password = passwordInputField.text;
@@ -83,15 +93,38 @@ namespace UIScripts.Auth
             if (!string.IsNullOrWhiteSpace(errorMessage))
             {
                 authSceneController.SetStatus(errorMessage);
+
+                failPopup?.SetActive(true);
+                StartCoroutine(HidePopupAfterDelay(failPopup));
+                
                 _isSubmitting = false;
                 RefreshButtonState();
                 yield break;
             }
 
-            yield return authSceneController.CompleteAuthentication(tokens);
+            yield return authSceneController.CompleteAuthentication(
+                tokens,
+                () =>
+                {
+                    failPopup?.SetActive(false);
+                    successPopup?.SetActive(true);
+                    StartCoroutine(HidePopupAfterDelay(successPopup));
+                },
+                error =>
+                {
+                    failPopup?.SetActive(true);
+                    StartCoroutine(HidePopupAfterDelay(failPopup));
+                },
+                popupDuration);
 
             _isSubmitting = false;
             RefreshButtonState();
+        }
+        
+        private IEnumerator HidePopupAfterDelay(GameObject popup)
+        {
+            yield return new WaitForSeconds(popupDuration);
+            popup?.SetActive(false);
         }
 
         private void RefreshButtonState()

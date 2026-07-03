@@ -9,6 +9,9 @@ namespace UIScripts.MainMenu.Controllers
 {
     public class BoosterNotificationController : MonoBehaviour
     {
+        private static readonly int OneHour = 1;
+        private static readonly string ZeroTime = "00:00";
+        
         [SerializeField] private GameObject boosterNotification;
         [SerializeField] private TMP_Text timerText;
         [SerializeField] private TMP_Text boosterTypeText;
@@ -78,10 +81,10 @@ namespace UIScripts.MainMenu.Controllers
         {
             if (remainingTime <= TimeSpan.Zero)
             {
-                return "00:00";
+                return ZeroTime;
             }
 
-            if (remainingTime.TotalHours >= 1)
+            if (remainingTime.TotalHours >= OneHour)
             {
                 return $"{(int)remainingTime.TotalHours:00}:{remainingTime.Minutes:00}:{remainingTime.Seconds:00}";
             }
