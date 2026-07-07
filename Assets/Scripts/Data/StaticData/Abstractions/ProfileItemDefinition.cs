@@ -2,7 +2,7 @@ using System;
 using Enums;
 using UnityEngine;
 
-namespace Data.StaticData.Item
+namespace Data.StaticData.Abstractions
 {
     [Serializable]
     public abstract class ProfileItemDefinition

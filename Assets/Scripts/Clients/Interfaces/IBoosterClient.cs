@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections;
-using Dto.Profile;
-using UnityEngine.Networking;
+using Auth;
 
-namespace Auth.Interfaces
+namespace Clients.Interfaces
 {
     public interface IBoosterClient
     {

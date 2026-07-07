@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using App;
 using Auth;
+using Clients.Interfaces;
 using Services;
 using Services.Interfaces;
 using UnityEngine;

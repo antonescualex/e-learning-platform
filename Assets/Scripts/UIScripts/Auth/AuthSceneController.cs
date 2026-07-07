@@ -2,6 +2,8 @@
 using System.Collections;
 using App;
 using Auth;
+using Clients;
+using Clients.Interfaces;
 using Dto.Auth;
 using Dto.Profile;
 using Services.Interfaces;

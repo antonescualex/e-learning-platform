@@ -2,6 +2,7 @@ using System.Collections;
 using App;
 using Data;
 using Data.StaticData.Avatar;
+using Data.StaticData.Badge;
 using Data.StaticData.Item;
 using Services.Interfaces;
 using TMPro;

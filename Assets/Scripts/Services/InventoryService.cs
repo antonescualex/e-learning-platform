@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using Data.StaticData.Background;
 using Data.StaticData.Item;
-using Data.StaticData.Shop;
-using Enums;
 using Services.Interfaces;
 
 namespace Services

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections;
-using Auth.Interfaces;
+using Clients.Interfaces;
 using Dto.Profile;
 using UnityEngine.Networking;
 
-namespace Auth
+namespace Clients
 {
     public class ShopClient : AbstractClient, IShopClient
     {
-        protected ShopClient(string baseUrl, AuthSession authSession, int timeoutSeconds = 20) : base(baseUrl, authSession, timeoutSeconds)
+        public ShopClient(string baseUrl, AuthSession authSession, int timeoutSeconds = 20) : base(baseUrl, authSession, timeoutSeconds)
         {
         }
 

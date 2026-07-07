@@ -1,4 +1,4 @@
-﻿namespace Auth
+﻿namespace Clients.Interfaces
 {
     public interface ISessionStorage
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Data.StaticData.Item;
+using Data.StaticData.Abstractions;
+using Data.StaticData.Badge;
 using Enums;
-using Lessons;
 using Services.Interfaces;
 
 namespace Services

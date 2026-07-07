@@ -2,7 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Auth;
-using Data.StaticData.Item;
+using Clients;
+using Clients.Interfaces;
+using Data.StaticData.Abstractions;
+using Data.StaticData.Booster;
 using Enums;
 using Services.Interfaces;
 
@@ -15,13 +18,13 @@ namespace Services
         
         private BoosterCatalog _boosterCatalog;
         private IProfileService _profileService;
-        private IProfileClient _profileClient;
+        private IBoosterClient _boosterClient;
 
-        public BoosterService(BoosterCatalog boosterCatalog, IProfileService profileService, IProfileClient profileClient)
+        public BoosterService(BoosterCatalog boosterCatalog, IProfileService profileService, IBoosterClient boosterClient)
         {
             _boosterCatalog = boosterCatalog;
             _profileService = profileService;
-            _profileClient = profileClient;
+            _boosterClient = boosterClient;
         }
         
         public IReadOnlyList<ProfileItemDefinition> GetBoosters()
@@ -55,7 +58,7 @@ namespace Services
                 yield break;
             }
 
-            if (_profileClient == null || _profileService == null)
+            if (_boosterClient == null || _profileService == null)
             {
                 onError?.Invoke("Booster service is not initialized.");
                 yield break;
@@ -64,7 +67,7 @@ namespace Services
             ProfileDto profileDto = null;
             string error = null;
 
-            yield return _profileClient.ActivateBooster(
+            yield return _boosterClient.ActivateBooster(
                 boosterItemId,
                 dto => profileDto = dto,
                 message => error = message);

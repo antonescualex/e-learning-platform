@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
+using Clients;
+using Clients.Interfaces;
+using Dto;
+using Dto.Auth;
 using Dto.Error;
-using Dto.Profile;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Auth.Interfaces
+namespace Auth
 {
-    public class AbstractClient
+    public sealed class AuthClient : IAuthClient
     {
         private const int DefaultTimeoutSeconds = 20;
 
@@ -16,22 +19,121 @@ namespace Auth.Interfaces
         private readonly AuthSession _authSession;
         private readonly int _timeoutSeconds;
 
-        protected AbstractClient(string baseUrl, AuthSession authSession, int timeoutSeconds = DefaultTimeoutSeconds)
+        public AuthClient(
+            string baseUrl,
+            AuthSession authSession,
+            int timeoutSeconds = DefaultTimeoutSeconds)
         {
             _baseUrl = string.IsNullOrWhiteSpace(baseUrl)
                 ? Services.LessonContentService.DefaultBaseUrl
                 : baseUrl.Trim().TrimEnd('/');
+
             _authSession = authSession ?? throw new ArgumentNullException(nameof(authSession));
             _timeoutSeconds = Mathf.Max(1, timeoutSeconds);
         }
-        
-        protected IEnumerator SendAuthorizedGet(
-            string relativePath,
-            Action<ProfileDto> onSuccess,
+
+        public IEnumerator Register(
+            string username,
+            string password,
+            string playerName,
+            Action<AuthTokensResponse> onSuccess,
+            Action<string> onError)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                onError?.Invoke("Username is required.");
+                yield break;
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                onError?.Invoke("Password is required.");
+                yield break;
+            }
+
+            if (string.IsNullOrWhiteSpace(playerName))
+            {
+                onError?.Invoke("Player name is required.");
+                yield break;
+            }
+
+            RegisterRequest payload = new RegisterRequest
+            {
+                Username = username.Trim(),
+                Password = password,
+                PlayerName = playerName.Trim()
+            };
+
+            yield return SendJsonForTokens(
+                "/api/auth/register",
+                UnityWebRequest.kHttpVerbPOST,
+                payload,
+                onSuccess,
+                onError);
+        }
+
+        public IEnumerator Login(
+            string username,
+            string password,
+            Action<AuthTokensResponse> onSuccess,
+            Action<string> onError)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                onError?.Invoke("Username is required.");
+                yield break;
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                onError?.Invoke("Password is required.");
+                yield break;
+            }
+
+            LoginRequest payload = new LoginRequest
+            {
+                Username = username.Trim(),
+                Password = password
+            };
+
+            yield return SendJsonForTokens(
+                "/api/auth/login",
+                UnityWebRequest.kHttpVerbPOST,
+                payload,
+                onSuccess,
+                onError);
+        }
+
+        public IEnumerator RefreshSession(
+            string refreshToken,
+            Action<AuthTokensResponse> onSuccess,
+            Action<string> onError)
+        {
+            if (string.IsNullOrWhiteSpace(refreshToken))
+            {
+                onError?.Invoke("Refresh token is missing.");
+                yield break;
+            }
+
+            RefreshRequest payload = new RefreshRequest
+            {
+                RefreshToken = refreshToken.Trim()
+            };
+
+            yield return SendJsonForTokens(
+                "/api/auth/refresh",
+                UnityWebRequest.kHttpVerbPOST,
+                payload,
+                onSuccess,
+                onError);
+        }
+
+        public IEnumerator LogoutAll(
+            Action onSuccess,
             Action<string> onError)
         {
             using UnityWebRequest request =
-                new UnityWebRequest(BuildUrl(relativePath), UnityWebRequest.kHttpVerbGET);
+                new UnityWebRequest(BuildUrl("/api/auth/logout-all"), UnityWebRequest.kHttpVerbPOST);
 
             request.downloadHandler = new DownloadHandlerBuffer();
             request.timeout = _timeoutSeconds;
@@ -54,31 +156,14 @@ namespace Auth.Interfaces
                 yield break;
             }
 
-            ProfileDto dto;
-            try
-            {
-                dto = JsonUtility.FromJson<ProfileDto>(responseText);
-            }
-            catch (Exception ex)
-            {
-                onError?.Invoke("Invalid JSON response from profile backend.\n" + ex.Message);
-                yield break;
-            }
-
-            if (dto == null)
-            {
-                onError?.Invoke("Profile backend returned an empty response.");
-                yield break;
-            }
-
-            onSuccess?.Invoke(dto);
+            onSuccess?.Invoke();
         }
 
-        protected IEnumerator SendAuthorizedJsonWithProfileResponse(
+        private IEnumerator SendJsonForTokens(
             string relativePath,
             string method,
             object payload,
-            Action<ProfileDto> onSuccess,
+            Action<AuthTokensResponse> onSuccess,
             Action<string> onError)
         {
             string requestJson = JsonUtility.ToJson(payload);
@@ -92,12 +177,6 @@ namespace Auth.Interfaces
             request.timeout = _timeoutSeconds;
             request.SetRequestHeader("Content-Type", "application/json");
 
-            if (!TryApplyAuthorizationHeader(request, out string authError))
-            {
-                onError?.Invoke(authError);
-                yield break;
-            }
-
             yield return request.SendWebRequest();
 
             string responseText = request.downloadHandler != null
@@ -110,70 +189,26 @@ namespace Auth.Interfaces
                 yield break;
             }
 
-            ProfileDto dto;
+            AuthTokensResponse tokens;
             try
             {
-                dto = JsonUtility.FromJson<ProfileDto>(responseText);
+                tokens = JsonUtility.FromJson<AuthTokensResponse>(responseText);
             }
             catch (Exception ex)
             {
-                onError?.Invoke("Invalid JSON response from profile backend.\n" + ex.Message);
+                onError?.Invoke("Invalid JSON response from auth backend.\n" + ex.Message);
                 yield break;
             }
 
-            if (dto == null)
+            if (tokens == null
+                || string.IsNullOrWhiteSpace(tokens.AccessToken)
+                || string.IsNullOrWhiteSpace(tokens.RefreshToken))
             {
-                onError?.Invoke("Profile backend returned an empty response.");
+                onError?.Invoke("Auth response does not contain both tokens.");
                 yield break;
             }
 
-            onSuccess?.Invoke(dto);
-        }
-        
-        protected IEnumerator SendAuthorizedJsonWithAwardResponse(
-            string relativePath,
-            string method,
-            object payload,
-            Action<ProfileAwardResponse> onSuccess,
-            Action<string> onError)
-        {
-            string requestJson = JsonUtility.ToJson(payload);
-            byte[] requestBody = Encoding.UTF8.GetBytes(requestJson);
-
-            using UnityWebRequest request = new UnityWebRequest(BuildUrl(relativePath), method);
-
-            request.uploadHandler = new UploadHandlerRaw(requestBody);
-            request.downloadHandler = new DownloadHandlerBuffer();
-            request.timeout = _timeoutSeconds;
-            request.SetRequestHeader("Content-Type", "application/json");
-
-            if (!TryApplyAuthorizationHeader(request, out string authError))
-            {
-                onError?.Invoke(authError);
-                yield break;
-            }
-
-            yield return request.SendWebRequest();
-
-            string responseText = request.downloadHandler != null
-                ? request.downloadHandler.text
-                : string.Empty;
-
-            if (request.result != UnityWebRequest.Result.Success)
-            {
-                onError?.Invoke(FormatRequestError(request, responseText));
-                yield break;
-            }
-
-            ProfileAwardResponse response = JsonUtility.FromJson<ProfileAwardResponse>(responseText);
-
-            if (response == null || response.Profile == null)
-            {
-                onError?.Invoke("Backend returned an invalid profile award response.");
-                yield break;
-            }
-
-            onSuccess?.Invoke(response);
+            onSuccess?.Invoke(tokens);
         }
 
         private bool TryApplyAuthorizationHeader(
@@ -240,10 +275,10 @@ namespace Auth.Interfaces
 
             if (!string.IsNullOrWhiteSpace(responseText))
             {
-                return "Profile backend request failed: " + request.error + "\n" + responseText;
+                return "Auth backend request failed: " + request.error + "\n" + responseText;
             }
 
-            return "Profile backend request failed: " + request.error;
+            return "Auth backend request failed: " + request.error;
         }
     }
 }

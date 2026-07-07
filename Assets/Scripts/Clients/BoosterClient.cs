@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections;
-using Auth.Interfaces;
+using Auth;
+using Clients.Interfaces;
 using Dto.Profile;
 using UnityEngine.Networking;
 
-namespace Auth
+namespace Clients
 {
     public class BoosterClient : AbstractClient, IBoosterClient
     {
-        protected BoosterClient(string baseUrl, AuthSession authSession, int timeoutSeconds = 20) : base(baseUrl, authSession, timeoutSeconds)
+        public BoosterClient(string baseUrl, AuthSession authSession, int timeoutSeconds = 20) : base(baseUrl, authSession, timeoutSeconds)
         {
         }
 

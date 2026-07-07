@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Data.StaticData.Abstractions;
 using UnityEngine;
 
-namespace Data.StaticData.Item
+namespace Data.StaticData.Booster
 {
     [CreateAssetMenu(menuName = "Catalogs/Profile Items/Boosters Catalog")]
     public class BoosterCatalog : ProfileItemCatalogBase

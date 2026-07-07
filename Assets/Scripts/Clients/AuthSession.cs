@@ -1,7 +1,6 @@
-﻿using Dto;
-using Dto.Auth;
+﻿using Dto.Auth;
 
-namespace Auth
+namespace Clients
 {
     public sealed class AuthSession
     {

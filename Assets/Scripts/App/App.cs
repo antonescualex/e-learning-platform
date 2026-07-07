@@ -1,8 +1,11 @@
 using System.Collections;
 using Auth;
-using Auth.Interfaces;
+using Clients;
+using Clients.Interfaces;
 using Data;
 using Data.StaticData.Background;
+using Data.StaticData.Badge;
+using Data.StaticData.Booster;
 using Data.StaticData.Item;
 using Data.StaticData.Shop;
 using Dto;
@@ -48,6 +51,15 @@ namespace App
             
             IProfileClient profileClient = new ProfileClient(lessonContentBaseUrl, authSession);
             ServiceContainer.Register<IProfileClient>(profileClient);
+            
+            IBoosterClient boosterClient = new BoosterClient(lessonContentBaseUrl, authSession);
+            ServiceContainer.Register<IBoosterClient>(boosterClient);
+            
+            ILessonClient lessonClient = new LessonClient(lessonContentBaseUrl, authSession);
+            ServiceContainer.Register<ILessonClient>(lessonClient);
+            
+            IShopClient shopClient = new ShopClient(lessonContentBaseUrl, authSession);
+            ServiceContainer.Register<IShopClient>(shopClient);
 
             ISessionStorage sessionStorage = new PlayerPrefsSessionStorage("Learnity.RefreshToken");
             ServiceContainer.Register<ISessionStorage>(sessionStorage);
@@ -67,16 +79,16 @@ namespace App
             var badgeService = new BadgeService(badgeCatalog, profileService);
             ServiceContainer.Register<IBadgeService>(badgeService);
             
-            var boosterService = new BoosterService(boosterCatalog, profileService, profileClient);
+            var boosterService = new BoosterService(boosterCatalog, profileService, boosterClient);
             ServiceContainer.Register<IBoosterService>(boosterService);
 
             var settingsService = new SettingsService(settingsRepository);
             settingsService.LoadOrDefault();
             ServiceContainer.Register<ISettingsService>(settingsService);
-            ServiceContainer.Register<ILessonService>(new LessonService(profileService, boosterService, badgeService, profileClient));
+            ServiceContainer.Register<ILessonService>(new LessonService(profileService, boosterService, badgeService, lessonClient));
             ServiceContainer.Register<ILessonContentService>(new LessonContentService(lessonContentBaseUrl));
             ServiceContainer.Register<IInventoryService>(new InventoryService(backgroundCatalog, profileService));
-            ServiceContainer.Register<IShopService>(new ShopService(shopCatalog, profileService, badgeService, profileClient));
+            ServiceContainer.Register<IShopService>(new ShopService(shopCatalog, profileService, badgeService, shopClient));
         }
 
         private void Start()

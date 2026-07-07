@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Auth;
 using Data;
 using UnityEngine;
 
-namespace Auth
+namespace Clients
 {
     public static class ProfileMapper
     {

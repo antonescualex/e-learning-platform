@@ -11,6 +11,12 @@ namespace Data.StaticData.Lesson
         private Dictionary<string, Sprite> _spriteById;
         private List<string> _ids;
 
+        private void OnValidate()
+        {
+            _spriteById = null;
+            _ids = null;
+        }
+        
         public IReadOnlyList<string> GetAllIds()
         {
             if (_ids == null)
@@ -63,12 +69,6 @@ namespace Data.StaticData.Lesson
             }
 
             return result;
-        }
-
-        private void OnValidate()
-        {
-            _spriteById = null;
-            _ids = null;
         }
     }
 }

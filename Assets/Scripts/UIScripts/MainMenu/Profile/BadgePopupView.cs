@@ -1,3 +1,4 @@
+using Data.StaticData.Badge;
 using Data.StaticData.Item;
 using TMPro;
 using UnityEngine;

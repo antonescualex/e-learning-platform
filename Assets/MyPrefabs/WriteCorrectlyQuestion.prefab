@@ -290,8 +290,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SimpleOfflineTTS.TTSVoice
   _ttsManager: {fileID: 3248513991623061409}
   _supertonicVoice: {fileID: 11400000, guid: 52a907936d382b044934c1ceb577df4a, type: 2}
-  _supertonicSteps: 10
-  _supertonicVoiceSpeed: 1
+  _supertonicSteps: 16
+  _supertonicVoiceSpeed: 0.8
   _supertonicLanguage: 0
   _modelAsset: {fileID: 0}
   _modelConfig: {fileID: 0}

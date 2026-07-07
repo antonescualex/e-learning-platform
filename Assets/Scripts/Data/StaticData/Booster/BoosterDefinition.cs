@@ -1,7 +1,8 @@
 using System;
+using Data.StaticData.Abstractions;
 using Enums;
 
-namespace Data.StaticData.Item
+namespace Data.StaticData.Booster
 {
     [Serializable]
     public sealed class BoosterDefinition : ProfileItemDefinition

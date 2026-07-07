@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
-using Dto;
+using Auth;
+using Clients.Interfaces;
 using Dto.Error;
-using Dto.Lesson;
 using Dto.Profile;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Auth
+namespace Clients
 {
     public sealed class ProfileClient : IProfileClient
     {
@@ -121,107 +121,6 @@ namespace Auth
                 "/api/me/select-background",
                 UnityWebRequest.kHttpVerbPOST,
                 payload,
-                onSuccess,
-                onError);
-        }
-
-        public IEnumerator PurchaseBooster(string boosterId, Action<ProfileAwardResponse> onSuccess, Action<string> onError)
-        {
-            if (string.IsNullOrWhiteSpace(boosterId))
-            {
-                onError?.Invoke("BoosterId is required.");
-                yield break;
-            }
-
-            var payload = new PurchaseBoosterRequest
-            {
-                BoosterId = boosterId.Trim()
-            };
-
-            yield return SendAuthorizedJsonWithAwardResponse("/api/shop/purchase-booster", UnityWebRequest.kHttpVerbPOST, payload, onSuccess, onError);
-        }
-
-        public IEnumerator PurchaseBackground(string backgroundId, Action<ProfileAwardResponse> onSuccess, Action<string> onError)
-        {
-            if (string.IsNullOrWhiteSpace(backgroundId))
-            {
-                onError?.Invoke("BackgroundId is required.");
-                yield break;
-            }
-
-            var payload = new PurchaseBackgroundRequest
-            {
-                BackgroundId = backgroundId.Trim()
-            };
-
-            yield return SendAuthorizedJsonWithAwardResponse(
-                "/api/shop/purchase-background",
-                UnityWebRequest.kHttpVerbPOST,
-                payload,
-                onSuccess,
-                onError);
-        }
-
-        public IEnumerator PurchaseAvatar(string avatarId, Action<ProfileAwardResponse> onSuccess, Action<string> onError)
-        {
-            if (string.IsNullOrWhiteSpace(avatarId))
-            {
-                onError?.Invoke("AvatarId is required.");
-                yield break;
-            }
-
-            var payload = new PurchaseAvatarRequest
-            {
-                AvatarId = avatarId.Trim()
-            };
-
-            yield return SendAuthorizedJsonWithAwardResponse(
-                "/api/shop/purchase-avatar",
-                UnityWebRequest.kHttpVerbPOST,
-                payload,
-                onSuccess,
-                onError);
-        }
-        
-        public IEnumerator ActivateBooster(
-            string boosterItemId,
-            Action<ProfileDto> onSuccess,
-            Action<string> onError)
-        {
-            if (string.IsNullOrWhiteSpace(boosterItemId))
-            {
-                onError?.Invoke("BoosterItemId is required.");
-                yield break;
-            }
-
-            var payload = new ActivateBoosterRequest
-            {
-                BoosterItemId = boosterItemId.Trim()
-            };
-
-            yield return SendAuthorizedJsonWithProfileResponse(
-                "/api/me/activate-booster",
-                UnityWebRequest.kHttpVerbPOST,
-                payload,
-                onSuccess,
-                onError);
-        }
-
-        public IEnumerator CompleteLesson(
-            CompleteLessonRequest requestModel,
-            Action<ProfileAwardResponse> onSuccess,
-            Action<string> onError)
-        {
-            if (requestModel == null)
-            {
-                onError?.Invoke("CompleteLesson request is missing.");
-                yield break;
-            }
-
-            yield return SendAuthorizedJsonWithAwardResponse(
-                "/api/lessons/complete",
-                UnityWebRequest.kHttpVerbPOST,
-                requestModel,
                 onSuccess,
                 onError);
         }

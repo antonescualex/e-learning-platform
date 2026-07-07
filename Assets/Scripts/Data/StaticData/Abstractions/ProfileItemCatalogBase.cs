@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Data.StaticData.Item
+namespace Data.StaticData.Abstractions
 {
     public abstract class ProfileItemCatalogBase : ScriptableObject
     {
@@ -9,6 +9,16 @@ namespace Data.StaticData.Item
 
         public abstract IReadOnlyList<ProfileItemDefinition> Items { get; }
 
+        protected virtual void OnEnable()
+        {
+            _dictionary = null;
+        }
+
+        protected virtual void OnValidate()
+        {
+            _dictionary = null;
+        }
+        
         public ProfileItemDefinition GetById(string id)
         {
             if (string.IsNullOrEmpty(id)) return null;
@@ -20,16 +30,6 @@ namespace Data.StaticData.Item
 
             _dictionary.TryGetValue(id, out var itemDefinition);
             return itemDefinition;
-        }
-
-        protected virtual void OnEnable()
-        {
-            _dictionary = null;
-        }
-
-        protected virtual void OnValidate()
-        {
-            _dictionary = null;
         }
 
         private Dictionary<string, ProfileItemDefinition> BuildDictionary()

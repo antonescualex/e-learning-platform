@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using App;
-using Auth;
-using Auth.Interfaces;
+using Clients.Interfaces;
 using Dto.Auth;
 using TMPro;
 using UnityEngine;

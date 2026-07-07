@@ -1,7 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Auth;
+using Clients;
+using Clients.Interfaces;
 using Data;
+using Data.StaticData.Abstractions;
+using Data.StaticData.Badge;
+using Data.StaticData.Booster;
 using Data.StaticData.Item;
 using Enums;
 using Services.Interfaces;

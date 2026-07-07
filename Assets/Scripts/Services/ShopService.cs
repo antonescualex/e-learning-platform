@@ -1,10 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Auth;
-using Data.StaticData;
+using Clients;
+using Clients.Interfaces;
 using Data.StaticData.Shop;
-using Dto;
 using Dto.Profile;
 using Enums;
 using Services.Interfaces;
@@ -16,14 +15,14 @@ namespace Services
         private readonly ShopCatalog _catalog;
         private readonly IProfileService _profileService;
         private readonly IBadgeService _badgeService;
-        private readonly IProfileClient _profileClient;
+        private readonly IShopClient _shopClient;
 
-        public ShopService(ShopCatalog catalog, IProfileService profileService, IBadgeService badgeService, IProfileClient profileClient)
+        public ShopService(ShopCatalog catalog, IProfileService profileService, IBadgeService badgeService, IShopClient shopClient)
         {
             _catalog = catalog;
             _profileService = profileService;
             _badgeService = badgeService;
-            _profileClient = profileClient;
+            _shopClient = shopClient;
         }
 
         public IReadOnlyList<ShopItemDefinition> GetItems()
@@ -99,21 +98,21 @@ namespace Services
             switch (definition.Category)
             {
                 case ShopItemCategory.Avatar:
-                    yield return _profileClient.PurchaseAvatar(
+                    yield return _shopClient.PurchaseAvatar(
                         itemId,
                         result => response = result,
                         error => errorMessage = error);
                     break;
 
                 case ShopItemCategory.Background:
-                    yield return _profileClient.PurchaseBackground(
+                    yield return _shopClient.PurchaseBackground(
                         itemId,
                         result => response = result,
                         error => errorMessage = error);
                     break;
 
                 case ShopItemCategory.Booster:
-                    yield return _profileClient.PurchaseBooster(
+                    yield return _shopClient.PurchaseBooster(
                         itemId,
                         result => response = result,
                         error => errorMessage = error);

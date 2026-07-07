@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Clients.Interfaces;
+using UnityEngine;
 
-namespace Auth
+namespace Clients
 {
     public sealed class PlayerPrefsSessionStorage : ISessionStorage
     {

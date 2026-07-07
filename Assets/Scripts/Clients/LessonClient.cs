@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections;
-using Auth.Interfaces;
+using Clients.Interfaces;
 using Dto.Lesson;
 using Dto.Profile;
 using UnityEngine.Networking;
 
-namespace Auth
+namespace Clients
 {
     public class LessonClient : AbstractClient, ILessonClient
     {
-        protected LessonClient(string baseUrl, AuthSession authSession, int timeoutSeconds = 20) : base(baseUrl, authSession, timeoutSeconds)
+        public LessonClient(string baseUrl, AuthSession authSession, int timeoutSeconds = 20) : base(baseUrl, authSession, timeoutSeconds)
         {
         }
 

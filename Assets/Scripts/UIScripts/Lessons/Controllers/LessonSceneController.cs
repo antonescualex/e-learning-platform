@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using App;
+using Data.StaticData.Badge;
 using Data.StaticData.Item;
 using Data.StaticData.Lesson;
 using Enums;

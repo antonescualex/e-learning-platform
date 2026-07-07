@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Auth;
-using Data.StaticData.Item;
-using Dto;
+using Clients;
+using Clients.Interfaces;
 using Dto.Lesson;
 using Dto.Profile;
 using Enums;
@@ -18,7 +16,7 @@ namespace Services
         private readonly IProfileService _profileService;
         private readonly IBadgeService _badgeService;
         private readonly IBoosterService _boosterService;
-        private readonly IProfileClient _profileClient;
+        private readonly ILessonClient _lessonClient;
 
         private readonly int _baseCoinsReward = 10;
         private readonly int _baseExperienceReward = 20;
@@ -31,12 +29,12 @@ namespace Services
             IProfileService profileService,
             IBoosterService boosterService,
             IBadgeService badgeService,
-            IProfileClient profileClient)
+            ILessonClient lessonClient)
         {
             _profileService = profileService;
             _boosterService = boosterService;
             _badgeService = badgeService;
-            _profileClient = profileClient;
+            _lessonClient = lessonClient;
         }
 
         public void StartLesson(LessonId lessonId)
@@ -83,7 +81,7 @@ namespace Services
             ProfileAwardResponse response = null;
             string error = null;
 
-            yield return _profileClient.CompleteLesson(request, r => response = r, e => error = e);
+            yield return _lessonClient.CompleteLesson(request, r => response = r, e => error = e);
 
             if (!string.IsNullOrWhiteSpace(error) || response == null || response.Profile == null)
             {
@@ -146,7 +144,7 @@ namespace Services
             ProfileAwardResponse response = null;
             string error = null;
 
-            yield return _profileClient.CompleteLesson(
+            yield return _lessonClient.CompleteLesson(
                 request,
                 r => response = r,
                 e => error = e);

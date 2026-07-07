@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Data.StaticData.Abstractions;
 using UnityEngine;
 
-namespace Data.StaticData.Item
+namespace Data.StaticData.Badge
 {
     [CreateAssetMenu(menuName = "Catalogs/Profile Items/Badges Catalog")]
     public class BadgeCatalog : ProfileItemCatalogBase

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data.StaticData.Abstractions;
+using Data.StaticData.Badge;
 using Data.StaticData.Item;
 using Lessons;
 

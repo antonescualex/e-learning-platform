@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using App;
+using Data.StaticData.Booster;
 using Data.StaticData.Item;
 using Enums;
 using Services.Interfaces;

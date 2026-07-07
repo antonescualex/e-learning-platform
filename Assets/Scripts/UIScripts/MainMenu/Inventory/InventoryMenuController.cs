@@ -1,6 +1,7 @@
 using System.Collections;
 using App;
 using Auth;
+using Clients.Interfaces;
 using Data.StaticData;
 using Data.StaticData.Shop;
 using Services;

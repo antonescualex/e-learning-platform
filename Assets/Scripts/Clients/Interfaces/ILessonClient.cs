@@ -2,9 +2,8 @@
 using System.Collections;
 using Dto.Lesson;
 using Dto.Profile;
-using UnityEngine.Networking;
 
-namespace Auth.Interfaces
+namespace Clients.Interfaces
 {
     public interface ILessonClient
     {

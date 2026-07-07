@@ -2,7 +2,7 @@
 using System.Collections;
 using Dto.Auth;
 
-namespace Auth.Interfaces
+namespace Clients.Interfaces
 {
     public interface IAuthClient
     {
