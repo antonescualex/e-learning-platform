@@ -187,7 +187,7 @@ public class MeService {
             profile.setLastLoginDate(today);
             profile.setCurrentLoginStreak(1);
         } else if (lastLoginDate.isEqual(today)) {
-            // Already claimed today. Do not increment streak again.
+
         } else if (lastLoginDate.plusDays(1).isEqual(today)) {
             profile.setLastLoginDate(today);
             profile.setCurrentLoginStreak(defaultZero(profile.getCurrentLoginStreak()) + 1);

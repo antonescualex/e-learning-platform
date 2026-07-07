@@ -186,6 +186,23 @@ public class LessonDefinitionFactory {
                     Wrong answers must be distinct, plausible, and close to the correct answer.
                     Distribute CorrectAnswerIndex as evenly as possible across 0, 1, 2, and 3; the difference between the most used and least used index must not exceed 1.
                     """;
+            case ENGLISH_COMPLETE_THE_SENTENCE -> """
+                    Generate only fill-in-the-blank English sentences.
+                    QuestionText must contain exactly one blank written as "____".
+                    The answer at CorrectAnswerIndex must be the only answer that creates a natural, meaningful, grammatically correct sentence.
+                    The other three answers must not make sense in the sentence, even if they are valid English words.
+                    Wrong answers should be clearly incompatible with the sentence context, but still child-friendly.
+                    Answers should usually be single words or very short phrases.
+                    Keep all QuestionText values different.
+                    Distribute CorrectAnswerIndex as evenly as possible across 0, 1, 2, and 3; the difference between the most used and least used index must not exceed 1.
+                    """;
+            case ENGLISH_SYNONYMS, ENGLISH_OPPOSITES -> """
+                    Keep all QuestionText values different.
+                    Exactly one answer must be correct for each question.
+                    Distribute CorrectAnswerIndex as evenly as possible across 0, 1, 2, and 3.
+                    The difference between the most used and least used CorrectAnswerIndex must not exceed 1.
+                    Avoid using the same CorrectAnswerIndex in consecutive questions unless unavoidable.
+                    """;
             default -> "";
         };
     }
